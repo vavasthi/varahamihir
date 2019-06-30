@@ -20,7 +20,7 @@ public class SwaggerConfiguration  extends WebMvcConfigurationSupport  {
   public Docket productApi() {
     return new Docket(DocumentationType.SWAGGER_2)
             .select()
-            .apis(RequestHandlerSelectors.basePackage("com.sanjnan.rae.identityserver.endpoints"))
+            .apis(RequestHandlerSelectors.basePackage("com.avasthi.varahamihir.identityserver.endpoints"))
             .build();
   }
   @Override

@@ -8,8 +8,8 @@
 
 package com.avasthi.varahamihir.identityserver.test;
 
-import com.avasthi.varahamihir.common.constants.SanjnanConstants;
-import com.avasthi.varahamihir.common.pojos.H2OTokenResponse;
+import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
+import com.avasthi.varahamihir.common.pojos.VarahamihirTokenResponse;
 import io.restassured.response.Response;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -64,15 +64,15 @@ public class TestCaseBase {
     }
     Response r = given().get(baseUrl + "setup").andReturn();
     logger.info(r.prettyPrint());
-    H2OTokenResponse authResponse =  given().
-            header(SanjnanConstants.AUTH_AUTHORIZATION_HEADER, "Basic " + B64Code.encode(username + ":" + password)).
+    VarahamihirTokenResponse authResponse =  given().
+            header(VarahamihirConstants.AUTH_AUTHORIZATION_HEADER, "Basic " + B64Code.encode(username + ":" + password)).
         header("Content-Type", "application/json").
-            header(SanjnanConstants.AUTH_USERNAME_HEADER, username).
-            header(SanjnanConstants.AUTH_PASSWORD_HEADER, password).
-            header(SanjnanConstants.AUTH_TENANT_HEADER, internalTenant).
-            header(SanjnanConstants.AUTH_TOKEN_TYPE_HEADER, "app_token").
-            header(SanjnanConstants.AUTH_CLIENT_ID_HEADER, "MyRestAssuredClient").
-        when().post(authenticateUrl).body().as(H2OTokenResponse.class);
+            header(VarahamihirConstants.AUTH_USERNAME_HEADER, username).
+            header(VarahamihirConstants.AUTH_PASSWORD_HEADER, password).
+            header(VarahamihirConstants.AUTH_TENANT_HEADER, internalTenant).
+            header(VarahamihirConstants.AUTH_TOKEN_TYPE_HEADER, "app_token").
+            header(VarahamihirConstants.AUTH_CLIENT_ID_HEADER, "MyRestAssuredClient").
+        when().post(authenticateUrl).body().as(VarahamihirTokenResponse.class);
 
     logger.log(Level.INFO, String.format("Authenticating %s, received response %s", username, authResponse));
     authToken = authResponse.getAuthToken();
@@ -80,13 +80,13 @@ public class TestCaseBase {
   protected void cleanup() {
 
 /*    Response response =  given().
-        header(SanjnanConstants.AUTH_AUTHORIZATION_HEADER, "Basic " + B64Code.encode(username + ":" + password)).
+        header(VarahamihirConstants.AUTH_AUTHORIZATION_HEADER, "Basic " + B64Code.encode(username + ":" + password)).
         header("Content-Type", "application/json").
-        header(SanjnanConstants.AUTH_USERNAME_HEADER, username).
-        header(SanjnanConstants.AUTH_PASSWORD_HEADER, password).
-        header(SanjnanConstants.AUTH_TENANT_HEADER, internalTenant).
-        header(SanjnanConstants.AUTH_TOKEN_TYPE_HEADER, "app_token").
-        header(SanjnanConstants.AUTH_CLIENT_ID_HEADER, "MyRestAssuredClient").
-        when().delete(SanjnanConstants.V1_SETUP_ENDPOINT).andReturn();*/
+        header(VarahamihirConstants.AUTH_USERNAME_HEADER, username).
+        header(VarahamihirConstants.AUTH_PASSWORD_HEADER, password).
+        header(VarahamihirConstants.AUTH_TENANT_HEADER, internalTenant).
+        header(VarahamihirConstants.AUTH_TOKEN_TYPE_HEADER, "app_token").
+        header(VarahamihirConstants.AUTH_CLIENT_ID_HEADER, "MyRestAssuredClient").
+        when().delete(VarahamihirConstants.V1_SETUP_ENDPOINT).andReturn();*/
   }
 }

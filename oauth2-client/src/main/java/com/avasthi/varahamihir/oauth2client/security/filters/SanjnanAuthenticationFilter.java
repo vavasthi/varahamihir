@@ -8,10 +8,10 @@
 
 package com.avasthi.varahamihir.oauth2client.security.filters;
 
+import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
 import com.avasthi.varahamihir.common.exception.*;
 import com.google.gson.Gson;
-import com.avasthi.varahamihir.common.constants.SanjnanConstants;
-import com.avasthi.varahamihir.common.security.token.SanjnanOAuthTokenPrincipal;
+import com.avasthi.varahamihir.common.security.token.VarahamihirOAuthTokenPrincipal;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
@@ -69,7 +69,7 @@ public class SanjnanAuthenticationFilter extends GenericFilterBean {
     Optional<String> token = getOptionalParameter(httpRequest,"token");
     Optional<String> tokenType = getOptionalParameter(httpRequest,"token");
     Optional<String> authorizationHeader = Optional.of(httpRequest.getHeader("Authorization"));
-    SanjnanOAuthTokenPrincipal authTokenPrincipal = new SanjnanOAuthTokenPrincipal(token, tokenType, authorizationHeader);
+    VarahamihirOAuthTokenPrincipal authTokenPrincipal = new VarahamihirOAuthTokenPrincipal(token, tokenType, authorizationHeader);
     processTokenAuthentication(authTokenPrincipal);
     chain.doFilter(request, response);
     } catch (InternalAuthenticationServiceException e) {
@@ -95,13 +95,13 @@ public class SanjnanAuthenticationFilter extends GenericFilterBean {
     return (HttpServletResponse) response;
   }
 
-  private void processTokenAuthentication(SanjnanOAuthTokenPrincipal tokenPrincipal) {
+  private void processTokenAuthentication(VarahamihirOAuthTokenPrincipal tokenPrincipal) {
 
     Authentication resultOfAuthentication = tryToAuthenticateWithToken(tokenPrincipal);
     SecurityContextHolder.getContext().setAuthentication(resultOfAuthentication);
   }
 
-  private Authentication tryToAuthenticateWithToken(SanjnanOAuthTokenPrincipal tokenPrincipal) {
+  private Authentication tryToAuthenticateWithToken(VarahamihirOAuthTokenPrincipal tokenPrincipal) {
     PreAuthenticatedAuthenticationToken requestAuthentication
         = new PreAuthenticatedAuthenticationToken(tokenPrincipal, null);
     return tryToAuthenticate(requestAuthentication);
@@ -140,7 +140,7 @@ public class SanjnanAuthenticationFilter extends GenericFilterBean {
             .setStatus(status)
             .setCode(errorCode)
             .setMessage(e.getMessage())
-            .setMoreInfo(String.format(SanjnanConstants.EXCEPTION_URL,errorCode))
+            .setMoreInfo(String.format(VarahamihirConstants.EXCEPTION_URL,errorCode))
             .createExceptionResponse();
     response.setStatus(status);
     Gson gson = new Gson();

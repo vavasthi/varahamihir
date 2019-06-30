@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * Created by subrat on 29/2/16.
  */
 @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-public class UnprocessableException extends SanjnanBaseException {
+public class UnprocessableException extends VarahamihirBaseException {
 
     /**
      * Instantiates a new Unprocessable exception.

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * Created by vavasthi on 27/1/16.
  */
 @ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
-public class ServiceNotAvailableException extends SanjnanBaseException {
+public class ServiceNotAvailableException extends VarahamihirBaseException {
 
   /**
    * The Code.

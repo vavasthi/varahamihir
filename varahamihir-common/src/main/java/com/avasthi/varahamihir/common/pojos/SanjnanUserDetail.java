@@ -24,7 +24,7 @@ public class SanjnanUserDetail implements UserDetails {
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return account.getH2ORoles().stream().collect(Collectors.toList());
+    return account.getVarahamihirRoles().stream().collect(Collectors.toList());
   }
 
   @Override

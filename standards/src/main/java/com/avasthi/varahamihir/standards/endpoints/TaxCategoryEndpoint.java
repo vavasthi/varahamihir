@@ -8,7 +8,7 @@
 
 package com.avasthi.varahamihir.standards.endpoints;
 
-import com.avasthi.varahamihir.common.constants.SanjnanConstants;
+import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
 import com.avasthi.varahamihir.common.endpoints.v1.BaseEndpoint;
 import com.avasthi.varahamihir.common.pojos.TaxCategory;
 import com.avasthi.varahamihir.standards.service.TaxCategoryService;
@@ -32,7 +32,7 @@ import java.util.UUID;
  * Created by vinay on 1/4/16.
  */
 @RestController
-@RequestMapping(SanjnanConstants.V1_TAX_CATEGORY_ENDPOINT)
+@RequestMapping(VarahamihirConstants.V1_TAX_CATEGORY_ENDPOINT)
 @Api(value="Tax category endpoint", description="This endpoint provides tax category lifecycle operations")
 public class TaxCategoryEndpoint extends BaseEndpoint {
 
@@ -43,7 +43,7 @@ public class TaxCategoryEndpoint extends BaseEndpoint {
 
   @Transactional(readOnly = true)
   @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-  @PostAuthorize(SanjnanConstants.ANNOTATION_ROLE_USER)
+  @PostAuthorize(VarahamihirConstants.ANNOTATION_ROLE_USER)
   public Optional<TaxCategory> getProductUnit(@PathVariable("id") UUID id) throws IOException {
 
     Optional<TaxCategory> taxCategoryOptional = taxCategoryService.getTaxCategory(id);
@@ -51,14 +51,14 @@ public class TaxCategoryEndpoint extends BaseEndpoint {
   }
 
   @Transactional
-  @PreAuthorize(SanjnanConstants.ANNOTATION_ROLE_ADMIN_OR_SUPERADMIN)
+  @PreAuthorize(VarahamihirConstants.ANNOTATION_ROLE_ADMIN_OR_SUPERADMIN)
   @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
   public TaxCategory createProductUnit(@RequestBody @Valid TaxCategory taxCategory) {
     return taxCategoryService.createTaxCategory(taxCategory);
   }
 
   @Transactional
-  @PreAuthorize(SanjnanConstants.ANNOTATION_ROLE_USER_ADMIN_AND_TENANT_ADMIN)
+  @PreAuthorize(VarahamihirConstants.ANNOTATION_ROLE_USER_ADMIN_AND_TENANT_ADMIN)
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
   public TaxCategory updateTaxCategory(@PathVariable("id") UUID id,
                                        @RequestBody @Valid TaxCategory taxCategory) throws InvocationTargetException, IllegalAccessException {
@@ -67,7 +67,7 @@ public class TaxCategoryEndpoint extends BaseEndpoint {
 
   @Transactional
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-  @PreAuthorize(SanjnanConstants.ANNOTATION_ROLE_SUPERADMIN)
+  @PreAuthorize(VarahamihirConstants.ANNOTATION_ROLE_SUPERADMIN)
   public TaxCategory deleteTaxCategory(@PathVariable("id") UUID id) throws InvalidParameterSpecException {
 
     return taxCategoryService.deleteTaxCategory(id);

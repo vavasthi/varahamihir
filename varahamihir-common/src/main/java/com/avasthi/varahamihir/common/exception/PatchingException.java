@@ -12,7 +12,7 @@ package com.avasthi.varahamihir.common.exception;
 /**
  * Created by vinay on 1/11/16.
  */
-public class PatchingException extends SanjnanBaseException {
+public class PatchingException extends VarahamihirBaseException {
 
     public PatchingException(Class<?> cls, Object obj) {
         super(String.format("Object %s is not an instance of class %s.", obj.toString(), cls.getName()));

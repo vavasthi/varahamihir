@@ -29,7 +29,7 @@ public class Account extends Base {
                  boolean credentialsExpired,
                  boolean enabled,
                  AccountType accountType,
-                 Set<H2ORole> h2ORoles,
+                 Set<VarahamihirRole> varahamihirRoles,
                  Set<String> remoteAddresses,
                  Map<String, String> sessionMap,
                  ComputeRegion computeRegion) {
@@ -41,7 +41,7 @@ public class Account extends Base {
     this.credentialsExpired = credentialsExpired;
     this.enabled = enabled;
     this.accountType = accountType;
-    this.h2ORoles = h2ORoles;
+    this.varahamihirRoles = varahamihirRoles;
     this.remoteAddresses = remoteAddresses;
     this.sessionMap = sessionMap;
     this.computeRegion = computeRegion;
@@ -66,12 +66,12 @@ public class Account extends Base {
     this.password = password;
   }
 
-  public Set<H2ORole> getH2ORoles() {
-    return h2ORoles;
+  public Set<VarahamihirRole> getVarahamihirRoles() {
+    return varahamihirRoles;
   }
 
-  public void setH2ORoles(Set<H2ORole> h2ORoles) {
-    this.h2ORoles = h2ORoles;
+  public void setVarahamihirRoles(Set<VarahamihirRole> varahamihirRoles) {
+    this.varahamihirRoles = varahamihirRoles;
   }
 
   public Set<String> getRemoteAddresses() {
@@ -158,7 +158,7 @@ public class Account extends Base {
     return "Account{" +
         ", email='" + email + '\'' +
         ", password='" + password + '\'' +
-        ", h2ORoles=" + h2ORoles +
+        ", varahamihirRoles=" + varahamihirRoles +
         ", remoteAddresses=" + remoteAddresses +
         ", sessionMap=" + sessionMap +
         ", computeRegion=" + computeRegion +
@@ -173,7 +173,7 @@ public class Account extends Base {
   private boolean locked = false;
   private boolean credentialsExpired = false;
   private boolean enabled = true;
-  private Set<H2ORole> h2ORoles = new HashSet<>();
+  private Set<VarahamihirRole> varahamihirRoles = new HashSet<>();
   private Set<String> remoteAddresses = new HashSet<>();
   private Map<String, String> sessionMap = new HashMap<>();
   private ComputeRegion computeRegion;

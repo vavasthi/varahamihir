@@ -8,7 +8,7 @@
 
 package com.avasthi.varahamihir.oauth2client.security;
 
-import com.avasthi.varahamihir.common.constants.SanjnanConstants;
+import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
 import com.avasthi.varahamihir.common.enums.Role;
 import com.avasthi.varahamihir.oauth2client.security.filters.SanjnanAuthenticationFilter;
 import com.avasthi.varahamihir.oauth2client.security.providers.SanjnanOAuthTokenAuthenticationProvider;
@@ -71,13 +71,13 @@ public class SanjnanOAuthClientSecurityConfiguration extends WebSecurityConfigur
 
   private String[] actuatorEndpoints() {
     return new String[]{
-            SanjnanConstants.AUTOCONFIG_ENDPOINT,
-            SanjnanConstants.BEANS_ENDPOINT,
-            SanjnanConstants.CONFIGPROPS_ENDPOINT,
-            SanjnanConstants.ENV_ENDPOINT,
-            SanjnanConstants.MAPPINGS_ENDPOINT,
-            SanjnanConstants.METRICS_ENDPOINT,
-            SanjnanConstants.SHUTDOWN_ENDPOINT
+            VarahamihirConstants.AUTOCONFIG_ENDPOINT,
+            VarahamihirConstants.BEANS_ENDPOINT,
+            VarahamihirConstants.CONFIGPROPS_ENDPOINT,
+            VarahamihirConstants.ENV_ENDPOINT,
+            VarahamihirConstants.MAPPINGS_ENDPOINT,
+            VarahamihirConstants.METRICS_ENDPOINT,
+            VarahamihirConstants.SHUTDOWN_ENDPOINT
     };
   }
 

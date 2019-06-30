@@ -2,9 +2,9 @@ package com.avasthi.varahamihir.oauth2.config;
 
 import com.avasthi.varahamihir.oauth2.couchbase.CouchbaseAccessTokenRepository;
 import com.avasthi.varahamihir.oauth2.couchbase.CouchbaseRefreshTokenRepository;
-import com.avasthi.varahamihir.oauth2.services.SanjnanClientDetailsService;
-import com.avasthi.varahamihir.oauth2.services.SanjnanTokenStore;
-import com.avasthi.varahamihir.oauth2.services.SanjnanUserDetailService;
+import com.avasthi.varahamihir.oauth2.services.VarahamihirClientDetailsService;
+import com.avasthi.varahamihir.oauth2.services.VarahamihirTokenStore;
+import com.avasthi.varahamihir.oauth2.services.VarahamihirUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -24,17 +24,17 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 public class SanjnanAuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
   @Autowired
-  private SanjnanTokenStore tokenStore;
+  private VarahamihirTokenStore tokenStore;
 
   @Autowired
   @Qualifier("authenticationManagerBean")
   private AuthenticationManager authenticationManager;
 
   @Autowired
-  private SanjnanClientDetailsService clientDetailsService;
+  private VarahamihirClientDetailsService clientDetailsService;
 
   @Autowired
-  private SanjnanUserDetailService userDetailService;
+  private VarahamihirUserDetailService userDetailService;
 
   @Autowired
   private CouchbaseAccessTokenRepository couchbaseAccessTokenRepository;

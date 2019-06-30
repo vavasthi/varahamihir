@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 * Add extra attributes as per request
 */
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public final class ResourceNotFoundException extends SanjnanBaseException {
+public final class ResourceNotFoundException extends VarahamihirBaseException {
 
     /**
      * Instantiates a new Resource not found exception.

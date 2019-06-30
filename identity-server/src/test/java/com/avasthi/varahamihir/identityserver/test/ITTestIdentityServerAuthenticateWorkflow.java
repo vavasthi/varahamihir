@@ -8,8 +8,8 @@
 
 package com.avasthi.varahamihir.identityserver.test;
 
-import com.avasthi.varahamihir.common.constants.SanjnanConstants;
-import com.avasthi.varahamihir.common.pojos.H2OTokenResponse;
+import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
+import com.avasthi.varahamihir.common.pojos.VarahamihirTokenResponse;
 import io.restassured.response.Response;
 import org.apache.log4j.Level;
 import org.eclipse.jetty.http.HttpStatus;
@@ -25,20 +25,20 @@ import static org.testng.Assert.assertEquals;
  */
 public class ITTestIdentityServerAuthenticateWorkflow extends TestCaseBase {
 
-  private H2OTokenResponse authResponse;
+  private VarahamihirTokenResponse authResponse;
 
   @BeforeClass
   public void setup() {
     initialization();
     authResponse =  given().
-            header(SanjnanConstants.AUTH_AUTHORIZATION_HEADER, "Basic " + B64Code.encode(username + ":" + password)).
+            header(VarahamihirConstants.AUTH_AUTHORIZATION_HEADER, "Basic " + B64Code.encode(username + ":" + password)).
         header("Content-Type", "application/json").
-            header(SanjnanConstants.AUTH_USERNAME_HEADER, username).
-            header(SanjnanConstants.AUTH_PASSWORD_HEADER, password).
-            header(SanjnanConstants.AUTH_TENANT_HEADER, internalTenant).
-            header(SanjnanConstants.AUTH_TOKEN_TYPE_HEADER, "app_token").
-            header(SanjnanConstants.AUTH_CLIENT_ID_HEADER, "MyRestAssuredClient").
-        when().post(authenticateUrl).body().as(H2OTokenResponse.class);
+            header(VarahamihirConstants.AUTH_USERNAME_HEADER, username).
+            header(VarahamihirConstants.AUTH_PASSWORD_HEADER, password).
+            header(VarahamihirConstants.AUTH_TENANT_HEADER, internalTenant).
+            header(VarahamihirConstants.AUTH_TOKEN_TYPE_HEADER, "app_token").
+            header(VarahamihirConstants.AUTH_CLIENT_ID_HEADER, "MyRestAssuredClient").
+        when().post(authenticateUrl).body().as(VarahamihirTokenResponse.class);
     logger.log(Level.INFO, String.format("Authenticating %s, received response %s", username, authResponse));
   }
 
@@ -48,14 +48,14 @@ public class ITTestIdentityServerAuthenticateWorkflow extends TestCaseBase {
 
     Response r  =  given().
         header("Content-Type", "application/json").
-            header(SanjnanConstants.AUTH_TENANT_HEADER, internalTenant).
-            header(SanjnanConstants.AUTH_TOKEN_HEADER, authResponse.getAuthToken()).
-            header(SanjnanConstants.AUTH_TOKEN_TYPE_HEADER, "app_token").
-            header(SanjnanConstants.AUTH_CLIENT_ID_HEADER, "MyRestAssuredClient").
+            header(VarahamihirConstants.AUTH_TENANT_HEADER, internalTenant).
+            header(VarahamihirConstants.AUTH_TOKEN_HEADER, authResponse.getAuthToken()).
+            header(VarahamihirConstants.AUTH_TOKEN_TYPE_HEADER, "app_token").
+            header(VarahamihirConstants.AUTH_CLIENT_ID_HEADER, "MyRestAssuredClient").
         when().post(authenticateUrl + "/validate").andReturn();
     logger.log(Level.INFO, "Authenticating using token.\n" + r.prettyPrint());
     assertEquals(r.getStatusCode(), HttpStatus.OK_200);
-    H2OTokenResponse response = r.as(H2OTokenResponse.class);
+    VarahamihirTokenResponse response = r.as(VarahamihirTokenResponse.class);
     logger.log(Level.INFO, response.toString());
   }
 

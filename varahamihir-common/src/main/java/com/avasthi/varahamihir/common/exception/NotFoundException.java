@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * Created by maheshsapre on 28/01/16.
  */
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class NotFoundException extends SanjnanBaseException {
+public class NotFoundException extends VarahamihirBaseException {
 
     /**
      * Instantiates a new Not found exception.

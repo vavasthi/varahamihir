@@ -1,21 +1,23 @@
 package com.avasthi.varahamihir.oauth2client.security.providers;
 
 
+import com.avasthi.varahamihir.common.pojos.VarahamihirRole;
+import com.avasthi.varahamihir.oauth2client.security.utils.OAuthClient;
+import com.avasthi.varahamihir.oauth2client.security.utils.OAuthResponse;
 import com.google.gson.Gson;
 import com.avasthi.varahamihir.common.couchbase.AccountRepository;
 import com.avasthi.varahamihir.common.pojos.Account;
-import com.avasthi.varahamihir.common.pojos.H2ORole;
-import com.avasthi.varahamihir.common.security.SanjnanAuthenticationThreadLocal;
-import com.avasthi.varahamihir.common.security.token.SanjnanOAuthTokenPrincipal;
+import com.avasthi.varahamihir.common.security.VarahamihirAuthenticationThreadLocal;
+import com.avasthi.varahamihir.common.security.token.VarahamihirOAuthTokenPrincipal;
 import okhttp3.*;
 import org.apache.log4j.Logger;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
+import springfox.documentation.service.OAuth;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,20 +34,12 @@ public class SanjnanOAuthTokenAuthenticationProvider implements AuthenticationPr
 
   @Autowired
   private AccountRepository accountRepository;
-
-  class OAuthResponse {
-    List<String> aud = new ArrayList<>();
-    String user_name;
-    List<String> scope = new ArrayList<>();
-    boolean active;
-    DateTime expiry;
-    List<String> authorities = new ArrayList<>();
-    String client_id;
-  }
+  @Autowired
+  private OAuthClient oAuthClient;
 
   @Override
   public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-    SanjnanOAuthTokenPrincipal principal = (SanjnanOAuthTokenPrincipal)authentication.getPrincipal();
+    VarahamihirOAuthTokenPrincipal principal = (VarahamihirOAuthTokenPrincipal)authentication.getPrincipal();
     OkHttpClient client = new OkHttpClient.Builder().authenticator(new Authenticator() {
       @Override
       public Request authenticate(Route route, Response response) throws IOException {
@@ -68,30 +62,41 @@ public class SanjnanOAuthTokenAuthenticationProvider implements AuthenticationPr
     }).build();
     try {
 
-      Request request = new Request.Builder()
+      OAuthResponse oAuthResponse = oAuthClient.checkToken(principal.getToken().get(), "bearer");
+        principal.setName(oAuthResponse.getUser_name());
+        List<VarahamihirRole> authorityList = new ArrayList<>();
+        if (oAuthResponse.getAuthorities() != null) {
+
+          oAuthResponse.getAuthorities().stream().forEach(e -> authorityList.add(new VarahamihirRole(e)));
+        }
+        Optional<Account> accountOptional = accountRepository.findAccountByEmail(principal.getName());
+        VarahamihirAuthenticationThreadLocal.INSTANCE.initialize(accountOptional.get());
+        return new PreAuthenticatedAuthenticationToken(principal, principal.getToken(), authorityList);
+
+      /*Request request = new Request.Builder()
               .url(String.format(requestUrl, principal.getToken().get()))
-              .post(RequestBody.create(MediaType.get("application/x-www-form-urlencoded"), ""))
+              .post(RequestBody.create(MediaType.parse("application/x-www-form-urlencoded"), ""))
               .build();
       Response response = client.newCall(request).execute();
       if (response.isSuccessful()) {
         Gson gson = new Gson();
         OAuthResponse oAuthResponse = gson.fromJson(response.body().string(), OAuthResponse.class);
-        principal.setName(oAuthResponse.user_name);
-        List<H2ORole> authorityList = new ArrayList<>();
-        if (oAuthResponse.authorities != null) {
+        principal.setName(oAuthResponse.getUser_name());
+        List<VarahamihirRole> authorityList = new ArrayList<>();
+        if (oAuthResponse.getAuthorities() != null) {
 
-          oAuthResponse.authorities.stream().forEach(e -> authorityList.add(new H2ORole(e)));
+          oAuthResponse.getAuthorities().stream().forEach(e -> authorityList.add(new VarahamihirRole(e)));
         }
         Optional<Account> accountOptional = accountRepository.findAccountByEmail(principal.getName());
-        SanjnanAuthenticationThreadLocal.INSTANCE.initialize(accountOptional.get());
+        VarahamihirAuthenticationThreadLocal.INSTANCE.initialize(accountOptional.get());
         return new PreAuthenticatedAuthenticationToken(principal, principal.getToken(), authorityList);
       }
       else {
 
         throw new BadCredentialsException("Invalid token");
-      }
+      }*/
     }
-    catch(IOException ex) {
+    catch(Exception ex) {
       throw new BadCredentialsException("Communication failure with OAuth Server", ex);
     }
   }

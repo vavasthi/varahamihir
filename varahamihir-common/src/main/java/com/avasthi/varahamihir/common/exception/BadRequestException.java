@@ -16,7 +16,7 @@ package com.avasthi.varahamihir.common.exception;
 /*
 * Add extra attributes as per request
 */
-public final class BadRequestException extends SanjnanBaseException {
+public final class BadRequestException extends VarahamihirBaseException {
 
   /**
    * The Code.

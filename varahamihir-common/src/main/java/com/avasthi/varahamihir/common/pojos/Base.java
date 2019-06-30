@@ -14,10 +14,10 @@ import com.couchbase.client.java.repository.annotation.Field;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.avasthi.varahamihir.common.annotations.H2ONonNullString;
+import com.avasthi.varahamihir.common.annotations.VarahamihirNonNullString;
 import com.avasthi.varahamihir.common.annotations.SkipPatching;
-import com.avasthi.varahamihir.common.serializers.H2ODateTimeDeserializer;
-import com.avasthi.varahamihir.common.serializers.H2ODateTimeSerializer;
+import com.avasthi.varahamihir.common.serializers.VarahamihirDateTimeDeserializer;
+import com.avasthi.varahamihir.common.serializers.VarahamihirDateTimeSerializer;
 import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
 
@@ -132,17 +132,17 @@ public class Base implements Serializable {
 
   @Id
   private String id;
-  @JsonSerialize(using = H2ODateTimeSerializer.class)
-  @JsonDeserialize(using = H2ODateTimeDeserializer.class)
+  @JsonSerialize(using = VarahamihirDateTimeSerializer.class)
+  @JsonDeserialize(using = VarahamihirDateTimeDeserializer.class)
   @Field
   private DateTime createdAt;
-  @JsonSerialize(using = H2ODateTimeSerializer.class)
-  @JsonDeserialize(using = H2ODateTimeDeserializer.class)
+  @JsonSerialize(using = VarahamihirDateTimeSerializer.class)
+  @JsonDeserialize(using = VarahamihirDateTimeDeserializer.class)
   @Field
   private DateTime updatedAt;
   @Field
   private String createdBy;
   @Field
   private String updatedBy;
-  private @H2ONonNullString(min = 5, max = 255, nullAllowed = false) String name;
+  private @VarahamihirNonNullString(min = 5, max = 255, nullAllowed = false) String name;
 }

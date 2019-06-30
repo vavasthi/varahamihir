@@ -2,7 +2,7 @@ package com.avasthi.varahamihir.identityserver.services;
 
 import com.avasthi.varahamihir.common.exception.EntityAlreadyExistsException;
 import com.avasthi.varahamihir.common.exception.EntityNotFoundException;
-import com.avasthi.varahamihir.common.utils.H2OPasswordEncryptionManager;
+import com.avasthi.varahamihir.common.utils.VarahamihirPasswordEncryptionManager;
 import com.avasthi.varahamihir.common.utils.ObjectPatcher;
 import com.avasthi.varahamihir.common.pojos.Account;
 import com.avasthi.varahamihir.common.utils.SanjnanMessages;
@@ -58,7 +58,7 @@ public class AccountService {
     if (account.getId() == null) {
       account.setId(UUID.randomUUID().toString());
     }
-    account.setPassword(H2OPasswordEncryptionManager.INSTANCE.encrypt(account.getPassword()));
+    account.setPassword(VarahamihirPasswordEncryptionManager.INSTANCE.encrypt(account.getPassword()));
     accountRepository.save(account);
     account.setPassword(null);
     return account;
@@ -89,7 +89,7 @@ public class AccountService {
     Optional<Account> optionalAccount = getAccount(username);
     if (optionalAccount.isPresent()) {
       Account account = optionalAccount.get();
-      return H2OPasswordEncryptionManager.INSTANCE.matches(password, account.getPassword());
+      return VarahamihirPasswordEncryptionManager.INSTANCE.matches(password, account.getPassword());
     }
     throw new EntityNotFoundException(String.format(SanjnanMessages.ACCOUNT_NOT_FOUND, username));
   }

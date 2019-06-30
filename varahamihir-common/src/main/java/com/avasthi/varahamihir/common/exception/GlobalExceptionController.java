@@ -17,7 +17,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 
-import static com.avasthi.varahamihir.common.constants.SanjnanConstants.EXCEPTION_URL;
+import static com.avasthi.varahamihir.common.constants.VarahamihirConstants.EXCEPTION_URL;
 
 @ControllerAdvice
 public class GlobalExceptionController extends ResponseEntityExceptionHandler {
@@ -144,9 +144,9 @@ public class GlobalExceptionController extends ResponseEntityExceptionHandler {
    * @param hbe     the hbe
    * @return the response entity
    */
-  @ExceptionHandler(value = SanjnanBaseException.class)
+  @ExceptionHandler(value = VarahamihirBaseException.class)
   @ResponseBody
-  public ResponseEntity<Object> handleHubbleBaseException(WebRequest request, SanjnanBaseException hbe) {
+  public ResponseEntity<Object> handleHubbleBaseException(WebRequest request, VarahamihirBaseException hbe) {
     ExceptionResponse e;
     if (hbe.shouldLog()) {
 

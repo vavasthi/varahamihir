@@ -1,7 +1,7 @@
 package com.avasthi.varahamihir.identityserver.services;
 
 import com.avasthi.varahamihir.common.couchbase.AccountRepository;
-import com.avasthi.varahamihir.oauth2.couchbase.SanjnanClientDetailsRepository;
+import com.avasthi.varahamihir.oauth2.couchbase.VarahamihirClientDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ public class SetupService {
   @Autowired
   private AccountRepository accountRepository;
   @Autowired
-  private SanjnanClientDetailsRepository clientDetailsRepository;
+  private VarahamihirClientDetailsRepository clientDetailsRepository;
 
   static final String GRANT_TYPE_PASSWORD = "password";
   static final String AUTHORIZATION_CODE = "authorization_code";
@@ -33,13 +33,13 @@ public class SetupService {
       account.setEmail("apps@sanjnan.com");
       account.setPassword("Sanjnan1234#");
       account.setAccountType(AccountType.ADMINISTRATOR);
-      account.setH2ORoles(new HashSet<>());
-      account.getH2ORoles().add(new H2ORole(Role.SUPERADMIN.name()));
-      account.getH2ORoles().add(new H2ORole(Role.USER.name()));
+      account.setVarahamihirRoles(new HashSet<>());
+      account.getVarahamihirRoles().add(new VarahamihirRole(Role.SUPERADMIN.name()));
+      account.getVarahamihirRoles().add(new VarahamihirRole(Role.USER.name()));
       accountService.createAccount(account);
     }
     if (clientDetailsRepository.count() == 0) {
-      SanjnanClientDetails client = new SanjnanClientDetails();
+      VarahamihirClientDetails client = new VarahamihirClientDetails();
       client.setId(UUID.randomUUID().toString());
 
       client.setResourceIds(new HashSet<>(Arrays.asList("resource_id")) );

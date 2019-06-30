@@ -8,8 +8,8 @@
 
 package com.avasthi.varahamihir.standards.endpoints;
 
+import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
 import com.avasthi.varahamihir.standards.service.ProductUnitService;
-import com.avasthi.varahamihir.common.constants.SanjnanConstants;
 import com.avasthi.varahamihir.common.endpoints.v1.BaseEndpoint;
 import com.avasthi.varahamihir.common.pojos.ProductUnit;
 import io.swagger.annotations.Api;
@@ -32,7 +32,7 @@ import java.util.UUID;
  * Created by vinay on 1/4/16.
  */
 @RestController
-@RequestMapping(SanjnanConstants.V1_PRODUCT_UNIT_ENDPOINT)
+@RequestMapping(VarahamihirConstants.V1_PRODUCT_UNIT_ENDPOINT)
 @Api(value="Product unit endpoint", description="This endpoint provides Product unit lifecycle operations")
 public class ProductUnitEndpoint extends BaseEndpoint {
 
@@ -43,7 +43,7 @@ public class ProductUnitEndpoint extends BaseEndpoint {
 
   @Transactional(readOnly = true)
   @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-  @PostAuthorize(SanjnanConstants.ANNOTATION_ROLE_USER)
+  @PostAuthorize(VarahamihirConstants.ANNOTATION_ROLE_USER)
   public Optional<ProductUnit> getProductUnit(@PathVariable("id") UUID id) throws IOException {
 
     Optional<ProductUnit> productUnitOptional = productUnitService.getProductUnit(id);
@@ -51,14 +51,14 @@ public class ProductUnitEndpoint extends BaseEndpoint {
   }
 
   @Transactional
-  @PreAuthorize(SanjnanConstants.ANNOTATION_ROLE_ADMIN_OR_SUPERADMIN)
+  @PreAuthorize(VarahamihirConstants.ANNOTATION_ROLE_ADMIN_OR_SUPERADMIN)
   @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
   public ProductUnit createProductUnit(@RequestBody @Valid ProductUnit productUnit) {
     return productUnitService.createProductUnit(productUnit);
   }
 
   @Transactional
-  @PreAuthorize(SanjnanConstants.ANNOTATION_ROLE_USER_ADMIN_AND_TENANT_ADMIN)
+  @PreAuthorize(VarahamihirConstants.ANNOTATION_ROLE_USER_ADMIN_AND_TENANT_ADMIN)
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
   public ProductUnit updateProductUnit(@PathVariable("id") UUID id,
                                        @RequestBody @Valid ProductUnit productUnit) throws InvocationTargetException, IllegalAccessException {
@@ -67,7 +67,7 @@ public class ProductUnitEndpoint extends BaseEndpoint {
 
   @Transactional
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-  @PreAuthorize(SanjnanConstants.ANNOTATION_ROLE_SUPERADMIN)
+  @PreAuthorize(VarahamihirConstants.ANNOTATION_ROLE_SUPERADMIN)
   public ProductUnit deleteProductUnit(@PathVariable("id") UUID id) throws InvalidParameterSpecException {
 
     return productUnitService.deleteProductUnit(id);

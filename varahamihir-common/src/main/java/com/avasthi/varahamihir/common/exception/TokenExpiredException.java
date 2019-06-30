@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 
 @ResponseStatus(HttpStatus.UNAUTHORIZED)
-public class TokenExpiredException extends SanjnanBaseException {
+public class TokenExpiredException extends VarahamihirBaseException {
 
     /**
      * Instantiates a new Token expired exception.

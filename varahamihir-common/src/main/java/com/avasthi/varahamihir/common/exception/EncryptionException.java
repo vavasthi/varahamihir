@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * Created by vavasthi on 27/1/16.
  */
 @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
-public class EncryptionException extends SanjnanBaseException {
+public class EncryptionException extends VarahamihirBaseException {
 
   /**
    * The Code.

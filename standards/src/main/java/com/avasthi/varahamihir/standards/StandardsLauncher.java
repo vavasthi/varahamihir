@@ -2,7 +2,7 @@ package com.avasthi.varahamihir.standards;
 
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
-import com.avasthi.varahamihir.common.security.provider.H2OAuditingDateTimeProvider;
+import com.avasthi.varahamihir.common.security.provider.VarahamihirAuditingDateTimeProvider;
 import com.avasthi.varahamihir.common.services.DateTimeService;
 import com.avasthi.varahamihir.standards.couchbase.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +21,10 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import javax.annotation.PostConstruct;
 
 @EnableWebMvc
-@SpringBootApplication(scanBasePackages = {"com.sanjnan.rae"}, exclude = {DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class}
+@SpringBootApplication(scanBasePackages = {"com.avasthi.varahamihir"}, exclude = {DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class}
 )
 @Configuration
-@EnableJpaRepositories("com.sanjnan.rae")
+@EnableJpaRepositories("com.avasthi.varahamihir")
 public class StandardsLauncher extends SpringBootServletInitializer {
 
   @Autowired
@@ -57,7 +57,7 @@ public class StandardsLauncher extends SpringBootServletInitializer {
 
   @Bean
   DateTimeProvider dateTimeProvider() {
-    return new H2OAuditingDateTimeProvider(dateTimeService);
+    return new VarahamihirAuditingDateTimeProvider(dateTimeService);
   }
 
   @Bean

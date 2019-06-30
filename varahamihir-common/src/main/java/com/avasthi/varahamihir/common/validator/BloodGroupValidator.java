@@ -9,7 +9,7 @@
 package com.avasthi.varahamihir.common.validator;
 
 import com.avasthi.varahamihir.common.annotations.BloodGroups;
-import com.avasthi.varahamihir.common.constants.SanjnanConstants;
+import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -29,7 +29,7 @@ public class BloodGroupValidator implements ConstraintValidator<BloodGroups, Str
   public boolean isValid(final String s, final ConstraintValidatorContext constraintValidatorContext) {
       try {
           if(s!=null) {
-              if (SanjnanConstants.BloodGroups.contains(s))
+              if (VarahamihirConstants.BloodGroups.contains(s))
                   return true;
               else
                   return false;

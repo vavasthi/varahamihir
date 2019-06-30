@@ -1,6 +1,6 @@
 package com.avasthi.varahamihir.common.pojos;
 
-import com.avasthi.varahamihir.common.annotations.H2ONonNullString;
+import com.avasthi.varahamihir.common.annotations.VarahamihirNonNullString;
 import org.joda.time.DateTime;
 import org.springframework.data.couchbase.core.mapping.Document;
 
@@ -35,7 +35,7 @@ public class ProductUnit extends Base {
 
 
 
-  @H2ONonNullString(min = 1, max = 10, nullAllowed = false)
+  @VarahamihirNonNullString(min = 1, max = 10, nullAllowed = false)
   private String acronym;
   private String description;
 }

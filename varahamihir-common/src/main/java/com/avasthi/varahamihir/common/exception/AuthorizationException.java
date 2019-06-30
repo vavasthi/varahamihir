@@ -13,7 +13,7 @@ package com.avasthi.varahamihir.common.exception;
  *
  * @author nikhilvs
  */
-public class AuthorizationException extends SanjnanBaseException {
+public class AuthorizationException extends VarahamihirBaseException {
 
   /**
    * The Code.

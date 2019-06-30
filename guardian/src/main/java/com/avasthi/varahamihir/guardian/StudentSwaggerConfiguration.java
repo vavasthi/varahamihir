@@ -20,7 +20,7 @@ public class StudentSwaggerConfiguration extends WebMvcConfigurationSupport  {
   public Docket customerApi() {
     return new Docket(DocumentationType.SWAGGER_2)
             .select()
-            .apis(RequestHandlerSelectors.basePackage("com.sanjnan.rae.customer.endpoints"))
+            .apis(RequestHandlerSelectors.basePackage("com.avasthi.varahamihir.student.endpoints"))
             .build();
   }
   @Override

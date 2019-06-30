@@ -5,7 +5,7 @@ import com.avasthi.varahamihir.common.exception.EntityAlreadyExistsException;
 import com.avasthi.varahamihir.common.exception.EntityNotFoundException;
 import com.avasthi.varahamihir.common.pojos.Account;
 import com.avasthi.varahamihir.common.pojos.ProductUnit;
-import com.avasthi.varahamihir.common.security.SanjnanAuthenticationThreadLocal;
+import com.avasthi.varahamihir.common.security.VarahamihirAuthenticationThreadLocal;
 import com.avasthi.varahamihir.common.utils.ObjectPatcher;
 import com.avasthi.varahamihir.common.utils.SanjnanMessages;
 import org.apache.log4j.Logger;
@@ -39,7 +39,7 @@ public class ProductUnitService {
     if (productUnitRepository.findByAcronym(productUnit.getAcronym()).isPresent()) {
       throw new EntityAlreadyExistsException(String.format(SanjnanMessages.PRODUCT_UNIT_ALREADY_EXISTS, productUnit.getAcronym()));
     }
-    Account account = SanjnanAuthenticationThreadLocal.INSTANCE.getAccountThreadLocal().get();
+    Account account = VarahamihirAuthenticationThreadLocal.INSTANCE.getAccountThreadLocal().get();
     productUnit.setId(UUID.randomUUID().toString());
     productUnit.setCreatedBy(account.getId());
     productUnit.setUpdatedBy(account.getId());
@@ -53,7 +53,7 @@ public class ProductUnitService {
       ProductUnit storedProduct = productUnitOptional.get();
       ObjectPatcher.diffAndPatch(ProductUnit.class, storedProduct, ProductUnit.class, productUnit);
       storedProduct.setUpdatedAt(DateTime.now());
-      Account account = SanjnanAuthenticationThreadLocal.INSTANCE.getAccountThreadLocal().get();
+      Account account = VarahamihirAuthenticationThreadLocal.INSTANCE.getAccountThreadLocal().get();
       storedProduct.setUpdatedBy(account.getId());
       storedProduct = productUnitRepository.save(storedProduct);
       return storedProduct;

@@ -14,8 +14,8 @@ public enum Role {
     ADMIN("admin"), // 2 Admin
     SUPERADMIN("superadmin"), //3 Super Admin
     DEVICE("device"), // 4
-    FULFILLER("fulfiller"), // 5
-    CUSTOMER("customer"), // 6
+    STUDENT("student"), // 5
+    GUARDIAN("guardian"), // 6
     REFRESH("refresh"); // 7 Only for internal use for refresh token.
 
   private final String value;

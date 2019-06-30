@@ -11,8 +11,8 @@ package com.avasthi.varahamihir.common.pojos;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.avasthi.varahamihir.common.serializers.H2ODateTimeDeserializer;
-import com.avasthi.varahamihir.common.serializers.H2ODateTimeSerializer;
+import com.avasthi.varahamihir.common.serializers.VarahamihirDateTimeDeserializer;
+import com.avasthi.varahamihir.common.serializers.VarahamihirDateTimeSerializer;
 import org.joda.time.DateTime;
 import org.springframework.data.couchbase.core.mapping.Document;
 
@@ -68,8 +68,8 @@ public class Session extends Base {
 
   }
 
-  @JsonSerialize(using = H2ODateTimeSerializer.class)
-  @JsonDeserialize(using = H2ODateTimeDeserializer.class)
+  @JsonSerialize(using = VarahamihirDateTimeSerializer.class)
+  @JsonDeserialize(using = VarahamihirDateTimeDeserializer.class)
   private DateTime expiry;
   private SESSION_TYPE sessionType;
 

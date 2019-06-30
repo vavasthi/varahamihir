@@ -8,7 +8,7 @@
 
 package com.avasthi.varahamihir.lessons.endpoints;
 
-import com.avasthi.varahamihir.common.constants.SanjnanConstants;
+import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
 import com.avasthi.varahamihir.common.endpoints.v1.BaseEndpoint;
 import com.avasthi.varahamihir.common.pojos.Product;
 import com.avasthi.varahamihir.lessons.service.ProductLocationService;
@@ -32,7 +32,7 @@ import java.util.UUID;
  * Created by vinay on 1/4/16.
  */
 @RestController
-@RequestMapping(SanjnanConstants.V1_PRODUCTLOCATION_ENDPOINT)
+@RequestMapping(VarahamihirConstants.V1_PRODUCTLOCATION_ENDPOINT)
 @Api(value="Product endpoint", description="This endpoint provides Product lifecycle operations")
 public class ProductLocationEndpoint extends BaseEndpoint {
 
@@ -51,7 +51,7 @@ public class ProductLocationEndpoint extends BaseEndpoint {
 
   @Transactional(readOnly = true)
   @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-  @PostAuthorize(SanjnanConstants.ANNOTATION_ROLE_USER)
+  @PostAuthorize(VarahamihirConstants.ANNOTATION_ROLE_USER)
   public Optional<Product> getProduct(@PathVariable("id") UUID id) throws IOException {
 
     Optional<Product> optionalProduct = productLocationService.getProduct(id);
@@ -59,14 +59,14 @@ public class ProductLocationEndpoint extends BaseEndpoint {
   }
 
   @Transactional
-  @PreAuthorize(SanjnanConstants.ANNOTATION_ROLE_ADMIN_OR_SUPERADMIN)
+  @PreAuthorize(VarahamihirConstants.ANNOTATION_ROLE_ADMIN_OR_SUPERADMIN)
   @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
   public Product createProduct(@RequestBody @Valid Product product) {
     return productLocationService.createProduct(product);
   }
 
   @Transactional
-  @PreAuthorize(SanjnanConstants.ANNOTATION_ROLE_USER_ADMIN_AND_TENANT_ADMIN)
+  @PreAuthorize(VarahamihirConstants.ANNOTATION_ROLE_USER_ADMIN_AND_TENANT_ADMIN)
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
   public Product updateProduct(@PathVariable("id") UUID id,
                                @RequestBody @Valid Product product) throws InvocationTargetException, IllegalAccessException {
@@ -75,7 +75,7 @@ public class ProductLocationEndpoint extends BaseEndpoint {
 
   @Transactional
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-  @PreAuthorize(SanjnanConstants.ANNOTATION_ROLE_SUPERADMIN)
+  @PreAuthorize(VarahamihirConstants.ANNOTATION_ROLE_SUPERADMIN)
   public Product deleteProduct(@PathVariable("id") UUID id) throws InvalidParameterSpecException {
 
     return productLocationService.deleteProduct(id);

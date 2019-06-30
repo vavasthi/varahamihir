@@ -8,7 +8,7 @@
 
 package com.avasthi.varahamihir.common.enums;
 
-import com.avasthi.varahamihir.common.constants.SanjnanConstants;
+import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
 
 import java.util.List;
 
@@ -19,8 +19,8 @@ import java.util.List;
 
 public enum SubscriptionApps {
 
-    GCM(SanjnanConstants.STR_NOTIFICATION_TYPE_GCM, SanjnanConstants.SUBSCRIPTION_GCM_APPS),
-    APNS(SanjnanConstants.STR_NOTIFICATION_TYPE_APNS, SanjnanConstants.SUBSCRIPTION_APNS_APPS);
+    GCM(VarahamihirConstants.STR_NOTIFICATION_TYPE_GCM, VarahamihirConstants.SUBSCRIPTION_GCM_APPS),
+    APNS(VarahamihirConstants.STR_NOTIFICATION_TYPE_APNS, VarahamihirConstants.SUBSCRIPTION_APNS_APPS);
 
     private final String appType;
     private final List<String> appIdList;

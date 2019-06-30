@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * Created by vinay on 2/4/16.
  */
 @ResponseStatus(HttpStatus.CONFLICT)
-public class MismatchedCredentialHeaderAndAuthException  extends SanjnanBaseException {
+public class MismatchedCredentialHeaderAndAuthException  extends VarahamihirBaseException {
 
   /**
    * Instantiates a new Mismatched credential header and auth exception.

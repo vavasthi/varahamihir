@@ -11,7 +11,7 @@ package com.avasthi.varahamihir.common.exception;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.avasthi.varahamihir.common.constants.SanjnanConstants;
+import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
 
 import java.net.HttpURLConnection;
 
@@ -34,7 +34,7 @@ public abstract class AbstractResponse {
   /**
    * The Message.
    */
-  String message = SanjnanConstants.MSG_SUCCESS;
+  String message = VarahamihirConstants.MSG_SUCCESS;
   /**
    * The More info.
    */

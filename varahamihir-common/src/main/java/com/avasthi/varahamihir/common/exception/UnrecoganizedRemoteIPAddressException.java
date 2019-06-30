@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * Created by vavasthi on 27/1/16.
  */
 @ResponseStatus(HttpStatus.EXPECTATION_FAILED)
-public class UnrecoganizedRemoteIPAddressException extends SanjnanBaseException {
+public class UnrecoganizedRemoteIPAddressException extends VarahamihirBaseException {
 
   /**
    * The Code.

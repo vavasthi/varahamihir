@@ -5,7 +5,7 @@ import com.avasthi.varahamihir.common.exception.EntityAlreadyExistsException;
 import com.avasthi.varahamihir.common.exception.EntityNotFoundException;
 import com.avasthi.varahamihir.common.pojos.Account;
 import com.avasthi.varahamihir.common.pojos.TaxSurcharge;
-import com.avasthi.varahamihir.common.security.SanjnanAuthenticationThreadLocal;
+import com.avasthi.varahamihir.common.security.VarahamihirAuthenticationThreadLocal;
 import com.avasthi.varahamihir.common.utils.ObjectPatcher;
 import com.avasthi.varahamihir.common.utils.SanjnanMessages;
 import org.apache.log4j.Logger;
@@ -39,7 +39,7 @@ public class TaxSurchargeService {
     if (taxSurchargeRepository.findByName(taxSurcharge.getName()).isPresent()) {
       throw new EntityAlreadyExistsException(String.format(SanjnanMessages.TAX_SURCHARGE_ALREADY_EXISTS, taxSurcharge.getName()));
     }
-    Account account = SanjnanAuthenticationThreadLocal.INSTANCE.getAccountThreadLocal().get();
+    Account account = VarahamihirAuthenticationThreadLocal.INSTANCE.getAccountThreadLocal().get();
     taxSurcharge.setId(UUID.randomUUID().toString());
     taxSurcharge.setCreatedBy(account.getId());
     taxSurcharge.setUpdatedBy(account.getId());
@@ -53,7 +53,7 @@ public class TaxSurchargeService {
       TaxSurcharge storedTaxSurcharge = taxSurchargeOptional.get();
       ObjectPatcher.diffAndPatch(TaxSurcharge.class, storedTaxSurcharge, TaxSurcharge.class, taxSurcharge);
       storedTaxSurcharge.setUpdatedAt(DateTime.now());
-      Account account = SanjnanAuthenticationThreadLocal.INSTANCE.getAccountThreadLocal().get();
+      Account account = VarahamihirAuthenticationThreadLocal.INSTANCE.getAccountThreadLocal().get();
       storedTaxSurcharge.setUpdatedBy(account.getId());
       storedTaxSurcharge= taxSurchargeRepository.save(storedTaxSurcharge);
       return storedTaxSurcharge;

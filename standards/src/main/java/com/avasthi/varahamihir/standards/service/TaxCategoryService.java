@@ -5,7 +5,7 @@ import com.avasthi.varahamihir.common.exception.EntityAlreadyExistsException;
 import com.avasthi.varahamihir.common.exception.EntityNotFoundException;
 import com.avasthi.varahamihir.common.pojos.Account;
 import com.avasthi.varahamihir.common.pojos.TaxCategory;
-import com.avasthi.varahamihir.common.security.SanjnanAuthenticationThreadLocal;
+import com.avasthi.varahamihir.common.security.VarahamihirAuthenticationThreadLocal;
 import com.avasthi.varahamihir.common.utils.ObjectPatcher;
 import com.avasthi.varahamihir.common.utils.SanjnanMessages;
 import org.apache.log4j.Logger;
@@ -39,7 +39,7 @@ public class TaxCategoryService {
     if (taxCategoryRepository.findByName(taxCategory.getName()).isPresent()) {
       throw new EntityAlreadyExistsException(String.format(SanjnanMessages.TAX_CATEGORY_ALREADY_EXISTS, taxCategory.getName()));
     }
-    Account account = SanjnanAuthenticationThreadLocal.INSTANCE.getAccountThreadLocal().get();
+    Account account = VarahamihirAuthenticationThreadLocal.INSTANCE.getAccountThreadLocal().get();
     taxCategory.setId(UUID.randomUUID().toString());
     taxCategory.setCreatedBy(account.getId());
     taxCategory.setUpdatedBy(account.getId());
@@ -53,7 +53,7 @@ public class TaxCategoryService {
       TaxCategory storedTaxCategory = taxCategoryOptional.get();
       ObjectPatcher.diffAndPatch(TaxCategory.class, storedTaxCategory, TaxCategory.class, taxCategory);
       storedTaxCategory.setUpdatedAt(DateTime.now());
-      Account account = SanjnanAuthenticationThreadLocal.INSTANCE.getAccountThreadLocal().get();
+      Account account = VarahamihirAuthenticationThreadLocal.INSTANCE.getAccountThreadLocal().get();
       storedTaxCategory.setUpdatedBy(account.getId());
       storedTaxCategory= taxCategoryRepository.save(storedTaxCategory);
       return storedTaxCategory;

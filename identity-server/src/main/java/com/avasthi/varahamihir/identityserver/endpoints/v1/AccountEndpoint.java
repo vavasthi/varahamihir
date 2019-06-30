@@ -8,13 +8,13 @@
 
 package com.avasthi.varahamihir.identityserver.endpoints.v1;
 
+import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
 import com.avasthi.varahamihir.identityserver.services.AccountService;
-import com.avasthi.varahamihir.common.constants.SanjnanConstants;
 import com.avasthi.varahamihir.common.endpoints.v1.BaseEndpoint;
 import com.avasthi.varahamihir.common.pojos.SanjnanUserDetail;
 import com.avasthi.varahamihir.common.pojos.Account;
 import com.avasthi.varahamihir.common.couchbase.AccountRepository;
-import com.avasthi.varahamihir.oauth2.services.SanjnanTokenStore;
+import com.avasthi.varahamihir.oauth2.services.VarahamihirTokenStore;
 import io.swagger.annotations.Api;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,7 @@ import java.util.UUID;
  * Created by vinay on 1/4/16.
  */
 @RestController
-@RequestMapping(SanjnanConstants.V1_ACCOUNT_ENDPOINT)
+@RequestMapping(VarahamihirConstants.V1_ACCOUNT_ENDPOINT)
 @Api(value="Traditional account endpoint", description="This endpoint provides Account lifecycle operations")
 public class AccountEndpoint extends BaseEndpoint {
 
@@ -50,7 +50,7 @@ public class AccountEndpoint extends BaseEndpoint {
   @Autowired
   private AccountService accountService;
   @Autowired
-  private SanjnanTokenStore tokenStore;
+  private VarahamihirTokenStore tokenStore;
   @Autowired
   private DefaultTokenServices defaultTokenServices;
 
@@ -71,7 +71,7 @@ public class AccountEndpoint extends BaseEndpoint {
 
   @Transactional(readOnly = true)
   @RequestMapping(value = "/{idOrUsername}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-  @PostAuthorize(SanjnanConstants.ANNOTATION_ROLE_ADMIN_OR_CURRENT_USER)
+  @PostAuthorize(VarahamihirConstants.ANNOTATION_ROLE_ADMIN_OR_CURRENT_USER)
   public Optional<Account> getAccount(@PathVariable("idOrUsername") String id_or_username) throws IOException {
 
     Optional<Account> optionalAccount = accountService.getAccount(id_or_username);
@@ -89,7 +89,7 @@ public class AccountEndpoint extends BaseEndpoint {
   }
 
   @Transactional
-  @PreAuthorize(SanjnanConstants.ANNOTATION_ROLE_USER_ADMIN_AND_TENANT_ADMIN)
+  @PreAuthorize(VarahamihirConstants.ANNOTATION_ROLE_USER_ADMIN_AND_TENANT_ADMIN)
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
   public Account updateAccount(@PathVariable("id") UUID id,
                                @RequestBody @Valid Account account) throws InvocationTargetException, IllegalAccessException {
@@ -98,7 +98,7 @@ public class AccountEndpoint extends BaseEndpoint {
 
   @Transactional
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-  @PreAuthorize(SanjnanConstants.ANNOTATION_ROLE_ADMIN_AND_TENANT_ADMIN)
+  @PreAuthorize(VarahamihirConstants.ANNOTATION_ROLE_ADMIN_AND_TENANT_ADMIN)
   public Account deleteAccount(@PathVariable("id") UUID id) throws InvalidParameterSpecException {
 
     return accountService.deleteAccount(id);

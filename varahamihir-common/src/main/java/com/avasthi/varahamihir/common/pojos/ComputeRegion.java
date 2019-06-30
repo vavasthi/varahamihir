@@ -8,7 +8,7 @@
 
 package com.avasthi.varahamihir.common.pojos;
 
-import com.avasthi.varahamihir.common.annotations.H2OUrlString;
+import com.avasthi.varahamihir.common.annotations.VarahamihirUrlString;
 
 /**
  * Created by vinay on 1/28/16.
@@ -93,12 +93,17 @@ public class ComputeRegion extends Base {
         this.userCount = userCount;
     }
 
-    private @H2OUrlString
+    private @VarahamihirUrlString
     String identityURL;
-    private @H2OUrlString String apiEndpointURL;
-    private @H2OUrlString String csEndpointURL;
-    private @H2OUrlString String stunURL;
-    private @H2OUrlString String mqttURL;
-    private @H2OUrlString String ntpURL;
+    private @VarahamihirUrlString
+    String apiEndpointURL;
+    private @VarahamihirUrlString
+    String csEndpointURL;
+    private @VarahamihirUrlString
+    String stunURL;
+    private @VarahamihirUrlString
+    String mqttURL;
+    private @VarahamihirUrlString
+    String ntpURL;
     private Long userCount;
 }

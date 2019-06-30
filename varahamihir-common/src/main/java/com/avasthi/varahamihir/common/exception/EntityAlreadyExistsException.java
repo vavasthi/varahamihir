@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * Created by vavasthi on 27/1/16.
  */
 @ResponseStatus(HttpStatus.CONFLICT)
-public class EntityAlreadyExistsException extends SanjnanBaseException {
+public class EntityAlreadyExistsException extends VarahamihirBaseException {
 
   /**
    * The Code.

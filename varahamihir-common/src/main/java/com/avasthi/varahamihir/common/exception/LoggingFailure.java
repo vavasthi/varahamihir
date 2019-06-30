@@ -11,7 +11,7 @@ package com.avasthi.varahamihir.common.exception;
 /**
  * Created by vinay on 3/30/16.
  */
-public class LoggingFailure extends SanjnanBaseException {
+public class LoggingFailure extends VarahamihirBaseException {
 
   public LoggingFailure(String message) {
     super(message);
