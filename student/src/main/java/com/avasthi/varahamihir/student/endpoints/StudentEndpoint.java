@@ -14,7 +14,7 @@ import com.avasthi.varahamihir.common.pojos.Account;
 import com.avasthi.varahamihir.common.security.VarahamihirAuthenticationThreadLocal;
 import com.avasthi.varahamihir.student.service.StudentService;
 import io.swagger.annotations.Api;
-import org.apache.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,12 +27,12 @@ import java.lang.reflect.InvocationTargetException;
 /**
  * Created by vinay on 1/4/16.
  */
+@Log4j2
 @RestController
 @RequestMapping(VarahamihirConstants.V1_CUSTOMER_ENDPOINT)
 @Api(value="Student endpoint", description="This endpoint provides Student lifescycle operations")
 public class StudentEndpoint extends BaseEndpoint {
 
-  Logger logger = Logger.getLogger(StudentEndpoint.class);
 
   @Autowired
   private StudentService studentService;

@@ -8,7 +8,6 @@ import com.avasthi.varahamihir.common.pojos.TaxCategory;
 import com.avasthi.varahamihir.common.security.VarahamihirAuthenticationThreadLocal;
 import com.avasthi.varahamihir.common.utils.ObjectPatcher;
 import com.avasthi.varahamihir.common.utils.SanjnanMessages;
-import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,8 +22,6 @@ public class TaxCategoryService {
   @Autowired
   private TaxCategoryRepository taxCategoryRepository;
 
-
-  Logger logger = Logger.getLogger(TaxCategoryService.class);
 
   public Optional<TaxCategory> getTaxCategory(UUID id) {
 

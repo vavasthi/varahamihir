@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 
 import com.myscript.iink.ContentPackage;
 import com.myscript.iink.ContentPart;
+import com.myscript.iink.ConversionState;
 import com.myscript.iink.Editor;
 import com.myscript.iink.IEditorListener;
 import com.myscript.iink.Renderer;
@@ -97,7 +98,9 @@ public class VarahaChatMainActivity extends AppCompatActivity implements View.On
         File file = new File(getFilesDir(), packageName);
         try {
             contentPackage = VarahaEngine.INSTANCE.getEngine().createPackage(file);
-            contentPart = contentPackage.createPart("Text Document"); // Choose type of content (possible values are: "Text Document", "Text", "Diagram", "Math", and "Drawing")
+            // contentPart = contentPackage.createPart("Text Document"); // Choose type of content (possible values are: "Text Document", "Text", "Diagram", "Math", and "Drawing")
+            //contentPart = contentPackage.createPart("Diagram"); // Choose type of content (possible values are: "Text Document", "Text", "Diagram", "Math", and "Drawing")
+            contentPart = contentPackage.createPart("Math"); // Choose type of content (possible values are: "Text Document", "Text", "Diagram", "Math", and "Drawing")
         } catch (IOException e) {
             Log.e(TAG, "Failed to open package \"" + packageName + "\"", e);
         } catch (IllegalArgumentException e) {
@@ -123,6 +126,8 @@ public class VarahaChatMainActivity extends AppCompatActivity implements View.On
         findViewById(R.id.button_undo).setOnClickListener(this);
         findViewById(R.id.button_redo).setOnClickListener(this);
         findViewById(R.id.button_clear).setOnClickListener(this);
+        findViewById(R.id.button_add).setOnClickListener(this);
+        findViewById(R.id.button_conversion).setOnClickListener(this);
 
         invalidateIconButtons();
     }
@@ -185,6 +190,21 @@ public class VarahaChatMainActivity extends AppCompatActivity implements View.On
                 break;
             case R.id.button_clear:
                 editorView.getEditor().clear();
+                break;
+            case R.id.button_add:
+                contentPart = contentPackage.createPart("Math"); // Choose type of content (possible values are: "Text Document", "Text", "Diagram", "Math", and "Drawing")
+                editorView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        editorView.getRenderer().setViewOffset(0, 0);
+                        editorView.getRenderer().setViewScale(1);
+                        editorView.setVisibility(View.VISIBLE);
+                        editorView.getEditor().setPart(contentPart);
+                    }
+                });
+                break;
+            case R.id.button_conversion:
+                editorView.getEditor().convert(editorView.getEditor().getRootBlock(), ConversionState.DIGITAL_EDIT);
                 break;
             default:
                 Log.e(TAG, "Failed to handle click event");

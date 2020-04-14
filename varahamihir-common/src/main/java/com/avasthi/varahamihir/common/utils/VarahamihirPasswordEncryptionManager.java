@@ -10,7 +10,6 @@
 
 package com.avasthi.varahamihir.common.utils;
 
-import org.apache.log4j.Logger;
 import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 
 /**
@@ -20,7 +19,6 @@ public class VarahamihirPasswordEncryptionManager {
 
   public static VarahamihirPasswordEncryptionManager INSTANCE = new VarahamihirPasswordEncryptionManager();
 
-  private Logger logger = Logger.getLogger(VarahamihirPasswordEncryptionManager.class);
   private final SCryptPasswordEncoder encoder = new SCryptPasswordEncoder();
 
   private VarahamihirPasswordEncryptionManager() {

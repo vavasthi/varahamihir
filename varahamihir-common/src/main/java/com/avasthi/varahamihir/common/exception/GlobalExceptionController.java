@@ -2,8 +2,8 @@
 package com.avasthi.varahamihir.common.exception;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,11 +18,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 
 import static com.avasthi.varahamihir.common.constants.VarahamihirConstants.EXCEPTION_URL;
-
+@Log4j2
 @ControllerAdvice
 public class GlobalExceptionController extends ResponseEntityExceptionHandler {
 
-  private static final Logger logger = Logger.getLogger(GlobalExceptionController.class);
 
 
   /**

@@ -14,7 +14,6 @@ import com.avasthi.varahamihir.common.pojos.Account;
 import com.avasthi.varahamihir.common.security.VarahamihirAuthenticationThreadLocal;
 import com.avasthi.varahamihir.guardian.service.GuardianService;
 import io.swagger.annotations.Api;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,8 +30,6 @@ import java.lang.reflect.InvocationTargetException;
 @RequestMapping(VarahamihirConstants.V1_GUARDIAN_ENDPOINT)
 @Api(value="Guardian endpoint", description="This endpoint provides Customer lifecycle operations")
 public class GuardianEndpoint extends BaseEndpoint {
-
-  Logger logger = Logger.getLogger(GuardianEndpoint.class);
 
   @Autowired
   private GuardianService guardianService;

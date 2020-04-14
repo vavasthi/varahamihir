@@ -13,7 +13,7 @@ import com.avasthi.varahamihir.standards.service.ProductUnitService;
 import com.avasthi.varahamihir.common.endpoints.v1.BaseEndpoint;
 import com.avasthi.varahamihir.common.pojos.ProductUnit;
 import io.swagger.annotations.Api;
-import org.apache.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PostAuthorize;
@@ -31,12 +31,12 @@ import java.util.UUID;
 /**
  * Created by vinay on 1/4/16.
  */
+@Log4j2
 @RestController
 @RequestMapping(VarahamihirConstants.V1_PRODUCT_UNIT_ENDPOINT)
 @Api(value="Product unit endpoint", description="This endpoint provides Product unit lifecycle operations")
 public class ProductUnitEndpoint extends BaseEndpoint {
 
-  Logger logger = Logger.getLogger(ProductUnitEndpoint.class);
 
   @Autowired
   private ProductUnitService productUnitService;

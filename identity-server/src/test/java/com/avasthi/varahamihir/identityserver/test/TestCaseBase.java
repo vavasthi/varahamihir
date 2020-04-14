@@ -11,8 +11,7 @@ package com.avasthi.varahamihir.identityserver.test;
 import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
 import com.avasthi.varahamihir.common.pojos.VarahamihirTokenResponse;
 import io.restassured.response.Response;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 import org.eclipse.jetty.util.B64Code;
 
 import static io.restassured.RestAssured.given;
@@ -20,6 +19,7 @@ import static io.restassured.RestAssured.given;
 /**
  * Created by vinay on 2/10/16.
  */
+@Log4j2
 public class TestCaseBase {
 
   protected static String authenticateUrl = "http://localhost:8080/v1/internal/authenticate";
@@ -27,7 +27,6 @@ public class TestCaseBase {
   protected static String username = "Hubble";
   protected static String password = "Hobble";
   protected static String internalTenant = "internal";
-  protected Logger logger = Logger.getLogger(TestCaseBase.class.getName());
   protected String authToken;
   protected String deviceToken;
   protected String tempAuthToken;
@@ -63,7 +62,7 @@ public class TestCaseBase {
       }
     }
     Response r = given().get(baseUrl + "setup").andReturn();
-    logger.info(r.prettyPrint());
+    log.info(r.prettyPrint());
     VarahamihirTokenResponse authResponse =  given().
             header(VarahamihirConstants.AUTH_AUTHORIZATION_HEADER, "Basic " + B64Code.encode(username + ":" + password)).
         header("Content-Type", "application/json").
@@ -74,7 +73,7 @@ public class TestCaseBase {
             header(VarahamihirConstants.AUTH_CLIENT_ID_HEADER, "MyRestAssuredClient").
         when().post(authenticateUrl).body().as(VarahamihirTokenResponse.class);
 
-    logger.log(Level.INFO, String.format("Authenticating %s, received response %s", username, authResponse));
+    log.info(String.format("Authenticating %s, received response %s", username, authResponse));
     authToken = authResponse.getAuthToken();
   }
   protected void cleanup() {

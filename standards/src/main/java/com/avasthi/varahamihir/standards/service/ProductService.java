@@ -7,7 +7,6 @@ import com.avasthi.varahamihir.common.pojos.Product;
 import com.avasthi.varahamihir.common.utils.ObjectPatcher;
 import com.avasthi.varahamihir.common.utils.SanjnanMessages;
 import com.avasthi.varahamihir.standards.utils.ProductSearchTrie;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,7 +24,6 @@ public class ProductService {
   private ProductRepository productRepository;
 
   
-  Logger logger = Logger.getLogger(ProductService.class);
 
   public Optional<Product> getProduct(UUID id) {
 

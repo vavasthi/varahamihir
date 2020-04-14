@@ -7,8 +7,7 @@ import com.avasthi.varahamihir.common.utils.ObjectPatcher;
 import com.avasthi.varahamihir.common.pojos.Account;
 import com.avasthi.varahamihir.common.utils.SanjnanMessages;
 import com.avasthi.varahamihir.common.couchbase.AccountRepository;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +15,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
 import java.util.UUID;
 
+@Log4j2
 @Service
 public class AccountService {
 
@@ -24,7 +24,6 @@ public class AccountService {
   @Autowired
   private SetupService setupService;
 
-  Logger logger = Logger.getLogger(AccountService.class);
 
 
   public Optional<Account> getAccount(String id_or_email) {
@@ -32,14 +31,14 @@ public class AccountService {
     try {
 
       UUID id = UUID.fromString(id_or_email);
-      logger.log(Level.INFO, "Retrieving account info for UUID = " + id_or_email);
+      log.info("Retrieving account info for UUID = " + id_or_email);
       Optional<Account> accountOptional = accountRepository.findById(id.toString());
       if (accountOptional.isPresent()) {
         return accountOptional;
       }
     }
     catch(IllegalArgumentException iae) {
-      logger.log(Level.INFO, "Retrieving account info for username = " + id_or_email);
+      log.info("Retrieving account info for username = " + id_or_email);
       Optional<Account> accountOptional = accountRepository.findAccountByEmail(id_or_email);
       if (accountOptional.isPresent()) {
         return accountOptional;

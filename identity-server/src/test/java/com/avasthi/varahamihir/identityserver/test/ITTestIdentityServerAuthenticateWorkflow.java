@@ -11,7 +11,7 @@ package com.avasthi.varahamihir.identityserver.test;
 import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
 import com.avasthi.varahamihir.common.pojos.VarahamihirTokenResponse;
 import io.restassured.response.Response;
-import org.apache.log4j.Level;
+import lombok.extern.log4j.Log4j2;
 import org.eclipse.jetty.http.HttpStatus;
 import org.eclipse.jetty.util.B64Code;
 import org.testng.annotations.BeforeClass;
@@ -23,6 +23,7 @@ import static org.testng.Assert.assertEquals;
 /**
  * Created by vinay on 2/8/16.
  */
+@Log4j2
 public class ITTestIdentityServerAuthenticateWorkflow extends TestCaseBase {
 
   private VarahamihirTokenResponse authResponse;
@@ -39,7 +40,7 @@ public class ITTestIdentityServerAuthenticateWorkflow extends TestCaseBase {
             header(VarahamihirConstants.AUTH_TOKEN_TYPE_HEADER, "app_token").
             header(VarahamihirConstants.AUTH_CLIENT_ID_HEADER, "MyRestAssuredClient").
         when().post(authenticateUrl).body().as(VarahamihirTokenResponse.class);
-    logger.log(Level.INFO, String.format("Authenticating %s, received response %s", username, authResponse));
+    log.info(String.format("Authenticating %s, received response %s", username, authResponse));
   }
 
 
@@ -53,10 +54,10 @@ public class ITTestIdentityServerAuthenticateWorkflow extends TestCaseBase {
             header(VarahamihirConstants.AUTH_TOKEN_TYPE_HEADER, "app_token").
             header(VarahamihirConstants.AUTH_CLIENT_ID_HEADER, "MyRestAssuredClient").
         when().post(authenticateUrl + "/validate").andReturn();
-    logger.log(Level.INFO, "Authenticating using token.\n" + r.prettyPrint());
+    log.info("Authenticating using token.\n" + r.prettyPrint());
     assertEquals(r.getStatusCode(), HttpStatus.OK_200);
     VarahamihirTokenResponse response = r.as(VarahamihirTokenResponse.class);
-    logger.log(Level.INFO, response.toString());
+    log.info(response.toString());
   }
 
 }

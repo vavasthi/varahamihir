@@ -9,19 +9,20 @@
 package com.avasthi.varahamihir.common.validator;
 
 import com.avasthi.varahamihir.common.annotations.VarahamihirDateTime;
-import org.apache.log4j.Logger;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+
+import lombok.extern.log4j.Log4j2;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 /**
  * Created by nikhilvs on 16/06/16.
  */
+@Log4j2
 public class VarahamihirDateTimeValidator implements ConstraintValidator<VarahamihirDateTime, String> {
 
-  private Logger logger = Logger.getLogger(GenderTypeValidator.class);
   private VarahamihirDateTime h2ODateTime;
   @Override
   public void initialize(final VarahamihirDateTime varahamihirDateTime) {
@@ -33,7 +34,7 @@ public class VarahamihirDateTimeValidator implements ConstraintValidator<Varaham
     try {
 
       if(s!=null) {
-          logger.info(" s :" + s + " h2oDateTime : " + h2ODateTime.dateTimePattern());
+          log.info(" s :" + s + " h2oDateTime : " + h2ODateTime.dateTimePattern());
           DateTimeFormatter formatter = DateTimeFormat.forPattern(h2ODateTime.dateTimePattern());
           formatter.parseDateTime(s);
       }

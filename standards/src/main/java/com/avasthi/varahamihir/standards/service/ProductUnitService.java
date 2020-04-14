@@ -8,7 +8,6 @@ import com.avasthi.varahamihir.common.pojos.ProductUnit;
 import com.avasthi.varahamihir.common.security.VarahamihirAuthenticationThreadLocal;
 import com.avasthi.varahamihir.common.utils.ObjectPatcher;
 import com.avasthi.varahamihir.common.utils.SanjnanMessages;
-import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +23,6 @@ public class ProductUnitService {
   private ProductUnitRepository productUnitRepository;
 
 
-  Logger logger = Logger.getLogger(ProductUnitService.class);
 
   public Optional<ProductUnit> getProductUnit(UUID id) {
 

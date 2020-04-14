@@ -10,6 +10,8 @@
 
 package com.avasthi.varahamihir.common.constants;
 
+import lombok.extern.log4j.Log4j2;
+
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -18,6 +20,7 @@ import java.util.stream.Stream;
 /**
  * Created by vinay on 1/4/16.
  */
+@Log4j2
 public class VarahamihirConstants {
 
 
@@ -1448,7 +1451,6 @@ public class VarahamihirConstants {
    * The constant SEND_COMMAND.
    */
   public static final String DELETE_EXPIRED_S3_ITEMS_TYPE = "delete_expired_s3_items";
-  private static final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(VarahamihirConstants.class);
   //**************
   private static final String API_PATH = "/api/v1";
   private static final Map<String, String> DEFAULT_APP_UNIQUE_IDS;
@@ -2035,7 +2037,7 @@ public class VarahamihirConstants {
    */
   public static List<String> getAppsByModelNumber(String modelNumber, String apptype) {
 
-    logger.info("model num:"+modelNumber+"apptype: "+apptype);
+    log.info("model num:"+modelNumber+"apptype: "+apptype);
     if (!listMap.containsKey(modelNumber)) {
       return null;
     }

@@ -16,7 +16,6 @@ import com.avasthi.varahamihir.common.pojos.Account;
 import com.avasthi.varahamihir.common.couchbase.AccountRepository;
 import com.avasthi.varahamihir.oauth2.services.VarahamihirTokenStore;
 import io.swagger.annotations.Api;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PostAuthorize;
@@ -42,8 +41,6 @@ import java.util.UUID;
 @RequestMapping(VarahamihirConstants.V1_ACCOUNT_ENDPOINT)
 @Api(value="Traditional account endpoint", description="This endpoint provides Account lifecycle operations")
 public class AccountEndpoint extends BaseEndpoint {
-
-  Logger logger = Logger.getLogger(AccountEndpoint.class);
 
   @Autowired
   private AccountRepository accountRepository;

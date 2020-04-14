@@ -13,7 +13,6 @@ import com.avasthi.varahamihir.standards.service.ProductService;
 import com.avasthi.varahamihir.common.endpoints.v1.BaseEndpoint;
 import com.avasthi.varahamihir.common.pojos.Product;
 import io.swagger.annotations.Api;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PostAuthorize;
@@ -37,7 +36,6 @@ import java.util.UUID;
 @Api(value="Product endpoint", description="This endpoint provides Product lifecycle operations")
 public class ProductEndpoint extends BaseEndpoint {
 
-  Logger logger = Logger.getLogger(ProductEndpoint.class);
 
   @Autowired
   private ProductService productService;

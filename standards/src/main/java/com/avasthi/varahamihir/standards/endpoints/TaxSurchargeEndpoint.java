@@ -13,7 +13,6 @@ import com.avasthi.varahamihir.common.endpoints.v1.BaseEndpoint;
 import com.avasthi.varahamihir.common.pojos.TaxSurcharge;
 import com.avasthi.varahamihir.standards.service.TaxSurchargeService;
 import io.swagger.annotations.Api;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PostAuthorize;
@@ -36,7 +35,6 @@ import java.util.UUID;
 @Api(value="Tax surcharge endpoint", description="This endpoint provides tax surcharge lifecycle operations")
 public class TaxSurchargeEndpoint extends BaseEndpoint {
 
-  Logger logger = Logger.getLogger(TaxSurchargeEndpoint.class);
 
   @Autowired
   private TaxSurchargeService taxSurchargeService;

@@ -7,7 +7,6 @@ import com.avasthi.varahamihir.common.pojos.Account;
 import com.avasthi.varahamihir.common.pojos.AccountType;
 import com.avasthi.varahamihir.common.pojos.VarahamihirRole;
 import com.avasthi.varahamihir.common.utils.SanjnanMessages;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +17,6 @@ public class GuardianService {
   
   @Autowired
   private AccountRepository accountRepository;
-
-  
-  Logger logger = Logger.getLogger(GuardianService.class);
 
   public Account createGuardian(Account account) {
     if (!accountRepository.findAccountByEmail(account.getEmail()).isPresent()) {

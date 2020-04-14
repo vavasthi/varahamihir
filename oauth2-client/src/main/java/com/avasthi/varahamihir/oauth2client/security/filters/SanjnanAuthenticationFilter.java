@@ -12,8 +12,7 @@ import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
 import com.avasthi.varahamihir.common.exception.*;
 import com.google.gson.Gson;
 import com.avasthi.varahamihir.common.security.token.VarahamihirOAuthTokenPrincipal;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -37,11 +36,11 @@ import java.util.Optional;
 /**
  * Created by vinay on 2/3/16.
  */
+@Log4j2
 public class SanjnanAuthenticationFilter extends GenericFilterBean {
 
   public static final String TOKEN_SESSION_KEY = "token";
   public static final String USER_SESSION_KEY = "user";
-  private final static Logger logger = Logger.getLogger(SanjnanAuthenticationFilter.class);
   private AuthenticationManager authenticationManager;
 
   public SanjnanAuthenticationFilter(AuthenticationManager authenticationManager) {
@@ -129,7 +128,7 @@ public class SanjnanAuthenticationFilter extends GenericFilterBean {
       }
     }
     catch(Exception jsonex) {
-      logger.log(Level.ERROR, "Error during error generation", jsonex);
+      log.error("Error during error generation", jsonex);
     }
   }
 

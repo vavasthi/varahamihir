@@ -13,7 +13,6 @@ import com.avasthi.varahamihir.common.endpoints.v1.BaseEndpoint;
 import com.avasthi.varahamihir.common.pojos.TaxCategory;
 import com.avasthi.varahamihir.standards.service.TaxCategoryService;
 import io.swagger.annotations.Api;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PostAuthorize;
@@ -36,7 +35,6 @@ import java.util.UUID;
 @Api(value="Tax category endpoint", description="This endpoint provides tax category lifecycle operations")
 public class TaxCategoryEndpoint extends BaseEndpoint {
 
-  Logger logger = Logger.getLogger(TaxCategoryEndpoint.class);
 
   @Autowired
   private TaxCategoryService taxCategoryService;
