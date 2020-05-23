@@ -12,10 +12,9 @@
     <description>Lessons Master Service</description>
 
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.0.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <groupId>com.avasthi.varahamihir</groupId>
+        <artifactId>varahamihir</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
 
     <properties>
@@ -27,14 +26,6 @@
     </properties>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-dependencies</artifactId>
-            <version>Greenwich.RELEASE</version>
-            <type>pom</type>
-            <scope>runtime</scope>
-        </dependency>
         <dependency>
             <groupId>com.avasthi.varahamihir</groupId>
             <artifactId>varahamihir-common</artifactId>
