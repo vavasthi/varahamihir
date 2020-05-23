@@ -31,12 +31,12 @@ public class GatewayApplication {
 	@Bean
 	public RouteLocator routes(RouteLocatorBuilder builder) {
 		return builder.routes()
-				.route(p -> p.path("/hotdeals**").filters(f ->
-						f.hystrix(c -> c.setName("hotdeals").setFallbackUri("forward:/fallback"))).uri("lb://hot-deals"))
-				.route(p -> p.path("/fashion/**").filters(f ->
-						f.hystrix(c -> c.setName("fashion").setFallbackUri("forward:/fallback"))).uri("lb://fashion-bestseller"))
-				.route(p -> p.path("/toys/**").filters(f ->
-						f.hystrix(c -> c.setName("toys").setFallbackUri("forward:/fallback"))).uri("lb://toys-bestseller"))
+				.route(p -> p.path("/oauth2**").filters(f ->
+						f.hystrix(c -> c.setName("oauth2").setFallbackUri("forward:/fallback"))).uri("lb://identity-server"))
+				.route(p -> p.path("/guardian/**").filters(f ->
+						f.hystrix(c -> c.setName("guardian").setFallbackUri("forward:/fallback"))).uri("lb://guardian"))
+				.route(p -> p.path("/lessons/**").filters(f ->
+						f.hystrix(c -> c.setName("lessons").setFallbackUri("forward:/fallback"))).uri("lb://lessons"))
 				.build();
 	}
 
