@@ -2,6 +2,10 @@ package com.avasthi.varahamihir.common.constants;
 
 import org.springframework.core.Ordered;
 
+import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 public class MyConstants {
 
 
@@ -60,5 +64,11 @@ public class MyConstants {
     refresh_token,
     client_credentials
   }
+
+  public static final Set<String> AUTHORIZED_GRANT_TYPES
+          = Arrays.asList(GRANT_TYPES.password.name(),
+          GRANT_TYPES.authorization_code.name(),
+          GRANT_TYPES.refresh_token.name(),
+          GRANT_TYPES.client_credentials.name()).stream().collect(Collectors.toSet());
 
 }

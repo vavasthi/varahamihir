@@ -1,6 +1,6 @@
 package com.avasthi.varahamihir.identityserver.services;
 
-import com.avasthi.varahamihir.common.entities.VarahamihirClientDetails;
+import com.avasthi.varahamihir.identityserver.entities.VarahamihirClientDetails;
 import com.avasthi.varahamihir.common.exceptions.EntityAlreadyExistsException;
 import com.avasthi.varahamihir.common.exceptions.NotFoundException;
 import com.avasthi.varahamihir.identityserver.repositories.ClientRepository;
@@ -50,4 +50,7 @@ public class ClientService {
     return Optional.of(clientRepository.save(storedClientDetails));
   }
 
+  public long count() {
+    return clientRepository.count();
+  }
 }

@@ -1,8 +1,10 @@
-package com.avasthi.varahamihir.common.filters;
+package com.avasthi.varahamihir.identityserver.filters;
 
 import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
 import com.avasthi.varahamihir.common.exceptions.InvalidTenantDiscriminatorException;
-import com.avasthi.varahamihir.common.utils.VarahamihirRequestContext;
+import com.avasthi.varahamihir.identityserver.entities.Tenant;
+import com.avasthi.varahamihir.identityserver.services.TenantService;
+import com.avasthi.varahamihir.identityserver.utils.VarahamihirRequestContext;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.annotation.Order;
@@ -15,15 +17,15 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 
 @Component
-@Order(VarahamihirConstants.TENANT_HEADER_PRECEDENCE)
-public class TenantHeaderFilter implements Filter {
+@Order(VarahamihirConstants.TENANT_PRECEDENCE)
+public class TenantFilter implements Filter {
   public static final String TENANT_HEADER = "X-tenant";
   private static final String defaultClient = "supersecretclient";
   private static final String defaultSecret = "supersecretclient123";
@@ -37,24 +39,25 @@ public class TenantHeaderFilter implements Filter {
                        FilterChain chain) throws IOException, ServletException {
 
     HttpServletRequest httpServletRequest = (HttpServletRequest)request;
-    HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-    String[] dirs = httpServletRequest.getRequestURI().split(File.separator);
-    String tenantDiscriminatorInPath = dirs[1];
+    HttpServletResponse httpServletResponse = (HttpServletResponse)response;
     WebApplicationContext webApplicationContext
             = WebApplicationContextUtils.getWebApplicationContext(request.getServletContext());
-    String tenantDiscriminator = httpServletRequest.getHeader(TENANT_HEADER);
-    if (tenantDiscriminatorInPath.equals(tenantDiscriminator)) {
-      VarahamihirRequestContext.currentTenantDiscriminator.set(tenantDiscriminator);
-      chain.doFilter(request, response);
-    }
-    else {
+    TenantService tenantService = webApplicationContext.getBean(TenantService.class);
+    String tenantDiscriminator = VarahamihirRequestContext.currentTenantDiscriminator.get();
+    Optional<Tenant> optionalTenant = tenantService.retrieveTenantsByDiscriminator(tenantDiscriminator);
+    if (!optionalTenant.isPresent()) {
       httpServletResponse.setStatus(HttpStatus.FORBIDDEN.value());
       httpServletResponse.setContentType(MediaType.APPLICATION_JSON_VALUE);
       Map<String, Object> errorDetail = new HashMap<>();
-      errorDetail.put("message", String.format("The header X-tenant should be same as the tenant discriminator in URL. Currently are %s and %s ", tenantDiscriminator, tenantDiscriminatorInPath));
+      errorDetail.put("message", String.format("Tenant %s doesn't exist", tenantDiscriminator));
       ObjectMapper mapper = new ObjectMapper();
       mapper.writeValue(httpServletResponse.getWriter(), errorDetail);
-      throw new InvalidTenantDiscriminatorException(String.format("The header X-tenant should be same as the tenant discriminator in URL. Currently are %s and %s ", tenantDiscriminator, tenantDiscriminatorInPath));
+      throw new InvalidTenantDiscriminatorException(String.format("Tenant %s doesn't exist", tenantDiscriminator));
     }
+    else {
+
+      VarahamihirRequestContext.currentTenant.set(optionalTenant.get());
+    }
+    chain.doFilter(request, response);
   }
 }

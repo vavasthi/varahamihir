@@ -1,4 +1,4 @@
-package com.avasthi.varahamihir.common.entities;
+package com.avasthi.varahamihir.identityserver.entities;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,13 +13,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "clients",
         uniqueConstraints =
                 {
-                        @UniqueConstraint(name = "uq_clientId", columnNames = {"clientId"})
+                        @UniqueConstraint(name = "uq_clientId", columnNames = {"client_id"})
                 })
 @EntityListeners(AuditingEntityListener.class)
 public class VarahamihirClientDetails implements ClientDetails {
@@ -92,8 +90,8 @@ public class VarahamihirClientDetails implements ClientDetails {
     this.refreshTokenValidity = refreshTokenValidity;
   }
 
-  public void setAdditionalInformation(Map<String, String> additionalInformation) {
-    this.additionalInformation = additionalInformation;
+  public void setAdditionalInformation(Map<String, String> addlInfo) {
+    this.addlInfo = addlInfo.entrySet().stream().map(e -> new VarahamihirClientDetailsAdditionalInfo(e.getKey(), e.getValue())).collect(Collectors.toSet());
   }
 
   public boolean isAutoApprove() {
@@ -141,26 +139,41 @@ public class VarahamihirClientDetails implements ClientDetails {
 
   public Map<String, Object> getAdditionalInformation() {
     Map<String, Object> returnMap = new HashMap<>();
-    additionalInformation.forEach((k,v) -> returnMap.put(k, v));
+    addlInfo.forEach((k) -> returnMap.put(k.getK(), k.getV()));
     return returnMap;
   }
 
   @Id
+  @Column(name = "client_id", length = 64)
   private String clientId;
   @ElementCollection(fetch = FetchType.EAGER)
+  @CollectionTable(name = "clients_resource_ids", joinColumns = @JoinColumn(name = "client_id"))
+  @Column(name = "resource_ids")
   private Set<String> resourceIds;
+  @Column(name = "client_secret")
   private String clientSecret;
   @ElementCollection(fetch = FetchType.EAGER)
+  @CollectionTable(name = "clients_scope", joinColumns = @JoinColumn(name = "client_id"))
   private Set<String> scope;
   @ElementCollection(fetch = FetchType.EAGER)
+  @CollectionTable(name = "clients_authorized_grant_types", joinColumns = @JoinColumn(name = "client_id"))
+  @Column(name = "authorized_grant_types")
   private Set<String> authorizedGrantTypes;
   @ElementCollection(fetch = FetchType.EAGER)
+  @CollectionTable(name = "clients_redirect_uri", joinColumns = @JoinColumn(name = "client_id"))
+  @Column(name = "web_server_redirect_uri")
   private Set<String> webServerRedirectUri;
   @ElementCollection(fetch = FetchType.EAGER)
+  @CollectionTable(name = "clients_authorities", joinColumns = @JoinColumn(name = "client_id"))
   private Set<GrantedAuthority> authorities;
+  @Column(name = "access_token_validity")
   private int accessTokenValidity;
+  @Column(name = "refresh_token_validity")
   private int refreshTokenValidity;
   @ElementCollection(fetch = FetchType.LAZY)
-  private Map<String, String> additionalInformation;
+  @CollectionTable(name = "clients_addl_info", joinColumns = @JoinColumn(name = "client_id"))
+  @Column(name = "addl_info")
+  private Set<VarahamihirClientDetailsAdditionalInfo> addlInfo;
+  @Column(name = "auto_approve")
   private boolean autoApprove;
 }

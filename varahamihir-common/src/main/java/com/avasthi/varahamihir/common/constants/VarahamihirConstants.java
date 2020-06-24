@@ -26,7 +26,7 @@ public class VarahamihirConstants {
   public static final String SHUTDOWN_ENDPOINT = "/shutdown";
 
   public static final String BASE_ENDPOINT = "/{tenant}";
-  public static final String V1_BASE_ENDPOINT = BASE_ENDPOINT + "/v1";
+  public static final String V1_BASE_ENDPOINT = BASE_ENDPOINT;
   public static final String V1_REGISTRATION_ENDPOINT = V1_BASE_ENDPOINT + "/registration";
   public static final String V1_USER_ENDPOINT = V1_BASE_ENDPOINT + "/user";
 
@@ -38,4 +38,11 @@ public class VarahamihirConstants {
   public static final int SEED_DATA_PRECEDENCE = TENANT_HEADER_PRECEDENCE - 1;
   public static final int TENANT_PRECEDENCE = SEED_DATA_PRECEDENCE - 1;
   public static final int USER_PRECEDENCE = Ordered.LOWEST_PRECEDENCE;
+
+  public static final String DEFAULT_CLIENT = "supersecretclient";
+  public static final String DEFAULT_SECRET = "supersecretclient123";
+  public static final int DEFAULT_ACCESS_TOKEN_VALIDITY = 500;
+  public static final int DEFAULT_REFRESH_TOKEN_VALIDITY = 1000;
+
+  public static final String DEFAULT_TENANT = "default";
 }

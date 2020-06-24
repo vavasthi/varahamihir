@@ -1,8 +1,8 @@
-package com.avasthi.varahamihir.common.utils;
+package com.avasthi.varahamihir.identityserver.utils;
 
 
-import com.avasthi.varahamihir.common.entities.Tenant;
-import com.avasthi.varahamihir.common.entities.User;
+import com.avasthi.varahamihir.identityserver.entities.Tenant;
+import com.avasthi.varahamihir.identityserver.entities.User;
 
 public class VarahamihirRequestContext {
 

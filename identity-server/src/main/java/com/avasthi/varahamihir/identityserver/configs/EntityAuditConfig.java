@@ -1,7 +1,7 @@
-package com.avasthi.varahamihir.common.configs;
+package com.avasthi.varahamihir.identityserver.configs;
 
 import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
-import com.avasthi.varahamihir.common.services.UserService;
+import com.avasthi.varahamihir.identityserver.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

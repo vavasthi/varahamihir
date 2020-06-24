@@ -1,8 +1,8 @@
-package com.avasthi.varahamihir.common.configs;
+package com.avasthi.varahamihir.identityserver.configs;
 
 import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
 import com.avasthi.varahamihir.common.enums.Role;
-import com.avasthi.varahamihir.common.filters.TenantHeaderFilter;
+import com.avasthi.varahamihir.identityserver.filters.TenantHeaderFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;

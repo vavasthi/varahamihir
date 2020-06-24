@@ -1,6 +1,7 @@
-package com.avasthi.varahamihir.common.configs;
+package com.avasthi.varahamihir.identityserver.configs;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -29,9 +30,9 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
+        basePackages = {"com.avasthi.varahamihir"},
         entityManagerFactoryRef = "multiEntityManager",
-        transactionManagerRef =  "multiTransactionManager",
-        basePackages = {"com.avasthi.varahamihir.identityserver.repositories"})
+        transactionManagerRef =  "multiTransactionManager")
 @EntityScan(basePackages = {"com.avasthi.varahamihir.identityserver.entities"})
 public class VarahamihirMultitenantConfig {
 
@@ -41,13 +42,18 @@ public class VarahamihirMultitenantConfig {
   private ApplicationContext applicationContext;
   private  final String TENANT_PROPERTIES_RESOURCE = "classpath:tenants/*.properties";
 
+  @Value("${spring.jpa.properties.hibernate.dialect:org.hibernate.dialect.MySQL5InnoDBDialect}")
+  private  String dialect;
+  @Value("${spring.jpa.hibernate.ddl-auto:create}")
+  private  String ddlAuto;
+
   @Primary
   @Bean(name = "dataSource")
   @ConfigurationProperties(
           prefix = "spring.datasource"
   )
   public DataSource dataSource() {
-    Map<Object, Object> resolvedDataSources = new HashMap<>();
+      Map<Object, Object> resolvedDataSources = new HashMap<>();
     try {
       Resource[] resources = applicationContext.getResources(TENANT_PROPERTIES_RESOURCE);
       for (Resource resource : resources) {
@@ -149,6 +155,8 @@ public class VarahamihirMultitenantConfig {
     Properties properties = new Properties();
     properties.put("hibernate.show_sql", true);
     properties.put("hibernate.format_sql", true);
+    properties.put("hibernate.dialect", dialect);
+    properties.put("hibernate.ddl-auto", ddlAuto);
     return properties;
   }
 }

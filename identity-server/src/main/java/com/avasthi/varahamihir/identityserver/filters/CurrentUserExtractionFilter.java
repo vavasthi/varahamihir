@@ -1,9 +1,9 @@
-package com.avasthi.varahamihir.common.filters;
+package com.avasthi.varahamihir.identityserver.filters;
 
 import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
-import com.avasthi.varahamihir.common.entities.User;
-import com.avasthi.varahamihir.common.services.UserService;
-import com.avasthi.varahamihir.common.utils.VarahamihirRequestContext;
+import com.avasthi.varahamihir.identityserver.entities.User;
+import com.avasthi.varahamihir.identityserver.services.UserService;
+import com.avasthi.varahamihir.identityserver.utils.VarahamihirRequestContext;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;

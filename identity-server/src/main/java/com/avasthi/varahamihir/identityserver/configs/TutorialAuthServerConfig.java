@@ -25,7 +25,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableAuthorizationServer
-public class VarahamihirAuthServerConfig extends AuthorizationServerConfigurerAdapter {
+public class TutorialAuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
   @Autowired
   private AuthenticationManager authenticationManager;
@@ -59,9 +59,9 @@ public class VarahamihirAuthServerConfig extends AuthorizationServerConfigurerAd
 
   @Override
   public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-    VarahamihirClientDetailsService varahamihirClientDetailsService = new VarahamihirClientDetailsService();
+    VarahamihirClientDetailsService tutorialClientDetailsService = new VarahamihirClientDetailsService();
 //    tutorialClientDetailsService.setPasswordEncoder(userPasswordEncoder());
-    clients.withClientDetails(varahamihirClientDetailsService);
+    clients.withClientDetails(tutorialClientDetailsService);
   }
 
   @Bean

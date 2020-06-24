@@ -1,10 +1,10 @@
-package com.avasthi.varahamihir.common.services;
+package com.avasthi.varahamihir.identityserver.services;
 
-import com.avasthi.varahamihir.common.entities.Tenant;
-import com.avasthi.varahamihir.common.entities.User;
-import com.avasthi.varahamihir.common.repositories.TenantRepository;
-import com.avasthi.varahamihir.common.repositories.UserRepository;
-import com.avasthi.varahamihir.common.utils.VarahamihirRequestContext;
+import com.avasthi.varahamihir.identityserver.utils.VarahamihirRequestContext;
+import com.avasthi.varahamihir.identityserver.entities.Tenant;
+import com.avasthi.varahamihir.identityserver.entities.User;
+import com.avasthi.varahamihir.identityserver.repositories.TenantRepository;
+import com.avasthi.varahamihir.identityserver.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

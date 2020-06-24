@@ -1,6 +1,6 @@
-package com.avasthi.varahamihir.common.repositories;
+package com.avasthi.varahamihir.identityserver.repositories;
 
-import com.avasthi.varahamihir.common.entities.Tenant;
+import com.avasthi.varahamihir.identityserver.entities.Tenant;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
