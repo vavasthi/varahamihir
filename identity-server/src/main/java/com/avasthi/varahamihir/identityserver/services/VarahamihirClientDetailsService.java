@@ -20,7 +20,6 @@ public class VarahamihirClientDetailsService implements ClientDetailsService {
   @Override
   public ClientDetails loadClientByClientId(String clientId) throws ClientRegistrationException {
 
-    log.error("Searching for client " +clientId);
     Optional<VarahamihirClientDetails> optionalClientDetails = clientRepository.findById(clientId);
     if (optionalClientDetails.isPresent()) {
       return optionalClientDetails.get();

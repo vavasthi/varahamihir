@@ -27,7 +27,6 @@ public class VarahamihirUserDetailService implements UserDetailsService {
 
   @Override
   public UserDetails loadUserByUsername(String username) throws NotFoundException {
-    log.error(String.format("%s looking for user.", username));
     Optional<User> user = userService.retrieveUser(username);
     if (user.isPresent()) {
       VarahamihirUserDetails userDetails = new VarahamihirUserDetails();
