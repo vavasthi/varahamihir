@@ -1,0 +1,25 @@
+package com.avasthi.varahamihir.common.exceptions;
+
+
+import com.avasthi.varahamihir.common.exception.AbstractResponse;
+
+public class ExceptionResponse extends AbstractResponse {
+
+    /**
+     * Instantiates a new Exception response.
+     */
+    public ExceptionResponse() {
+
+    }
+    // Since data is not required here , we are returning null
+
+    @Override
+    public Object getData() {
+        return null;
+    }
+
+    @Override
+    public void setData(Object data) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+}

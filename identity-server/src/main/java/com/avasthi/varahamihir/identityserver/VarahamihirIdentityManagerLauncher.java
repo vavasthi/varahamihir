@@ -1,11 +1,10 @@
 
 package com.avasthi.varahamihir.identityserver;
 
-import com.avasthi.varahamihir.identityserver.services.SetupService;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
-import com.avasthi.varahamihir.common.security.provider.VarahamihirAuditingDateTimeProvider;
 import com.avasthi.varahamihir.common.services.DateTimeService;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -31,14 +30,9 @@ import java.util.logging.Logger;
 @Configuration
 @EnableJpaRepositories("com.avasthi.vartahamihir")
 //@EnableSwagger2
+@Log4j2
 public class VarahamihirIdentityManagerLauncher extends SpringBootServletInitializer {
 
-  @Autowired
-  private SetupService setupService;
-  @Autowired
-  private DateTimeService dateTimeService;
-
-  Logger logger = Logger.getLogger(VarahamihirIdentityManagerLauncher.class.getName());
 
 
   public static void main(String[] args) throws Exception {
@@ -51,7 +45,7 @@ public class VarahamihirIdentityManagerLauncher extends SpringBootServletInitial
 
   @PostConstruct
   public void initialize() {
-    setupService.setup();
+    //setupService.setup();
   }
   @Override
   protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
@@ -64,21 +58,7 @@ public class VarahamihirIdentityManagerLauncher extends SpringBootServletInitial
   }
 
   @Bean
-  DateTimeProvider dateTimeProvider() {
-    return new VarahamihirAuditingDateTimeProvider(dateTimeService);
-  }
-
-  @Bean
   public Module jodaModule() {
     return new JodaModule();
   }
-/*    @Bean
-    RoleHierarchyImpl roleHierarchy() {
-        RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
-        String hierarchy = H2OConstants.VarahamihirRole.ADMIN.getValue() + " > " + H2OConstants.VarahamihirRole.FW_UPGRADE_ADMIN.getValue() + " ";
-        hierarchy += ()
-        roleHierarchy.setHierarchy();
-
-    }*/
-
 }

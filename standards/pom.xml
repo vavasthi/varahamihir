@@ -12,10 +12,9 @@
     <description>Varahamihir Standards Service</description>
 
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.0.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <groupId>com.avasthi.varahamihir</groupId>
+        <artifactId>varahamihir</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
 
     <properties>
@@ -186,6 +185,13 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>build-image</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

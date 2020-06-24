@@ -16,8 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-
 import static com.avasthi.varahamihir.common.constants.VarahamihirConstants.EXCEPTION_URL;
+
+
 @Log4j2
 @ControllerAdvice
 public class GlobalExceptionController extends ResponseEntityExceptionHandler {
