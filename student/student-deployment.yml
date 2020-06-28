@@ -1,0 +1,44 @@
+# APP DEPLOYMENT
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: student
+  name: student
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: student-exposed
+  template:
+    metadata:
+      labels:
+        run: student-exposed
+    spec:
+      serviceAccountName: chaos
+      containers:
+        - image: varahamihir/student
+          name: student
+          ports:
+            - containerPort: 8070
+              protocol: TCP
+
+---
+
+# APP SERVICE
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: student
+  name: student
+spec:
+  ports:
+    - port: 8081
+      protocol: TCP
+      targetPort: 8070
+  selector:
+    run: student-exposed
+  type: NodePort

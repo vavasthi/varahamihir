@@ -17,13 +17,14 @@ public class VarahamihirConstants {
   public static final String EXCEPTION_URL = "http://www.varahamihir.com/errors/%s";
   public static final String MSG_SUCCESS = "Success!";
 
-  public static final String AUTOCONFIG_ENDPOINT = "/autoconfig";
-  public static final String BEANS_ENDPOINT = "/beans";
-  public static final String CONFIGPROPS_ENDPOINT = "/configprops";
-  public static final String ENV_ENDPOINT = "/env";
-  public static final String MAPPINGS_ENDPOINT = "/mappings";
-  public static final String METRICS_ENDPOINT = "/metrics";
-  public static final String SHUTDOWN_ENDPOINT = "/shutdown";
+  public static final String AUTOCONFIG_ENDPOINT = "/manage/autoconfig";
+  public static final String BEANS_ENDPOINT = "/manage/beans";
+  public static final String CONFIGPROPS_ENDPOINT = "/manage/configprops";
+  public static final String ENV_ENDPOINT = "/manage/env";
+  public static final String MAPPINGS_ENDPOINT = "/manage/mappings";
+  public static final String METRICS_ENDPOINT = "/manage/metrics";
+  public static final String SHUTDOWN_ENDPOINT = "/manage/shutdown";
+  public static final String HEALTH_ENDPOINT = "/manage/health";
 
   public static final String BASE_ENDPOINT = "/{tenant}";
   public static final String V1_BASE_ENDPOINT = BASE_ENDPOINT;
@@ -32,6 +33,8 @@ public class VarahamihirConstants {
 
   public static final String V1_GUARDIAN_ENDPOINT = V1_BASE_ENDPOINT + "/guardian";
   public static final String V1_STUDENT_ENDPOINT = V1_BASE_ENDPOINT + "/customer";
+
+  public static final String V1_TOKEN_ENDPOINT = BASE_ENDPOINT + "/oauth/token";
 
   public static final String UNAUTHENTICATED_USER = "UnAuthenticated";
   public static final int TENANT_HEADER_PRECEDENCE = Ordered.HIGHEST_PRECEDENCE;
@@ -45,4 +48,11 @@ public class VarahamihirConstants {
   public static final int DEFAULT_REFRESH_TOKEN_VALIDITY = 1000;
 
   public static final String DEFAULT_TENANT = "default";
+  public static final String TOKEN_TYPE_CLAIM = "token_type_claim";
+  public static final String TOKEN_ROLE_CLAIM = "roles";
+  public static final int DEFAULT_EXPIRY = 100;
+  public static final int DEFAULT_REFRESH_EXPIRY = 200;
+  public static final String TENANT_DISCRIMINATOR_IN_CONTEXT = "TENANT_DISCRIMINATOR_IN_CONTEXT";
+  public static final String TENANT_IN_CONTEXT = "TENANT_IN_CONTEXT";
+  public static final String USER_IN_CONTEXT = "USER_IN_CONTEXT";
 }

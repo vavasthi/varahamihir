@@ -1,23 +1,26 @@
 
 package com.avasthi.varahamihir.common.enums;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 public enum Role {
-  USER("user"), // 0 User
-  TESTER("tester"), // 1 Tester
-  ADMIN("admin"), // 2 Admin
-  SUPERADMIN("superadmin"), //3 Super Admin
-  DEVICE("device"), // 4
-  STUDENT("student"), // 5
-  GUARDIAN("guardian"), // 6
-  NEWUSER("newUser"), //7
-  REFRESH("refresh"); // 8 Only for internal use for refresh token.
+  USER("user"),
+  CLIENT("client"),
+  TESTER("tester"),
+  ADMIN("admin"),
+  TENANT_ADMIN("tenant_admin"),
+  STUDENT("student"),
+  GUARDIAN("guardian"),
+  NEWUSER("newUser"),
+  REFRESH("refresh");
 
   private final String value;
-  private final String role;
 
   Role(String value) {
     this.value = value;
-    this.role = "\"hasRole('" + value + "')\")";
   }
 
   public static Role createFromString(String value) {
@@ -33,11 +36,10 @@ public enum Role {
     return value;
   }
 
-  public final String getRole() {
-    return role;
+  public Set<String> getGrantedAuthority() {
+    return new HashSet<String>(Arrays.asList(value));
   }
-
-  public final String getRoleAnnotation() {
-    return "hasRole('" + value + "')";
+  public Set<String> getGrantedAuthority(Set<Role> roles) {
+    return roles.stream().map(r -> r.value).collect(Collectors.toSet());
   }
 }

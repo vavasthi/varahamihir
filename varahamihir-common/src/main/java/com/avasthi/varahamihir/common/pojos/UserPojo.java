@@ -1,31 +1,36 @@
 package com.avasthi.varahamihir.common.pojos;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
+import java.util.UUID;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserPojo implements Serializable {
 
-    private Long id;
+    @JsonIgnore
+    public String getPassword() {
+        return password;
+    }
+
+    private UUID id;
     private String createdBy;
     private String updatedBy;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private Date createdAt;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private Date updatedAt;
-    private Long tenantId;
+    private UUID tenantId;
     private String fullname;
     private String username;
     private String password;

@@ -1,0 +1,44 @@
+# APP DEPLOYMENT
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: standards
+  name: standards
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: standards-exposed
+  template:
+    metadata:
+      labels:
+        run: standards-exposed
+    spec:
+      serviceAccountName: chaos
+      containers:
+        - image: varahamihir/standards
+          name: standards
+          ports:
+            - containerPort: 8070
+              protocol: TCP
+
+---
+
+# APP SERVICE
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: standards
+  name: standards
+spec:
+  ports:
+    - port: 8081
+      protocol: TCP
+      targetPort: 8070
+  selector:
+    run: standards-exposed
+  type: NodePort

@@ -1,12 +1,17 @@
 package com.avasthi.varahamihir.identityserver.services;
 
-import com.avasthi.varahamihir.identityserver.entities.VarahamihirClientDetails;
+import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
+import com.avasthi.varahamihir.common.exception.UnauthorizedException;
 import com.avasthi.varahamihir.common.exceptions.EntityAlreadyExistsException;
-import com.avasthi.varahamihir.common.exceptions.NotFoundException;
+import com.avasthi.varahamihir.identityserver.entities.Tenant;
+import com.avasthi.varahamihir.identityserver.entities.VarahamihirClientDetails;
 import com.avasthi.varahamihir.identityserver.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.Optional;
 
@@ -16,41 +21,84 @@ public class ClientService {
   private ClientRepository clientRepository;
 
   @Autowired
+  @Qualifier(value = "passwordEncoder")
   private PasswordEncoder passwordEncoder;
 
-  public Iterable<VarahamihirClientDetails> findAll() {
-    return clientRepository.findAll();
+  public Flux<VarahamihirClientDetails> findAll() {
+    return Flux.defer(() -> Flux.fromIterable(clientRepository.findAll()));
   }
 
-  public Optional<VarahamihirClientDetails> findById(String clientId) {
-    return clientRepository.findById(clientId);
+  public Mono<VarahamihirClientDetails> findByClientId(String clientId) {
+    return Mono.subscriberContext()
+            .flatMap(tenantDiscriminatorContext -> {
+              Tenant tenant
+                      = tenantDiscriminatorContext.<Tenant>get(VarahamihirConstants.TENANT_IN_CONTEXT);
+              if (tenant != null) {
+                Optional<VarahamihirClientDetails> optionalVarahamihirClientDetails
+                        = clientRepository.findByTenantAndClientId(tenant.getId(),clientId);
+                if (optionalVarahamihirClientDetails.isPresent()) {
+
+                  return Mono.defer(()->Mono.just(optionalVarahamihirClientDetails.get()));
+                }
+                return Mono.error(new UnauthorizedException(String.format("Client %s does not exist", clientId)));
+              }
+              return Mono.error(new UnauthorizedException(String.format("Tenant %s does not exist", clientId)));
+            });
+
   }
 
-  public Optional<VarahamihirClientDetails> create(VarahamihirClientDetails clientDetails) {
+  public Mono<VarahamihirClientDetails> create(VarahamihirClientDetails clientDetails) {
 
-    Optional<VarahamihirClientDetails> optionalOauthClientDetails
-            = clientRepository.findById(clientDetails.getClientId());
-    if (optionalOauthClientDetails.isPresent()) {
-      throw new EntityAlreadyExistsException(String.format("%s is not a valid client id.", clientDetails.getClientId()));
-    }
-    clientDetails.setClientSecret(passwordEncoder.encode(clientDetails.getClientSecret()));
-    clientDetails = clientRepository.save(clientDetails);
-    return Optional.of(clientDetails);
+    return Mono.subscriberContext()
+            .flatMap(tenantDiscriminatorContext -> {
+              Tenant tenant
+                      = tenantDiscriminatorContext.<Tenant>get(VarahamihirConstants.TENANT_IN_CONTEXT);
+              Optional<VarahamihirClientDetails> optionalVarahamihirClientDetails
+                      = clientRepository.findByTenantAndClientId(tenant.getId(),
+                      clientDetails.getClientId());
+              if (optionalVarahamihirClientDetails.isPresent()) {
+
+                return Mono.error(new EntityAlreadyExistsException(String.format("%s is not a valid client id.", clientDetails.getClientId())));
+              }
+              else {
+                VarahamihirClientDetails storedClientDetails = optionalVarahamihirClientDetails.get();
+                storedClientDetails.setClientSecret(passwordEncoder.encode(clientDetails.getClientSecret()));
+                storedClientDetails = clientRepository.save(storedClientDetails);
+                return Mono.just(storedClientDetails);
+              }
+            });
   }
 
-  public Optional<VarahamihirClientDetails> update(String clientId, VarahamihirClientDetails clientDetails) {
+  public Mono<VarahamihirClientDetails> update(String clientId, VarahamihirClientDetails clientDetails) {
 
-    Optional<VarahamihirClientDetails> optionalOauthClientDetails
-            = clientRepository.findById(clientId);
-    if (!optionalOauthClientDetails.isPresent()) {
-      throw new NotFoundException(String.format("%s is not a valid client id.", clientId));
-    }
-    VarahamihirClientDetails storedClientDetails = optionalOauthClientDetails.get();
-    storedClientDetails.setClientSecret(passwordEncoder.encode(clientDetails.getClientSecret()));
-    return Optional.of(clientRepository.save(storedClientDetails));
+    return Mono.subscriberContext()
+            .flatMap(tenantDiscriminatorContext -> {
+              Tenant tenant
+                      = tenantDiscriminatorContext.<Tenant>get(VarahamihirConstants.TENANT_IN_CONTEXT);
+              if (tenant == null) {
+
+                return Mono.error(new UnauthorizedException(String.format("Tenant %s does not exist", clientId)));
+              }
+              Optional<VarahamihirClientDetails> optionalOauthClientDetails
+                      = clientRepository.findByTenantAndClientId(tenant.getId(), clientId);
+              if (optionalOauthClientDetails.isPresent()) {
+
+                VarahamihirClientDetails storedClientDetails = optionalOauthClientDetails.get();
+                storedClientDetails.setClientSecret(passwordEncoder.encode(clientDetails.getClientSecret()));
+                storedClientDetails = clientRepository.save(storedClientDetails);
+                return Mono.just(storedClientDetails);
+              }
+              return Mono.error(new UnauthorizedException(String.format("Client %s does not exist", clientId)));
+            });
   }
+
 
   public long count() {
     return clientRepository.count();
+  }
+
+  public void save(VarahamihirClientDetails clientDetails) {
+    clientDetails.setClientSecret(passwordEncoder.encode(clientDetails.getClientSecret()));
+    clientRepository.save(clientDetails);
   }
 }

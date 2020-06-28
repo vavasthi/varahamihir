@@ -7,11 +7,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Set;
+import java.util.UUID;
 
 @Getter
 @Setter
 public class VarahamihirUserDetails implements UserDetails {
 
+  private UUID tenantId;
   private String userName;
   private String password;
   private boolean accountNonLocked;

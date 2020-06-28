@@ -1,7 +1,7 @@
 package com.avasthi.varahamihir.identityserver.entities;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -12,36 +12,33 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
+import java.util.UUID;
 
 @Getter
 @Setter
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "users",
         uniqueConstraints =
           {
-                  @UniqueConstraint(name = "uq_email", columnNames = {"email"}),
-                  @UniqueConstraint(name = "uq_username", columnNames = {"username"})
+                  @UniqueConstraint(name = "uq_email", columnNames = {"tenant_id","email"}),
+                  @UniqueConstraint(name = "uq_username", columnNames = {"tenant_id", "username"})
           })
 @EntityListeners(AuditingEntityListener.class)
 public class User implements Serializable {
 
-    public User() {
-
-    }
-    public User(Tenant tenant, String fullname, String username, String email, long mask, String authToken, Date expiry) {
-        this.tenant = tenant;
-        this.fullname = fullname;
-        this.username = username;
-        this.email = email;
-        this.mask = mask;
-        this.authToken = authToken;
-        this.expiry = expiry;
-
+    public String getPassword() {
+        return password;
     }
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @org.hibernate.annotations.Type(type="uuid-char")
     @Column(name = "id")
-    private Long id;
+    private UUID id;
+    @Column(name = "tenant_id")
+    @org.hibernate.annotations.Type(type="uuid-char")
+    private UUID tenantId;
     @CreatedBy
     @Column(name = "created_by")
     private String createdBy;
@@ -54,9 +51,6 @@ public class User implements Serializable {
     @LastModifiedDate
     @Column(name = "updated_at")
     private Date updatedAt;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="tenant_id", nullable = false)
-    private Tenant tenant;
     @Column(name = "fullname")
     private String fullname;
     @Column(name = "username")
@@ -65,12 +59,6 @@ public class User implements Serializable {
     private String password;
     @Column(name = "email")
     private String email;
-    @Column(name = "mask")
-    private long mask;
-    @Column(name = "auth_token")
-    private String authToken;
-    @Column(name = "expiry")
-    private Date expiry;
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_granted_authorities", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "granted_authorities")

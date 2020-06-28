@@ -9,6 +9,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -18,7 +19,8 @@ public abstract class AbstractBaseEntity {
   @Id
   @GeneratedValue(strategy= GenerationType.AUTO)
   @Column(name = "id")
-  private Long id;
+  @org.hibernate.annotations.Type(type="uuid-char")
+  private UUID id;
   @CreatedBy
   @Column(name = "created_by")
   private String createdBy;

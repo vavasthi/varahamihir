@@ -1,53 +1,49 @@
 package com.avasthi.varahamihir.identityserver.services;
 
-import com.avasthi.varahamihir.identityserver.utils.VarahamihirRequestContext;
+import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
 import com.avasthi.varahamihir.identityserver.entities.Tenant;
 import com.avasthi.varahamihir.identityserver.entities.User;
 import com.avasthi.varahamihir.identityserver.repositories.TenantRepository;
 import com.avasthi.varahamihir.identityserver.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserService {
+
   @Autowired
   private UserRepository userRepository;
   @Autowired
   private TenantRepository tenantRepository;
 
-  public Iterable<User> findAll() {
-    return userRepository.findAll();
+  public Flux<User> findAll() {
+    return Flux.fromIterable(userRepository.findAll());
   }
-  public Optional<User> findByUsername(String username) {
-    return userRepository.findUserByTenantAndUsername(VarahamihirRequestContext.currentTenant.get(), username);
+  public Mono<User> findByUsername(String username) {
+    return Mono.subscriberContext()
+            .flatMap(tenantDiscriminatorContext -> {
+              Tenant tenant
+                      = tenantDiscriminatorContext.<Tenant>get(VarahamihirConstants.TENANT_IN_CONTEXT);
+              return Mono.just(userRepository.findUserByTenantAndUsername(tenant.getId(),
+                      username).get());
+            }).switchIfEmpty(Mono.empty());
   }
-  public Optional<User> retrieveUser(String idOrUserNameOrEmail) {
-    Optional<Tenant> optionalTenant = tenantRepository.findById(VarahamihirRequestContext.currentTenant.get().getId());
-    try {
-      Long id = Long.parseLong(idOrUserNameOrEmail);
-      Optional<User> optionalUser = userRepository.findById(id);
-      if (optionalUser.isPresent()) {
-        return optionalUser;
-      }
-    }
-    catch(NumberFormatException e) {
-
-    }
-    Optional<User> optionalUser = userRepository.findUserByEmail(idOrUserNameOrEmail);
-    if (optionalUser.isPresent()) {
-      return optionalUser;
-    }
-    optionalUser = userRepository.findUserByUsernameAndTenant(optionalTenant.get(),
-            idOrUserNameOrEmail);
-    return optionalUser;
-  }
-  public User save(User user) {
-    return userRepository.save(user);
+  public Mono<User> save(User user) {
+    return Mono.subscriberContext()
+            .flatMap(tenantDiscriminatorContext -> {
+              Tenant tenant
+                      = tenantDiscriminatorContext.<Tenant>get(VarahamihirConstants.TENANT_IN_CONTEXT);
+              user.setTenantId(tenant.getId());
+              return Mono.just(userRepository.save(user));
+            }).switchIfEmpty(Mono.empty());
   }
 
-  public void delete(Long id) {
+  public void delete(UUID id) {
     userRepository.deleteById(id);
   }
 }

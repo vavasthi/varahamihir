@@ -1,5 +1,7 @@
 package com.avasthi.varahamihir.identityserver.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -11,6 +13,8 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@Builder
+@AllArgsConstructor
 @Table(name = "tenants",
         uniqueConstraints =
                 {
@@ -28,9 +32,11 @@ public class Tenant extends AbstractBaseEntity {
   private String discriminator;
   @Column(name = "description")
   private String description;
-  @OneToMany(mappedBy = "tenant")
-  @Column(name = "users")
-  private Set<User> users;
   @Column(name = "default_value")
   private boolean defaultValue;
+  @Column(name = "expiry")
+  private int expiry;
+  @Column(name = "refresh_expiry")
+  private int refreshExpiry;
+
 }

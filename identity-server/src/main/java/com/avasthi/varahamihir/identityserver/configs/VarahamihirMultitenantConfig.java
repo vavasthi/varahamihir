@@ -27,7 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-@Configuration
+//@Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
         basePackages = {"com.avasthi.varahamihir"},
