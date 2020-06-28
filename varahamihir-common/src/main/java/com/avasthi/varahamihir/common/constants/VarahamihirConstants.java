@@ -37,9 +37,9 @@ public class VarahamihirConstants {
   public static final String V1_TOKEN_ENDPOINT = BASE_ENDPOINT + "/oauth/token";
 
   public static final String UNAUTHENTICATED_USER = "UnAuthenticated";
-  public static final int TENANT_HEADER_PRECEDENCE = Ordered.HIGHEST_PRECEDENCE;
-  public static final int SEED_DATA_PRECEDENCE = TENANT_HEADER_PRECEDENCE - 1;
-  public static final int TENANT_PRECEDENCE = SEED_DATA_PRECEDENCE - 1;
+  public static final int AUTHORIZATION_HEADER_PRECEDENCE = Ordered.HIGHEST_PRECEDENCE;
+  public static final int TENANT_HEADER_PRECEDENCE = AUTHORIZATION_HEADER_PRECEDENCE - 1;
+  public static final int TENANT_PRECEDENCE = TENANT_HEADER_PRECEDENCE - 1;
   public static final int USER_PRECEDENCE = Ordered.LOWEST_PRECEDENCE;
 
   public static final String DEFAULT_CLIENT = "supersecretclient";
@@ -55,4 +55,6 @@ public class VarahamihirConstants {
   public static final String TENANT_DISCRIMINATOR_IN_CONTEXT = "TENANT_DISCRIMINATOR_IN_CONTEXT";
   public static final String TENANT_IN_CONTEXT = "TENANT_IN_CONTEXT";
   public static final String USER_IN_CONTEXT = "USER_IN_CONTEXT";
+  public static final String AUTHORIZATION_HEADER_IN_CONTEXT = "AUTHORIZATION_HEADER_IN_CONTEXT";
+  public static final String AUTHORIZATION_HEADER_NAME = "Authorization";
 }

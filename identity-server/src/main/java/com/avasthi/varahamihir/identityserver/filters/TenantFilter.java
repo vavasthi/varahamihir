@@ -43,7 +43,6 @@ public class TenantFilter extends VarahamihirAbstractFilter implements WebFilter
               else {
 
                 return unauthorizedException(serverWebExchange,
-                        tenantDiscriminator,
                         String.format("Tenant header is not present"));
               }
             });

@@ -42,7 +42,6 @@ public class TenantHeaderFilter extends VarahamihirAbstractFilter implements Web
     }
     else {
       return unauthorizedException(serverWebExchange,
-              tenantDiscriminator,
               String.format("The header X-tenant should be same as the tenant discriminator in URL. Currently are %s and %s ", tenantDiscriminator, tenantDiscriminatorInPath));
     }
   }

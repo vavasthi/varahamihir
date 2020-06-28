@@ -41,6 +41,7 @@ public class VarahamihirAuthenticationManager implements ReactiveAuthenticationM
   public PasswordEncoder userPasswordEncoder() {
     return new SCryptPasswordEncoder();
   }
+
   @Bean(name = "tokenEncoder")
   public PasswordEncoder tokenEncoder() {
     return new VarahamihirTokenEncoder();

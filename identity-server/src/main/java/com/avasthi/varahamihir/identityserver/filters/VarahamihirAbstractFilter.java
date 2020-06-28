@@ -8,7 +8,6 @@ import reactor.core.publisher.Mono;
 
 public class VarahamihirAbstractFilter {
   protected Mono<Void> unauthorizedException(ServerWebExchange serverWebExchange,
-                                             String tenantDiscriminator,
                                              String message) {
     serverWebExchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
     return Mono.error(new UnauthorizedException(message));
