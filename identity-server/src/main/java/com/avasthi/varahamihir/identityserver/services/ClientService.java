@@ -1,7 +1,7 @@
 package com.avasthi.varahamihir.identityserver.services;
 
 import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
-import com.avasthi.varahamihir.common.exception.UnauthorizedException;
+import com.avasthi.varahamihir.common.exceptions.UnauthorizedException;
 import com.avasthi.varahamihir.common.exceptions.EntityAlreadyExistsException;
 import com.avasthi.varahamihir.identityserver.entities.Tenant;
 import com.avasthi.varahamihir.identityserver.entities.VarahamihirClientDetails;

@@ -2,7 +2,7 @@ package com.avasthi.varahamihir.identityserver.endpoints;
 
 import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
 import com.avasthi.varahamihir.common.enums.Role;
-import com.avasthi.varahamihir.common.exception.UnauthorizedException;
+import com.avasthi.varahamihir.common.exceptions.UnauthorizedException;
 import com.avasthi.varahamihir.common.pojos.TokenRequest;
 import com.avasthi.varahamihir.common.pojos.TokenResponse;
 import com.avasthi.varahamihir.identityserver.entities.Tenant;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
 @RestController

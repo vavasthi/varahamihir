@@ -1,6 +1,6 @@
 package com.avasthi.varahamihir.common.endpoints.v1;
 
-import com.avasthi.varahamihir.common.exception.EntityNotFoundException;
+import com.avasthi.varahamihir.common.exceptions.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;

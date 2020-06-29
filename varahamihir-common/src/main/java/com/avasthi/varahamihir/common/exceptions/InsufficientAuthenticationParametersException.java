@@ -7,22 +7,17 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * Created by vavasthi on 27/1/16.
  */
 @ResponseStatus(HttpStatus.UNAUTHORIZED)
-public class InsufficientAuthenticationParametersException extends BaseException {
+public class InsufficientAuthenticationParametersException extends VarahamihirBaseException {
 
-    /**
-     * Instantiates a new Entity already exists exception.
-     */
-    public InsufficientAuthenticationParametersException(){
-        super();
+    public InsufficientAuthenticationParametersException() {
+        super(HttpStatus.UNAUTHORIZED);
     }
 
-    /**
-     * Instantiates a new Entity already exists exception.
-     *
-     * @param message the message
-     */
-    public InsufficientAuthenticationParametersException(String message){
-        super(message);
+    public InsufficientAuthenticationParametersException(String reason) {
+        super(HttpStatus.UNAUTHORIZED, reason);
     }
 
+    public InsufficientAuthenticationParametersException(String reason, Throwable cause) {
+        super(HttpStatus.UNAUTHORIZED, reason, cause);
+    }
 }

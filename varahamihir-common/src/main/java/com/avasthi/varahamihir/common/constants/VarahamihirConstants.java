@@ -3,6 +3,7 @@ package com.avasthi.varahamihir.common.constants;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.core.Ordered;
+import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 
 import java.io.IOException;
 import java.util.*;
@@ -37,7 +38,7 @@ public class VarahamihirConstants {
   public static final String V1_TOKEN_ENDPOINT = BASE_ENDPOINT + "/oauth/token";
 
   public static final String UNAUTHENTICATED_USER = "UnAuthenticated";
-  public static final int AUTHORIZATION_HEADER_PRECEDENCE = Ordered.HIGHEST_PRECEDENCE;
+  public static final int AUTHORIZATION_HEADER_PRECEDENCE = SecurityWebFiltersOrder.REACTOR_CONTEXT.getOrder() - 1;
   public static final int TENANT_HEADER_PRECEDENCE = AUTHORIZATION_HEADER_PRECEDENCE - 1;
   public static final int TENANT_PRECEDENCE = TENANT_HEADER_PRECEDENCE - 1;
   public static final int USER_PRECEDENCE = Ordered.LOWEST_PRECEDENCE;

@@ -7,22 +7,17 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * Created by vavasthi on 27/1/16.
  */
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class InvalidTenantDiscriminatorException extends BaseException {
+public class InvalidTenantDiscriminatorException extends VarahamihirBaseException {
 
-    /**
-     * Instantiates a new Entity already exists exception.
-     */
-    public InvalidTenantDiscriminatorException(){
-        super();
+    public InvalidTenantDiscriminatorException() {
+        super(HttpStatus.NOT_FOUND);
     }
 
-    /**
-     * Instantiates a new Entity already exists exception.
-     *
-     * @param message the message
-     */
-    public InvalidTenantDiscriminatorException(String message){
-        super(message);
+    public InvalidTenantDiscriminatorException(String reason) {
+        super(HttpStatus.NOT_FOUND, reason);
     }
 
+    public InvalidTenantDiscriminatorException(String reason, Throwable cause) {
+        super(HttpStatus.NOT_FOUND, reason, cause);
+    }
 }

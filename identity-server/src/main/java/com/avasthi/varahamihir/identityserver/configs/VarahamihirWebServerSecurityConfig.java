@@ -1,21 +1,31 @@
 package com.avasthi.varahamihir.identityserver.configs;
 
 import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
-import com.avasthi.varahamihir.common.exception.UnauthorizedException;
+import com.avasthi.varahamihir.common.exceptions.ExceptionResponse;
+import com.avasthi.varahamihir.common.exceptions.UnauthorizedException;
+import com.avasthi.varahamihir.common.exceptions.VarahamihirBaseException;
+import com.avasthi.varahamihir.identityserver.filters.AuthorizationHeaderFilter;
+import com.avasthi.varahamihir.identityserver.filters.TenantFilter;
+import com.avasthi.varahamihir.identityserver.filters.TenantHeaderFilter;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
+import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.ServerAuthenticationEntryPoint;
 import org.springframework.web.server.ServerWebExchange;
+import org.springframework.web.server.WebExceptionHandler;
 import reactor.core.publisher.Mono;
 
 @Configuration
@@ -35,7 +45,8 @@ public class VarahamihirWebServerSecurityConfig {
             .authorizeExchange()
             .pathMatchers("/actuator/health").permitAll()
             .pathMatchers(HttpMethod.OPTIONS).permitAll()
-            .pathMatchers("/default/login").permitAll()
+            .pathMatchers("/*/login").permitAll()
+            .pathMatchers("/*/registration/*").permitAll()
             .anyExchange().authenticated()
             .and()
             .authenticationManager(authenticationManager)
@@ -53,8 +64,13 @@ public class VarahamihirWebServerSecurityConfig {
             .csrf().disable()
             .formLogin().disable()
             .httpBasic().disable()
+            .addFilterAfter(new AuthorizationHeaderFilter(), SecurityWebFiltersOrder.REACTOR_CONTEXT)
+            .addFilterAfter(new TenantHeaderFilter(), SecurityWebFiltersOrder.REACTOR_CONTEXT)
+            .addFilterAfter(new TenantFilter(), SecurityWebFiltersOrder.REACTOR_CONTEXT)
+//            .addFilterAfter(new CurrentUserExtractionFilter(), SecurityWebFiltersOrder.AUTHORIZATION)
             .build();
   }
+
 
 /*  @Override
   protected void configure(HttpSecurity http) throws Exception {

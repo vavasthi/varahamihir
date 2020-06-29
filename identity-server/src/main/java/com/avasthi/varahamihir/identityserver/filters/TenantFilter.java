@@ -15,8 +15,8 @@ import reactor.core.publisher.Mono;
 import java.util.Optional;
 
 
-@Component
-@Order(VarahamihirConstants.TENANT_PRECEDENCE)
+//@Component
+//@Order(VarahamihirConstants.TENANT_PRECEDENCE)
 public class TenantFilter extends VarahamihirAbstractFilter implements WebFilter {
   public static final String TENANT_HEADER = "X-tenant";
   private static final String defaultClient = "supersecretclient";

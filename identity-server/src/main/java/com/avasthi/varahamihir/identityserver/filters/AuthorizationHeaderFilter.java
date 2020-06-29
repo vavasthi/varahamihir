@@ -7,6 +7,7 @@ import com.avasthi.varahamihir.identityserver.utils.VarahamihirJWTUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Base64Utils;
 import org.springframework.web.server.ServerWebExchange;
@@ -17,8 +18,7 @@ import reactor.core.publisher.Mono;
 import java.io.File;
 
 
-@Component
-@Order(VarahamihirConstants.AUTHORIZATION_HEADER_PRECEDENCE)
+//@Component
 public class AuthorizationHeaderFilter extends VarahamihirAbstractFilter implements WebFilter {
   public static final String TENANT_HEADER = "X-tenant";
   private static final String defaultClient = "supersecretclient";
@@ -56,6 +56,7 @@ public class AuthorizationHeaderFilter extends VarahamihirAbstractFilter impleme
                               .authToken(authToken)
                               .username(username)
                               .password(password)
+                              .clientId(username)
                               .authType(AuthorizationHeaderValues.AuthType.Basic)
                               .build()));
     }

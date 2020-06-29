@@ -9,26 +9,18 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * Created by vavasthi on 28/01/16.
  */
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class NotFoundException extends BaseException {
+public class NotFoundException extends VarahamihirBaseException {
 
-    /**
-     * Instantiates a new Not found exception.
-     *
-     * @param errorCode the error code
-     * @param Message   the message
-     */
-    public NotFoundException(int errorCode, String Message) {
 
-        super(errorCode, ErrorCodes.NOT_FOUND_ERROR_MSG_PREFIX+Message);
+    public NotFoundException() {
+        super(HttpStatus.NOT_FOUND);
     }
 
-    /**
-     * Instantiates a new Not found exception.
-     *
-     * @param message the message
-     */
-    public NotFoundException(String message) {
-        super(message);
+    public NotFoundException(String reason) {
+        super(HttpStatus.NOT_FOUND, reason);
     }
 
+    public NotFoundException(String reason, Throwable cause) {
+        super(HttpStatus.NOT_FOUND, reason, cause);
+    }
 }

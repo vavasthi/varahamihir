@@ -29,6 +29,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.reactive.config.EnableWebFlux;
+import reactor.core.publisher.Hooks;
 
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
@@ -36,6 +37,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
+import static reactor.core.publisher.Hooks.*;
 
 /**
  * Created by vinay on 1/8/16.
@@ -70,31 +73,35 @@ public class VarahamihirIdentityManagerLauncher extends SpringBootServletInitial
 
   @PostConstruct
   public void initialize() {
+    onOperatorDebug();
+    Tenant tenant = new Tenant();
     if (tenantService.count() == 0) {
 
-      Tenant tenant = new Tenant();
       tenant.setDescription("Default tenant for the system");
       tenant.setDiscriminator(VarahamihirConstants.DEFAULT_TENANT);
       tenant.setName("Default Tenant");
       tenant.setDefaultValue(true);
       tenant.setExpiry(VarahamihirConstants.DEFAULT_ACCESS_TOKEN_VALIDITY);
       tenant.setRefreshExpiry(VarahamihirConstants.DEFAULT_REFRESH_TOKEN_VALIDITY);
-      tenantService.save(tenant);
+      tenant.setId(UUID.randomUUID());
+      tenant = tenantService.save(tenant);
+
+      if (clientService.count() == 0) {
+        VarahamihirClientDetails clientDetails = VarahamihirClientDetails.builder()
+                .id(UUID.randomUUID())
+                .clientId(VarahamihirConstants.DEFAULT_CLIENT)
+                .clientSecret(VarahamihirConstants.DEFAULT_SECRET)
+                .accessTokenValidity(VarahamihirConstants.DEFAULT_ACCESS_TOKEN_VALIDITY)
+                .refreshTokenValidity(VarahamihirConstants.DEFAULT_REFRESH_TOKEN_VALIDITY)
+                .authorities(Arrays.asList(Role.ADMIN.name(), Role.GUARDIAN.name(), Role.STUDENT.name()).stream().map(e -> new VarahamihirGrantedAuthority(e)).collect(Collectors.toSet()))
+                .scope(Arrays.asList("read", "write").stream().collect(Collectors.toSet()))
+                .autoApprove(true)
+                .authorizedGrantTypes(MyConstants.AUTHORIZED_GRANT_TYPES)
+                .tenantId(tenant.getId())
+                .build();
+        clientService.save(clientDetails);
     }
 
-    if (clientService.count() == 0) {
-      VarahamihirClientDetails clientDetails = VarahamihirClientDetails.builder()
-              .id(UUID.randomUUID())
-              .clientId(VarahamihirConstants.DEFAULT_CLIENT)
-              .clientSecret(VarahamihirConstants.DEFAULT_SECRET)
-              .accessTokenValidity(VarahamihirConstants.DEFAULT_ACCESS_TOKEN_VALIDITY)
-              .refreshTokenValidity(VarahamihirConstants.DEFAULT_REFRESH_TOKEN_VALIDITY)
-              .authorities(Arrays.asList(Role.ADMIN.name(), Role.GUARDIAN.name(), Role.STUDENT.name()).stream().map(e -> new VarahamihirGrantedAuthority(e)).collect(Collectors.toSet()))
-              .scope(Arrays.asList("read", "write").stream().collect(Collectors.toSet()))
-              .autoApprove(true)
-              .authorizedGrantTypes(MyConstants.AUTHORIZED_GRANT_TYPES)
-              .build();
-      clientService.save(clientDetails);
     }
 //setupService.setup();
   }

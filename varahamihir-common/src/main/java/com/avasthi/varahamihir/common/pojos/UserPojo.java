@@ -18,11 +18,6 @@ import java.util.UUID;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserPojo implements Serializable {
 
-    @JsonIgnore
-    public String getPassword() {
-        return password;
-    }
-
     private UUID id;
     private String createdBy;
     private String updatedBy;

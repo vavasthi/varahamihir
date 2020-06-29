@@ -1,25 +1,18 @@
 package com.avasthi.varahamihir.common.exceptions;
 
+import lombok.Builder;
+import lombok.Data;
 
-import com.avasthi.varahamihir.common.exception.AbstractResponse;
+import java.util.Date;
 
-public class ExceptionResponse extends AbstractResponse {
+@Data
+@Builder
+public class ExceptionResponse {
 
-    /**
-     * Instantiates a new Exception response.
-     */
-    public ExceptionResponse() {
-
-    }
-    // Since data is not required here , we are returning null
-
-    @Override
-    public Object getData() {
-        return null;
-    }
-
-    @Override
-    public void setData(Object data) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+  private Date timestamp;
+  private String path;
+  private int status;
+  private String error;
+  private String messge;
+  private String requestId;
 }

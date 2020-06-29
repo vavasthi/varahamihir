@@ -12,7 +12,7 @@ import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
 import reactor.core.publisher.Mono;
 
-@Component
+//@Component
 @Order(VarahamihirConstants.USER_PRECEDENCE)
 public class CurrentUserExtractionFilter extends VarahamihirAbstractFilter implements WebFilter {
   public static final String TENANT_HEADER = "X-tenant";

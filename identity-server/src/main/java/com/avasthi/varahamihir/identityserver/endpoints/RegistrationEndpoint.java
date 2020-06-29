@@ -33,10 +33,7 @@ public class RegistrationEndpoint {
     @RequestMapping(value = "/user", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<UserPojo> createUser(@PathVariable(value="tenant") String tenant,
                                      @RequestBody UserPojo userPojo) {
-        User user = userToPojoMapper.convert(userPojo);
-        user.setPassword(passwordEncoder.encode(userPojo.getPassword()));
-        Mono<User> monoStoredUser = userService.save(user);
-        return Mono.just(userToPojoMapper.convert(monoStoredUser.block()));
+        return userService.create(userPojo);
     }
     @RequestMapping(value = "/client", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'TENANT_ADMIN')")

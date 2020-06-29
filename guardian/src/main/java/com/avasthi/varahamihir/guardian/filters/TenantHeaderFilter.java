@@ -21,8 +21,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-@Component
-@Order(VarahamihirConstants.TENANT_HEADER_PRECEDENCE)
+//@Component
+//@Order(VarahamihirConstants.TENANT_HEADER_PRECEDENCE)
 public class TenantHeaderFilter implements Filter {
   public static final String TENANT_HEADER = "X-tenant";
   private static final String defaultClient = "supersecretclient";

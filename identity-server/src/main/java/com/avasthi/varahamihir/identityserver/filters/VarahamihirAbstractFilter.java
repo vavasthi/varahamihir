@@ -1,7 +1,7 @@
 package com.avasthi.varahamihir.identityserver.filters;
 
 import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
-import com.avasthi.varahamihir.common.exception.UnauthorizedException;
+import com.avasthi.varahamihir.common.exceptions.UnauthorizedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
