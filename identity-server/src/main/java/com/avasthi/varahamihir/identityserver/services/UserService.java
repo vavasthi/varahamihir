@@ -68,8 +68,12 @@ public class UserService {
             .flatMap(tenantDiscriminatorContext -> {
               Tenant tenant
                       = tenantDiscriminatorContext.<Tenant>get(VarahamihirConstants.TENANT_IN_CONTEXT);
-              return Mono.just(userRepository.findUserByTenantAndUsername(tenant.getId(),
-                      username).get());
+              Optional<User> optionalUser
+                      = userRepository.findUserByTenantAndUsername(tenant.getId(), username);
+              if (optionalUser.isPresent()) {
+                return Mono.just(optionalUser.get());
+              }
+              return Mono.error(new EntityNotFoundException(String.format("User %s doesn't exist.", username)));
             }).switchIfEmpty(Mono.empty());
   }
 
@@ -96,7 +100,7 @@ public class UserService {
 
                                     return findByUsername(ar.getUsername()).flatMap((userDetails) -> {
 
-                                      if (tokenEncoder.encode(ar.getPassword()).equals(userDetails.getPassword())) {
+                                      if (passwordEncoder.matches(ar.getPassword(), userDetails.getPassword())) {
 
                                         try {
                                           VarahamihirAuthResponse response
@@ -167,6 +171,8 @@ return clientService.findByClientId(ahv.getClientId())
                             .audience(claimsSet.getAudience().stream().collect(Collectors.toSet()))
                             .clientId(claimsSet.getSubject())
                             .scope(scope)
+                            .accessTokenExpiry(expiry)
+                            .refreshTokenExpiry(refreshExpiry)
                             .build());
                   } catch (ParseException|JOSEException|BadJOSEException e) {
                     e.printStackTrace();
@@ -176,6 +182,8 @@ return clientService.findByClientId(ahv.getClientId())
                           .audience(new HashSet<String>())
                           .clientId(ahv.getClientId())
                           .scope(scope)
+                          .accessTokenExpiry(expiry)
+                          .refreshTokenExpiry(refreshExpiry)
                           .build());
               }
               return Mono.error(new TokenInvalidException("Token is invalid."));

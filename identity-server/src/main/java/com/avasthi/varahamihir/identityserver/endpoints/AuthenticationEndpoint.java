@@ -25,17 +25,9 @@ public class AuthenticationEndpoint {
   @RequestMapping(value = VarahamihirConstants.BASE_ENDPOINT + "/login",
           method = RequestMethod.POST,
           consumes = MediaType.APPLICATION_JSON_VALUE)
-  public Mono<VarahamihirAuthResponse> login(@ModelAttribute Mono<VarahamihirAuthRequest> monoAr)
+  public Mono<VarahamihirAuthResponse> login(@RequestBody VarahamihirAuthRequest ar)
           throws ParseException, JOSEException, BadJOSEException {
-    return monoAr.flatMap(ar -> {
-
-      try {
-
         return userService.getLoginResponse(ar);
-      } catch (ParseException|BadJOSEException|JOSEException e) {
-        return Mono.error(e);
-      }
-    }).switchIfEmpty(Mono.error(new BadRequestException(String.format("Invalid request object"))));
   }
 }
 

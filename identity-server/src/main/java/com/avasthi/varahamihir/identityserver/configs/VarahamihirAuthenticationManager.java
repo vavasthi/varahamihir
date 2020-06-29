@@ -34,7 +34,8 @@ public class VarahamihirAuthenticationManager implements ReactiveAuthenticationM
        TokenClaims tokenClaims = varahamihirJwtUtil.retrieveTokenClaims(authToken);
       return Mono.just(new UsernamePasswordAuthenticationToken(tokenClaims.getSubject(), null, tokenClaims.getAuthorities()));
     } catch (Exception e) {
-      return Mono.empty();
+      e.printStackTrace();
+      return Mono.error(e);
     }
   }
   @Bean(name = "passwordEncoder")

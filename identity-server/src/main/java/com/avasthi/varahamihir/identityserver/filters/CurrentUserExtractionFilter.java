@@ -1,6 +1,7 @@
 package com.avasthi.varahamihir.identityserver.filters;
 
 import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
+import com.avasthi.varahamihir.common.pojos.UserPojo;
 import com.avasthi.varahamihir.identityserver.entities.User;
 import com.avasthi.varahamihir.identityserver.services.UserService;
 import org.springframework.context.ApplicationContext;

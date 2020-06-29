@@ -29,8 +29,9 @@ public class VarahamihirSecurityContextRepository implements ServerSecurityConte
     ServerHttpRequest request = swe.getRequest();
     String authHeader = request.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
 
-    if (authHeader != null && authHeader.startsWith("Bearer ")) {
-      String authToken = authHeader.substring(7);
+    if (authHeader != null && authHeader.startsWith("Bearer ") && authHeader.contains(" ")) {
+      // Split the auth header at space and the second token is the authToken.
+      String authToken = authHeader.split(" ")[1];
       Authentication auth = new UsernamePasswordAuthenticationToken(authToken, authToken);
       return this.authenticationManager.authenticate(auth).map((authentication) -> {
         return new SecurityContextImpl(authentication);

@@ -1,5 +1,6 @@
 package com.avasthi.varahamihir.common.pojos;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,6 +12,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class VarahamihirAuthResponse {
 
   private UUID jti;
