@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name:  demo-volume-claim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: demo
+  resources:
+    requests:
+      storage: 500M
+---
