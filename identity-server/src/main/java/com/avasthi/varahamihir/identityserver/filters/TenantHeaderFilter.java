@@ -2,8 +2,6 @@ package com.avasthi.varahamihir.identityserver.filters;
 
 import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
@@ -24,6 +22,7 @@ public class TenantHeaderFilter extends VarahamihirAbstractFilter implements Web
 
   @Override
   public Mono<Void> filter(ServerWebExchange serverWebExchange, WebFilterChain webFilterChain) {
+    logSecurityContext(LoginWebFilter.class);
     String requestURI = serverWebExchange.getRequest().getPath().toString();
     String[] dirs = requestURI.split(File.separator);
     String tenantDiscriminatorInPath = dirs[1];

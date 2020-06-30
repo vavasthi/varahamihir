@@ -1,5 +1,7 @@
 package com.avasthi.varahamihir.common.pojos;
 
+import com.avasthi.varahamihir.common.enums.VarahamihirSubjectType;
+import com.avasthi.varahamihir.common.enums.VarahamihirTokenType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,6 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -18,5 +21,7 @@ public class TokenClaims {
   private String subject;
   private String issuer;
   private List<String> audience;
-  private List<GrantedAuthority> authorities;
+  private Set<GrantedAuthority> authorities;
+  private VarahamihirSubjectType subjectType;
+  private VarahamihirTokenType tokenType;
 }

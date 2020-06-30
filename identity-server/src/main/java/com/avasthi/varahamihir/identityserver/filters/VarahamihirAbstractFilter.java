@@ -2,10 +2,12 @@ package com.avasthi.varahamihir.identityserver.filters;
 
 import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
 import com.avasthi.varahamihir.common.exceptions.UnauthorizedException;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+@Log4j2
 public class VarahamihirAbstractFilter {
   protected Mono<Void> unauthorizedException(ServerWebExchange serverWebExchange,
                                              String message) {
@@ -28,5 +30,14 @@ public class VarahamihirAbstractFilter {
             .map(tenantDiscriminatorContext -> {
               return tenantDiscriminatorContext.<String>get(VarahamihirConstants.TENANT_DISCRIMINATOR_IN_CONTEXT);
             });
+  }
+  protected void logSecurityContext(Class<?> currentUserExtractionFilterClass) {
+      Mono.subscriberContext()
+            .map(context -> {
+              log.error(currentUserExtractionFilterClass.getCanonicalName() + "CONTEXT :"  + ":" + context.get(VarahamihirConstants.TENANT_DISCRIMINATOR_IN_CONTEXT));
+              log.error(currentUserExtractionFilterClass.getCanonicalName() + "CONTEXT :"  + ":" + context.get(VarahamihirConstants.USER_IN_CONTEXT));
+              log.error(currentUserExtractionFilterClass.getCanonicalName() + "CONTEXT :"  + ":" + context.get(VarahamihirConstants.TENANT_IN_CONTEXT));
+              return context;
+            }).switchIfEmpty( Mono.empty());
   }
 }

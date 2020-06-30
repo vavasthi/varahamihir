@@ -5,8 +5,6 @@ import com.avasthi.varahamihir.identityserver.entities.Tenant;
 import com.avasthi.varahamihir.identityserver.services.TenantService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
@@ -27,6 +25,7 @@ public class TenantFilter extends VarahamihirAbstractFilter implements WebFilter
 
   @Override
   public Mono<Void> filter(ServerWebExchange serverWebExchange, WebFilterChain webFilterChain) {
+    logSecurityContext(LoginWebFilter.class);
     ApplicationContext applicationContext = serverWebExchange.getApplicationContext();
     TenantService tenantService = applicationContext.getBean(TenantService.class);
      return Mono.subscriberContext()

@@ -5,16 +5,19 @@ import com.avasthi.varahamihir.common.constants.MyConstants;
 import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
 import com.avasthi.varahamihir.common.enums.Role;
 import com.avasthi.varahamihir.common.pojos.VarahamihirGrantedAuthority;
+import com.avasthi.varahamihir.identityserver.configs.VarahamihirSecurityContextRepository;
 import com.avasthi.varahamihir.identityserver.entities.Tenant;
 import com.avasthi.varahamihir.identityserver.entities.VarahamihirClientDetails;
 import com.avasthi.varahamihir.identityserver.services.ClientService;
 import com.avasthi.varahamihir.identityserver.services.TenantService;
+import com.avasthi.varahamihir.identityserver.utils.VarahamihirTokenEncoder;
 import io.dekorate.kubernetes.annotation.ImagePullPolicy;
 import io.dekorate.kubernetes.annotation.KubernetesApplication;
 import io.dekorate.kubernetes.annotation.Probe;
 import io.dekorate.kubernetes.annotation.ServiceType;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -27,6 +30,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
+import org.springframework.security.web.server.context.ServerSecurityContextRepository;
+import org.springframework.security.web.server.context.WebSessionServerSecurityContextRepository;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.reactive.config.EnableWebFlux;
 import reactor.core.publisher.Hooks;
@@ -62,6 +69,8 @@ public class VarahamihirIdentityManagerLauncher extends SpringBootServletInitial
   private ClientService clientService;
   @Autowired
   private TenantService tenantService;
+//  @Autowired
+//  private VarahamihirSecurityContextRepository securityContextRepository;
 
   public static void main(String[] args) throws Exception {
 
@@ -127,5 +136,17 @@ public class VarahamihirIdentityManagerLauncher extends SpringBootServletInitial
   public AuthenticationManager authenticationManagerBean() throws Exception {
     return super.authenticationManagerBean();
   }*/
+@Bean(name = "passwordEncoder")
+public PasswordEncoder passwordEncoder() {
+  return new SCryptPasswordEncoder();
+}
 
+  @Bean(name = "tokenEncoder")
+  public PasswordEncoder tokenEncoder() {
+    return new VarahamihirTokenEncoder();
+  }
+  @Bean
+  public ServerSecurityContextRepository serverSecurityContextRepository() {
+  return new WebSessionServerSecurityContextRepository();
+  }
 }

@@ -2,10 +2,13 @@ package com.avasthi.varahamihir.identityserver.filters;
 
 import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
 import com.avasthi.varahamihir.common.pojos.UserPojo;
+import com.avasthi.varahamihir.common.pojos.VarahamihirOAuth2Principal;
 import com.avasthi.varahamihir.identityserver.entities.User;
 import com.avasthi.varahamihir.identityserver.services.UserService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.ReactiveSecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
@@ -21,7 +24,7 @@ public class CurrentUserExtractionFilter extends VarahamihirAbstractFilter imple
 
   @Override
   public Mono<Void> filter(ServerWebExchange serverWebExchange, WebFilterChain webFilterChain) {
-
+    logSecurityContext(CurrentUserExtractionFilter.class);
     ApplicationContext applicationContext = serverWebExchange.getApplicationContext();
     UserService userService = applicationContext.getBean(UserService.class);
     return ReactiveSecurityContextHolder.getContext().flatMap(securityContext -> {
@@ -37,8 +40,8 @@ public class CurrentUserExtractionFilter extends VarahamihirAbstractFilter imple
       Mono<User> monoUser = userService.findByUsername(username);
       return monoUser.map(u -> webFilterChain
                 .filter(serverWebExchange)
-                .subscriberContext(context -> context.put(VarahamihirConstants.USER_IN_CONTEXT, u))
-      ).switchIfEmpty(unauthorizedExceptionTenantDoesntExist());
+                .subscriberContext(context -> context.put(VarahamihirConstants.USER_IN_CONTEXT, u)))
+      .switchIfEmpty(unauthorizedExceptionTenantDoesntExist());
     });
   };
 }
