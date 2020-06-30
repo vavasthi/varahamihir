@@ -1,5 +1,6 @@
 package com.avasthi.varahamihir.identityserver.converters;
 
+import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
 import com.avasthi.varahamihir.common.exceptions.UnauthorizedException;
 import com.avasthi.varahamihir.common.pojos.TokenClaims;
 import com.avasthi.varahamihir.identityserver.utils.VarahamihirJWTUtil;
@@ -16,6 +17,8 @@ import java.util.function.Function;
 
 
 public class VarahamihirJWTAuthConverters implements Function<ServerWebExchange, Mono<Authentication>> {
+
+  final String bearerLowercase = "bearer";
   @Autowired
   private VarahamihirJWTUtil jwtUtil;
   public VarahamihirJWTAuthConverters(VarahamihirJWTUtil jwtUtil) {
@@ -25,9 +28,15 @@ public class VarahamihirJWTAuthConverters implements Function<ServerWebExchange,
   public Mono<Authentication> apply(ServerWebExchange serverWebExchange) {
 
     try {
-      TokenClaims tokenClaims
-              = jwtUtil.retrieveTokenClaims(VarahamihirJWTUtil.getAuthorizationPayload(serverWebExchange));
-      return Mono.just(jwtUtil.getAuthenticationToken(tokenClaims));
+      String authorizationHeader
+              = VarahamihirJWTUtil.getAuthorizationPayload(serverWebExchange);
+      String[] pieces = authorizationHeader.split(" ");
+      if (pieces.length == 2
+              && pieces[0].toLowerCase().equals(bearerLowercase)) {
+        TokenClaims tokenClaims
+                = jwtUtil.retrieveTokenClaims(pieces[1]);
+        return Mono.just(jwtUtil.getAuthenticationToken(tokenClaims, pieces[1]));
+      }
     } catch (ParseException | JOSEException | BadJOSEException e) {
       e.printStackTrace();
     }

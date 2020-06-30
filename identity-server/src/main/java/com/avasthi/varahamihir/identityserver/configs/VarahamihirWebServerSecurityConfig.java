@@ -1,25 +1,21 @@
 package com.avasthi.varahamihir.identityserver.configs;
 
 import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
-import com.avasthi.varahamihir.common.exceptions.ExceptionResponse;
 import com.avasthi.varahamihir.common.exceptions.UnauthorizedException;
-import com.avasthi.varahamihir.common.exceptions.VarahamihirBaseException;
 import com.avasthi.varahamihir.identityserver.filters.AuthorizationHeaderFilter;
 import com.avasthi.varahamihir.identityserver.filters.TenantFilter;
 import com.avasthi.varahamihir.identityserver.filters.TenantHeaderFilter;
 import com.avasthi.varahamihir.identityserver.filters.VarahamihirJWTAuthWebFilter;
 import com.avasthi.varahamihir.identityserver.handlers.VarahamihirAuthenticationSuccessHandler;
+import com.avasthi.varahamihir.identityserver.resolvers;
+import com.avasthi.varahamihir.identityserver.services.VarahamihirReactiveClientUserDetailService;
 import com.avasthi.varahamihir.identityserver.services.VarahamihirReactiveUserDetailService;
 import com.avasthi.varahamihir.identityserver.utils.VarahamihirJWTUtil;
-import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.authentication.UserDetailsRepositoryReactiveAuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
@@ -31,7 +27,6 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.ServerAuthenticationEntryPoint;
 import org.springframework.security.web.server.authentication.AuthenticationWebFilter;
 import org.springframework.web.server.ServerWebExchange;
-import org.springframework.web.server.WebExceptionHandler;
 import reactor.core.publisher.Mono;
 
 @Configuration
@@ -41,7 +36,11 @@ import reactor.core.publisher.Mono;
 public class VarahamihirWebServerSecurityConfig {
 
   @Autowired
+  @Qualifier(value = "varahamihirReactiveUserDetailService")
   private VarahamihirReactiveUserDetailService userDetailService;
+  @Autowired
+  @Qualifier(value = "varahamihirReactiveClientUserDetailService")
+  private VarahamihirReactiveClientUserDetailService clientUserDetailService;
 
   @Autowired
   private VarahamihirJWTUtil jwtUtil;
@@ -55,12 +54,13 @@ public class VarahamihirWebServerSecurityConfig {
 
 
     AuthenticationWebFilter authenticationWebFilter
-            = new AuthenticationWebFilter(new UserDetailsRepositoryReactiveAuthenticationManager(userDetailService));
+            = new AuthenticationWebFilter(new resolvers.VarahamihirAuthenticationManagerResolver(new UserDetailsRepositoryReactiveAuthenticationManager(clientUserDetailService),
+            new UserDetailsRepositoryReactiveAuthenticationManager(userDetailService)));
     authenticationWebFilter.setAuthenticationSuccessHandler(new VarahamihirAuthenticationSuccessHandler());
     return http.csrf().disable()
             .addFilterAt(new AuthorizationHeaderFilter(), SecurityWebFiltersOrder.FIRST)
             .addFilterAt(new TenantHeaderFilter(), SecurityWebFiltersOrder.FIRST)
-            .addFilterAfter(new TenantFilter(), SecurityWebFiltersOrder.FIRST)
+            .addFilterAt(new TenantFilter(), SecurityWebFiltersOrder.FIRST)
             .authorizeExchange()
             .pathMatchers(WHITELISTED_AUTH_URLS).permitAll()
             .pathMatchers(HttpMethod.OPTIONS).permitAll()

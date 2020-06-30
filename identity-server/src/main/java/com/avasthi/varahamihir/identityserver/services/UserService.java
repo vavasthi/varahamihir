@@ -11,7 +11,7 @@ import com.avasthi.varahamihir.common.pojos.VarahamihirAuthRequest;
 import com.avasthi.varahamihir.common.pojos.VarahamihirAuthResponse;
 import com.avasthi.varahamihir.identityserver.entities.Tenant;
 import com.avasthi.varahamihir.identityserver.entities.User;
-import com.avasthi.varahamihir.identityserver.enums.VarahamihirTokenType;
+import com.avasthi.varahamihir.common.enums.VarahamihirTokenType;
 import com.avasthi.varahamihir.identityserver.mappers.UserPojoMapper;
 import com.avasthi.varahamihir.identityserver.pojo.ClientDetailsFromToken;
 import com.avasthi.varahamihir.identityserver.repositories.TenantRepository;
@@ -21,8 +21,6 @@ import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.proc.BadJOSEException;
 import com.nimbusds.jwt.JWTClaimsSet;
 import lombok.extern.log4j.Log4j2;
-import org.bouncycastle.crypto.tls.UserMappingType;
-import org.hibernate.sql.Template;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -156,30 +154,6 @@ public class UserService {
             });
   }
 
-  /*            .map(tenantDiscriminatorContext -> {
-                Tenant tenant1 = tenantDiscriminatorContext.<Tenant>get(VarahamihirConstants.TENANT_IN_CONTEXT);
-                log.error("Tenant is " + tenant1.getId());
-                return tenant1;
-              });*/
-/*            .map(monoAhvContext -> {
-              AuthorizationHeaderValues ahv = monoAhvContext.<AuthorizationHeaderValues>get(VarahamihirConstants.AUTHORIZATION_HEADER_IN_CONTEXT);
-              log.error("The client id is " + ahv.getClientId());
-              return ahv;
-            });
-    monoTenant.map(t -> {
-      log.error(String.format("The tenant is :%s", t.getId()));
-      return t;
-    });
-    monoAhv.map(t -> {
-      log.error(String.format("The client id is is :%s", t.getClientId()));
-      return t;
-    });
-    Tenant tenant = null;
-//    final AuthorizationHeaderValues ahv
-//            = Mono.subscriberContext()
-//            .map(ahvContext -> ahvContext.<AuthorizationHeaderValues>get(VarahamihirConstants.AUTHORIZATION_HEADER_IN_CONTEXT)).block();
-
-  }*/
   private Mono<ClientDetailsFromToken> getClientDetailsFromToken(AuthorizationHeaderValues ahv)
           throws ParseException, JOSEException, BadJOSEException {
 

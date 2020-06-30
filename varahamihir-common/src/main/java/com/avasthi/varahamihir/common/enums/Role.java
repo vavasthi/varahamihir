@@ -15,7 +15,8 @@ public enum Role {
   STUDENT("student"),
   GUARDIAN("guardian"),
   NEWUSER("newUser"),
-  REFRESH("refresh");
+  REFRESH("refresh"),
+  AUTHENTICATE("authenticate");
 
   private final String value;
 

@@ -50,6 +50,7 @@ public class VarahamihirConstants {
 
   public static final String DEFAULT_TENANT = "default";
   public static final String TOKEN_TYPE_CLAIM = "token_type_claim";
+  public static final String TOKEN_SUBJECT_TYPE = "token_subject_claim";
   public static final String TOKEN_ROLE_CLAIM = "roles";
   public static final int DEFAULT_EXPIRY = 100;
   public static final int DEFAULT_REFRESH_EXPIRY = 200;

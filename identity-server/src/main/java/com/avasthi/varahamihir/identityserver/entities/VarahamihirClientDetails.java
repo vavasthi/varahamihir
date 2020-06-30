@@ -59,4 +59,7 @@ public class VarahamihirClientDetails {
   private Set<VarahamihirClientDetailsAdditionalInfo> addlInfo;
   @Column(name = "auto_approve")
   private boolean autoApprove;
+  private boolean expired = false;
+  private boolean locked = false;
+  private boolean credentialsLocked = false;
 }

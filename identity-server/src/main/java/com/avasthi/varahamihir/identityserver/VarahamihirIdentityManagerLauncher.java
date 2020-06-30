@@ -28,6 +28,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -133,7 +135,8 @@ public class VarahamihirIdentityManagerLauncher extends SpringBootServletInitial
 
   @Bean(name = "passwordEncoder")
   public PasswordEncoder passwordEncoder() {
-    return new SCryptPasswordEncoder();
+    PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    return passwordEncoder;
   }
 
   @Bean(name = "tokenEncoder")

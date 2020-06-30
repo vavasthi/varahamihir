@@ -7,7 +7,7 @@ import com.avasthi.varahamihir.common.pojos.TokenRequest;
 import com.avasthi.varahamihir.common.pojos.TokenResponse;
 import com.avasthi.varahamihir.identityserver.entities.Tenant;
 import com.avasthi.varahamihir.identityserver.entities.VarahamihirClientDetails;
-import com.avasthi.varahamihir.identityserver.enums.VarahamihirTokenType;
+import com.avasthi.varahamihir.common.enums.VarahamihirTokenType;
 import com.avasthi.varahamihir.identityserver.services.ClientService;
 import com.avasthi.varahamihir.identityserver.utils.VarahamihirJWTUtil;
 import com.nimbusds.jose.JOSEException;
@@ -59,8 +59,7 @@ public class TokenEndpoint {
 
                       tokenResponse = TokenResponse.builder()
                               .accessToken(varahamihirJwtUtil.generateToken(tenant,
-                                      clientDetails.getClientId(),
-                                      Role.CLIENT.getGrantedAuthority(),
+                                      clientDetails,
                                       VarahamihirTokenType.ACCESS_TOKEN,
                                       tokenRequest.getAudience()))
                               .expiresIn(clientDetails.getAccessTokenValidity())

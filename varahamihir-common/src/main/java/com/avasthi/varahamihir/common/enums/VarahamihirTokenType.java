@@ -1,4 +1,4 @@
-package com.avasthi.varahamihir.identityserver.enums;
+package com.avasthi.varahamihir.common.enums;
 
 public enum VarahamihirTokenType {
   ACCESS_TOKEN,

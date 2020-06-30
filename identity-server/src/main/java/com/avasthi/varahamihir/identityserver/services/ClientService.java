@@ -6,6 +6,7 @@ import com.avasthi.varahamihir.common.exceptions.EntityAlreadyExistsException;
 import com.avasthi.varahamihir.identityserver.entities.Tenant;
 import com.avasthi.varahamihir.identityserver.entities.VarahamihirClientDetails;
 import com.avasthi.varahamihir.identityserver.repositories.ClientRepository;
+import com.avasthi.varahamihir.identityserver.repositories.TenantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,6 +20,8 @@ import java.util.Optional;
 public class ClientService {
   @Autowired
   private ClientRepository clientRepository;
+  @Autowired
+  private TenantRepository tenantRepository;
 
   @Autowired
   @Qualifier(value = "passwordEncoder")
@@ -31,16 +34,21 @@ public class ClientService {
   public Mono<VarahamihirClientDetails> findByClientId(String clientId) {
     return Mono.subscriberContext()
             .flatMap(tenantDiscriminatorContext -> {
-              Tenant tenant
-                      = tenantDiscriminatorContext.<Tenant>get(VarahamihirConstants.TENANT_IN_CONTEXT);
-              if (tenant != null) {
-                Optional<VarahamihirClientDetails> optionalVarahamihirClientDetails
-                        = clientRepository.findByTenantAndClientId(tenant.getId(),clientId);
-                if (optionalVarahamihirClientDetails.isPresent()) {
+              String tenantDiscriminator
+                      = tenantDiscriminatorContext.<String>get(VarahamihirConstants.TENANT_DISCRIMINATOR_IN_CONTEXT);
+              if (tenantDiscriminator != null) {
+                Optional<Tenant> optionalTenant = tenantRepository.findTenantsByDiscriminator(tenantDiscriminator);
+                if (optionalTenant.isPresent()) {
 
-                  return Mono.defer(()->Mono.just(optionalVarahamihirClientDetails.get()));
+                  Tenant tenant = optionalTenant.get();
+                  Optional<VarahamihirClientDetails> optionalVarahamihirClientDetails
+                          = clientRepository.findByTenantAndClientId(tenant.getId(),clientId);
+                  if (optionalVarahamihirClientDetails.isPresent()) {
+
+                    return Mono.defer(()->Mono.just(optionalVarahamihirClientDetails.get()));
+                  }
+                  return Mono.error(new UnauthorizedException(String.format("Client %s does not exist", clientId)));
                 }
-                return Mono.error(new UnauthorizedException(String.format("Client %s does not exist", clientId)));
               }
               return Mono.error(new UnauthorizedException(String.format("Tenant %s does not exist", clientId)));
             });
@@ -92,6 +100,28 @@ public class ClientService {
             });
   }
 
+  public Mono<VarahamihirClientDetails> updatePassword(String clientId, String password) {
+
+    return Mono.subscriberContext()
+            .flatMap(tenantDiscriminatorContext -> {
+              Tenant tenant
+                      = tenantDiscriminatorContext.<Tenant>get(VarahamihirConstants.TENANT_IN_CONTEXT);
+              if (tenant == null) {
+
+                return Mono.error(new UnauthorizedException(String.format("Tenant %s does not exist", clientId)));
+              }
+              Optional<VarahamihirClientDetails> optionalOauthClientDetails
+                      = clientRepository.findByTenantAndClientId(tenant.getId(), clientId);
+              if (optionalOauthClientDetails.isPresent()) {
+
+                VarahamihirClientDetails storedClientDetails = optionalOauthClientDetails.get();
+                storedClientDetails.setClientSecret(passwordEncoder.encode(password));
+                storedClientDetails = clientRepository.save(storedClientDetails);
+                return Mono.just(storedClientDetails);
+              }
+              return Mono.error(new UnauthorizedException(String.format("Client %s does not exist", clientId)));
+            });
+  }
 
   public long count() {
     return clientRepository.count();

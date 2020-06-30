@@ -1,12 +1,15 @@
 package com.avasthi.varahamihir.identityserver.utils;
 
 import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
+import com.avasthi.varahamihir.common.enums.Role;
+import com.avasthi.varahamihir.common.enums.VarahamihirSubjectType;
 import com.avasthi.varahamihir.common.pojos.TokenClaims;
-import com.avasthi.varahamihir.common.pojos.UserPojo;
 import com.avasthi.varahamihir.common.pojos.VarahamihirGrantedAuthority;
+import com.avasthi.varahamihir.common.pojos.VarahamihirOAuth2Principal;
 import com.avasthi.varahamihir.identityserver.entities.Tenant;
 import com.avasthi.varahamihir.identityserver.entities.User;
-import com.avasthi.varahamihir.identityserver.enums.VarahamihirTokenType;
+import com.avasthi.varahamihir.common.enums.VarahamihirTokenType;
+import com.avasthi.varahamihir.identityserver.entities.VarahamihirClientDetails;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.DirectDecrypter;
 import com.nimbusds.jose.crypto.DirectEncrypter;
@@ -20,7 +23,6 @@ import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.proc.BadJWTException;
 import com.nimbusds.jwt.proc.ConfigurableJWTProcessor;
 import com.nimbusds.jwt.proc.DefaultJWTProcessor;
-import lombok.extern.log4j.Log4j;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -29,13 +31,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
-import reactor.core.publisher.Mono;
 
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
-import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 @Log4j2
@@ -75,13 +74,36 @@ public class VarahamihirJWTUtil {
                               User user,
                               VarahamihirTokenType tokenType,
                               String audience) throws JOSEException {
-    return generateToken(tenant, user.getUsername(), user.getGrantedAuthorities(), tokenType, audience);
+    return generateToken(tenant,
+            user.getUsername(),
+            user.getGrantedAuthorities(),
+            tokenType,
+            VarahamihirSubjectType.USER,
+            audience);
   }
 
-  public String generateToken(Tenant tenant, String username, Set<String> grantedAuthorities, VarahamihirTokenType tokenType, String audience) throws JOSEException {
+  public String generateToken(Tenant tenant,
+                              VarahamihirClientDetails clientDetails,
+                              VarahamihirTokenType tokenType,
+                              String audience) throws JOSEException {
+    return generateToken(tenant,
+            clientDetails.getClientId(),
+            new HashSet<String>(Arrays.asList(Role.CLIENT.name())),
+            tokenType,
+            VarahamihirSubjectType.CLIENT,
+            audience);
+  }
+  public String generateToken(Tenant tenant,
+                              String username,
+                              Set<String> grantedAuthorities,
+                              VarahamihirTokenType tokenType,
+                              VarahamihirSubjectType subjectType,
+                              String audience) throws JOSEException {
+
     Map<String, Object> claims = new HashMap<>();
-    claims.put(VarahamihirConstants.TOKEN_TYPE_CLAIM, grantedAuthorities);
-    claims.put(VarahamihirConstants.TOKEN_TYPE_CLAIM, tokenType.name());
+    claims.put(VarahamihirConstants.TOKEN_ROLE_CLAIM, grantedAuthorities);
+    claims.put(VarahamihirConstants.TOKEN_TYPE_CLAIM, tokenType);
+    claims.put(VarahamihirConstants.TOKEN_SUBJECT_TYPE, subjectType);
     return doGenerateToken(tenant, claims, username, audience);
   }
 
@@ -136,11 +158,18 @@ public class VarahamihirJWTUtil {
         authorities.add(new VarahamihirGrantedAuthority(rolemap));
       }
     }
+    VarahamihirSubjectType subjectType
+            = VarahamihirSubjectType.valueOf((String)claims.getClaims().get(VarahamihirConstants.TOKEN_SUBJECT_TYPE));
+    VarahamihirTokenType tokenType
+            = VarahamihirTokenType.valueOf((String)claims.getClaims().get(VarahamihirConstants.TOKEN_TYPE_CLAIM));
     return TokenClaims.builder()
             .authorities(authorities)
             .subject(claims.getSubject())
             .issuer(claims.getIssuer())
             .audience(claims.getAudience())
+            .authToken(authToken)
+            .tokenType(tokenType)
+            .subjectType(subjectType)
             .build();
 
   }
@@ -161,7 +190,15 @@ public class VarahamihirJWTUtil {
             .getHeaders()
             .getFirst(HttpHeaders.AUTHORIZATION);
   }
-  public Authentication getAuthenticationToken(TokenClaims tokenClaims) {
-    return new UsernamePasswordAuthenticationToken(tokenClaims.getSubject(), tokenClaims.getAuthorities());
+  public Authentication getAuthenticationToken(TokenClaims tokenClaims, String authToken) {
+    VarahamihirOAuth2Principal principal
+            = VarahamihirOAuth2Principal.builder()
+            .username(tokenClaims.getSubject())
+            .authToken(authToken)
+            .tokenType(tokenClaims.getTokenType())
+            .subjectType(tokenClaims.getSubjectType())
+            .grantedAuthorities(tokenClaims.getAuthorities().stream().map(a -> a.getAuthority()).collect(Collectors.toSet()))
+            .build();
+    return new UsernamePasswordAuthenticationToken(principal, authToken, tokenClaims.getAuthorities());
   }
 }

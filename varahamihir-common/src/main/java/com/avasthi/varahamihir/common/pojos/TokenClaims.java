@@ -1,5 +1,7 @@
 package com.avasthi.varahamihir.common.pojos;
 
+import com.avasthi.varahamihir.common.enums.VarahamihirSubjectType;
+import com.avasthi.varahamihir.common.enums.VarahamihirTokenType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,4 +21,7 @@ public class TokenClaims {
   private String issuer;
   private List<String> audience;
   private List<GrantedAuthority> authorities;
+  private VarahamihirSubjectType subjectType;
+  private VarahamihirTokenType tokenType;
+  private String authToken;
 }
