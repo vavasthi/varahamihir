@@ -23,8 +23,12 @@ import com.nimbusds.jwt.proc.DefaultJWTProcessor;
 import lombok.extern.log4j.Log4j;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import javax.crypto.KeyGenerator;
@@ -151,5 +155,13 @@ public class VarahamihirJWTUtil {
   private byte[] getSecret() {
     int keyBitLength = EncryptionMethod.A128CBC_HS256.cekBitLength();
     return secret.substring(0, keyBitLength/8).getBytes();
+  }
+  public static String getAuthorizationPayload(ServerWebExchange serverWebExchange) {
+    return serverWebExchange.getRequest()
+            .getHeaders()
+            .getFirst(HttpHeaders.AUTHORIZATION);
+  }
+  public Authentication getAuthenticationToken(TokenClaims tokenClaims) {
+    return new UsernamePasswordAuthenticationToken(tokenClaims.getSubject(), tokenClaims.getAuthorities());
   }
 }

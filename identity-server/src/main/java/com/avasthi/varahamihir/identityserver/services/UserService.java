@@ -22,6 +22,7 @@ import com.nimbusds.jose.proc.BadJOSEException;
 import com.nimbusds.jwt.JWTClaimsSet;
 import lombok.extern.log4j.Log4j2;
 import org.bouncycastle.crypto.tls.UserMappingType;
+import org.hibernate.sql.Template;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -66,11 +67,38 @@ public class UserService {
   public Mono<User> findByUsername(String username) {
     return Mono.subscriberContext()
             .flatMap(tenantDiscriminatorContext -> {
+              String tenantDiscriminator
+                      = tenantDiscriminatorContext.<String>get(VarahamihirConstants.TENANT_DISCRIMINATOR_IN_CONTEXT);
+              Optional<Tenant> optionalTenant
+                      = tenantRepository.findTenantsByDiscriminator(tenantDiscriminator);
+              if (optionalTenant.isPresent()) {
+
+                Tenant tenant = optionalTenant.get();
+                Optional<User> optionalUser
+                        = userRepository.findUserByTenantAndUsername(tenant.getId(), username);
+                if (optionalUser.isPresent()) {
+                  return Mono.just(optionalUser.get());
+                }
+                return Mono.error(new EntityNotFoundException(String.format("User %s doesn't exist.", username)));
+              }
+              else {
+
+                return Mono.error(new EntityNotFoundException(String.format("Tenant %s doesn't exist.", tenantDiscriminator)));
+              }
+            }).switchIfEmpty(Mono.empty());
+  }
+
+  public Mono<User> updatePassword(String username, String password) {
+    return Mono.subscriberContext()
+            .flatMap(tenantDiscriminatorContext -> {
               Tenant tenant
                       = tenantDiscriminatorContext.<Tenant>get(VarahamihirConstants.TENANT_IN_CONTEXT);
               Optional<User> optionalUser
                       = userRepository.findUserByTenantAndUsername(tenant.getId(), username);
               if (optionalUser.isPresent()) {
+                User u = optionalUser.get();
+                u.setPassword(passwordEncoder.encode(password));
+                userRepository.save(u);
                 return Mono.just(optionalUser.get());
               }
               return Mono.error(new EntityNotFoundException(String.format("User %s doesn't exist.", username)));
@@ -119,8 +147,8 @@ public class UserService {
                                         }
                                       }
                                       return Mono.error(new UnauthorizedException(String.format("Password mismatch")));
-                                  }).switchIfEmpty(Mono.error(new EntityNotFoundException(String.format("User %s doesn't exist", ar.getUsername()))));
-                          }).switchIfEmpty(Mono.error(new EntityNotFoundException(String.format("Client  %s could not be authorized.", ahv.getClientId()))));
+                                    }).switchIfEmpty(Mono.error(new EntityNotFoundException(String.format("User %s doesn't exist", ar.getUsername()))));
+                                  }).switchIfEmpty(Mono.error(new EntityNotFoundException(String.format("Client  %s could not be authorized.", ahv.getClientId()))));
                         } catch (ParseException | JOSEException | BadJOSEException e) {
                         }
                         return Mono.error(new UnauthorizedException(String.format("Password mismatch")));
@@ -128,11 +156,11 @@ public class UserService {
             });
   }
 
-/*            .map(tenantDiscriminatorContext -> {
-              Tenant tenant1 = tenantDiscriminatorContext.<Tenant>get(VarahamihirConstants.TENANT_IN_CONTEXT);
-              log.error("Tenant is " + tenant1.getId());
-              return tenant1;
-            });*/
+  /*            .map(tenantDiscriminatorContext -> {
+                Tenant tenant1 = tenantDiscriminatorContext.<Tenant>get(VarahamihirConstants.TENANT_IN_CONTEXT);
+                log.error("Tenant is " + tenant1.getId());
+                return tenant1;
+              });*/
 /*            .map(monoAhvContext -> {
               AuthorizationHeaderValues ahv = monoAhvContext.<AuthorizationHeaderValues>get(VarahamihirConstants.AUTHORIZATION_HEADER_IN_CONTEXT);
               log.error("The client id is " + ahv.getClientId());
@@ -155,7 +183,7 @@ public class UserService {
   private Mono<ClientDetailsFromToken> getClientDetailsFromToken(AuthorizationHeaderValues ahv)
           throws ParseException, JOSEException, BadJOSEException {
 
-return clientService.findByClientId(ahv.getClientId())
+    return clientService.findByClientId(ahv.getClientId())
             .flatMap( clientDetails -> {
 
               Set<String> scope = clientDetails.getScope();

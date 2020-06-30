@@ -1,7 +1,6 @@
 package com.avasthi.varahamihir.common.pojos;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -9,8 +8,10 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.UUID;
 
-@Getter
-@Setter
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class VarahamihirUserDetails implements UserDetails {
 
   private UUID tenantId;

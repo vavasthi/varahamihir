@@ -63,4 +63,7 @@ public class User implements Serializable {
     @CollectionTable(name = "user_granted_authorities", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "granted_authorities")
     private Set<String> grantedAuthorities;
+    private boolean expired = false;
+    private boolean locked = false;
+    private boolean credentialsLocked = false;
 }

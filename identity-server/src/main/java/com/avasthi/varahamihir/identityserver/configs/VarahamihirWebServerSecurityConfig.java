@@ -7,6 +7,10 @@ import com.avasthi.varahamihir.common.exceptions.VarahamihirBaseException;
 import com.avasthi.varahamihir.identityserver.filters.AuthorizationHeaderFilter;
 import com.avasthi.varahamihir.identityserver.filters.TenantFilter;
 import com.avasthi.varahamihir.identityserver.filters.TenantHeaderFilter;
+import com.avasthi.varahamihir.identityserver.filters.VarahamihirJWTAuthWebFilter;
+import com.avasthi.varahamihir.identityserver.handlers.VarahamihirAuthenticationSuccessHandler;
+import com.avasthi.varahamihir.identityserver.services.VarahamihirReactiveUserDetailService;
+import com.avasthi.varahamihir.identityserver.utils.VarahamihirJWTUtil;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.security.authentication.UserDetailsRepositoryReactiveAuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
@@ -24,6 +29,7 @@ import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.ServerAuthenticationEntryPoint;
+import org.springframework.security.web.server.authentication.AuthenticationWebFilter;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebExceptionHandler;
 import reactor.core.publisher.Mono;
@@ -35,39 +41,35 @@ import reactor.core.publisher.Mono;
 public class VarahamihirWebServerSecurityConfig {
 
   @Autowired
-  private VarahamihirAuthenticationManager authenticationManager;
-  @Autowired
-  private VarahamihirSecurityContextRepository securityContextRepository;
+  private VarahamihirReactiveUserDetailService userDetailService;
 
+  @Autowired
+  private VarahamihirJWTUtil jwtUtil;
+  private static final String[] WHITELISTED_AUTH_URLS = {
+          "/actuator/health",
+          "/*/login",
+          "/*/registration"
+  };
   @Bean
   public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
-    return http
+
+
+    AuthenticationWebFilter authenticationWebFilter
+            = new AuthenticationWebFilter(new UserDetailsRepositoryReactiveAuthenticationManager(userDetailService));
+    authenticationWebFilter.setAuthenticationSuccessHandler(new VarahamihirAuthenticationSuccessHandler());
+    return http.csrf().disable()
+            .addFilterAt(new AuthorizationHeaderFilter(), SecurityWebFiltersOrder.FIRST)
+            .addFilterAt(new TenantHeaderFilter(), SecurityWebFiltersOrder.FIRST)
+            .addFilterAfter(new TenantFilter(), SecurityWebFiltersOrder.FIRST)
             .authorizeExchange()
-            .pathMatchers("/actuator/health").permitAll()
+            .pathMatchers(WHITELISTED_AUTH_URLS).permitAll()
             .pathMatchers(HttpMethod.OPTIONS).permitAll()
-            .pathMatchers("/*/login").permitAll()
-            .pathMatchers("/*/registration/*").permitAll()
+            .and()
+            .addFilterAt(authenticationWebFilter, SecurityWebFiltersOrder.FIRST)
+            .authorizeExchange()
             .anyExchange().authenticated()
             .and()
-            .authenticationManager(authenticationManager)
-            .securityContextRepository(securityContextRepository)
-            .exceptionHandling()
-            .authenticationEntryPoint((swe, e) -> {
-              return Mono.fromRunnable(() -> {
-                swe.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
-              });
-            }).accessDeniedHandler((swe, e) -> {
-              return Mono.fromRunnable(() -> {
-                swe.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
-              });
-            }).and()
-            .csrf().disable()
-            .formLogin().disable()
-            .httpBasic().disable()
-            .addFilterAfter(new AuthorizationHeaderFilter(), SecurityWebFiltersOrder.REACTOR_CONTEXT)
-            .addFilterAfter(new TenantHeaderFilter(), SecurityWebFiltersOrder.REACTOR_CONTEXT)
-            .addFilterAfter(new TenantFilter(), SecurityWebFiltersOrder.REACTOR_CONTEXT)
-//            .addFilterAfter(new CurrentUserExtractionFilter(), SecurityWebFiltersOrder.AUTHORIZATION)
+            .addFilterAt(new VarahamihirJWTAuthWebFilter(jwtUtil), SecurityWebFiltersOrder.HTTP_BASIC)
             .build();
   }
 

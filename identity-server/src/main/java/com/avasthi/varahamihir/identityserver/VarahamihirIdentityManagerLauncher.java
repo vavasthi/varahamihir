@@ -9,6 +9,7 @@ import com.avasthi.varahamihir.identityserver.entities.Tenant;
 import com.avasthi.varahamihir.identityserver.entities.VarahamihirClientDetails;
 import com.avasthi.varahamihir.identityserver.services.ClientService;
 import com.avasthi.varahamihir.identityserver.services.TenantService;
+import com.avasthi.varahamihir.identityserver.utils.VarahamihirTokenEncoder;
 import io.dekorate.kubernetes.annotation.ImagePullPolicy;
 import io.dekorate.kubernetes.annotation.KubernetesApplication;
 import io.dekorate.kubernetes.annotation.Probe;
@@ -27,6 +28,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.reactive.config.EnableWebFlux;
 import reactor.core.publisher.Hooks;
@@ -127,5 +130,15 @@ public class VarahamihirIdentityManagerLauncher extends SpringBootServletInitial
   public AuthenticationManager authenticationManagerBean() throws Exception {
     return super.authenticationManagerBean();
   }*/
+
+  @Bean(name = "passwordEncoder")
+  public PasswordEncoder passwordEncoder() {
+    return new SCryptPasswordEncoder();
+  }
+
+  @Bean(name = "tokenEncoder")
+  public PasswordEncoder tokenEncoder() {
+    return new VarahamihirTokenEncoder();
+  }
 
 }
