@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  creationTimestamp: "2020-06-25T12:30:09Z"
+  labels:
+    app.kubernetes.io/name: guardian
+    app.kubernetes.io/version: 0.0.1-SNAPSHOT
+  managedFields:
+  - apiVersion: v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:secrets:
+        .: {}
+        k:{"name":"guardian-token-drnb8"}:
+          .: {}
+          f:name: {}
+    manager: kube-controller-manager
+    operation: Update
+    time: "2020-06-25T12:30:09Z"
+  - apiVersion: v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:labels:
+          .: {}
+          f:app.kubernetes.io/name: {}
+          f:app.kubernetes.io/version: {}
+    manager: kubectl
+    operation: Update
+    time: "2020-06-25T12:30:09Z"
+  name: guardian
+  namespace: default
+  resourceVersion: "62702"
+  selfLink: /api/v1/namespaces/default/serviceaccounts/guardian
+  uid: 771933a9-2287-4222-ab61-f29951084be9
+secrets:
+- name: guardian-token-drnb8

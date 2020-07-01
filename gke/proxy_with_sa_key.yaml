@@ -1,0 +1,4 @@
+volumes:
+- name: varahamihir-secret-volume
+  secret:
+    secretName: varahamihir-secret

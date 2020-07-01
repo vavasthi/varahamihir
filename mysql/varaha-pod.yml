@@ -1,0 +1,23 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: demo
+  name: demo
+spec:
+  volumes:
+    - name: demo-storage
+      persistentVolumeClaim:
+        claimName: demo-volume-claim
+  containers:
+  - args:
+    - sleep
+    - "3600"
+    image: busybox
+    name: demo
+    volumeMounts:
+      - mountPath: "/tmp/test"
+        name: demo-storage
+  dnsPolicy: ClusterFirst
+  restartPolicy: Never

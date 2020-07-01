@@ -1,8 +1,15 @@
-FROM openjdk:8-jre
-MAINTAINER Vinay Avasthi <vinay@avasthi.com>
-ENTRYPOINT ["/usr/bin/java", "-jar", "/usr/share/rae/guardian-0.0.1-SNAPSHOT.jar"]
-# Add Maven dependencies (not shaded into the artifact; Docker-cached)
-# ADD target/lib /usr/share/rae/lib
-# Add the service itself
+FROM harisekhon/ubuntu-java
+ARG SERVICE_NAME
 ARG JAR_FILE
-ADD target/${JAR_FILE} /usr/share/rae/guardian-0.0.1-SNAPSHOT.jar
+
+VOLUME /tmp
+
+COPY ${JAR_FILE} app.jar
+
+ENV JAVA_OPTS="-Xmx128m -Xms64m"
+ENV SERVICE_NAME=${SERVICE_NAME}
+ENV SPRING_PROFILES_ACTIVE="docker"
+LABEL APP=${SERVICE_NAME}
+LABEL DOMAIN="varahamihir"
+
+ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar"]

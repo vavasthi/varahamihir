@@ -1,0 +1,75 @@
+---
+apiVersion: apps/v1
+kind: List
+items:
+  metadata:
+    name: identity-server
+  spec:
+    template:
+      metadata:
+        name : identity-server
+      spec:
+        serviceAccountName: varahamihir-ksa-name
+        containers:
+          - name: identity-server
+            image: "gcr.io/varahamihir-cloud/identity-server:0.0.1-SNAPSHOT"
+        env:
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: varahamihir-secret
+              key: username
+        - name: DB_PASS
+          valueFrom:
+            secretKeyRef:
+              name: varahamihir-secret
+              key: password
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: varahamihir-secret
+              key: database
+        - name: cloud-sql-proxy
+          # It is recommended to use the latest version of the Cloud SQL proxy
+          # Make sure to update on a regular schedule!
+          image: gcr.io/cloudsql-docker/gce-proxy:1.17
+        imagePullPolicy: "Always"
+        livenessProbe:
+          failureThreshold: 20
+          httpGet:
+            path: "/actuator/health"
+            port: 8081
+            scheme: "HTTP"
+          initialDelaySeconds: 0
+          periodSeconds: 30
+          successThreshold: 1
+          timeoutSeconds: 10
+        name: "identity-server"
+        ports:
+          - containerPort: 8081
+            name: "http"
+            protocol: "TCP"
+        readinessProbe:
+          failureThreshold: 10
+          httpGet:
+            path: "/actuator/health"
+            port: 8081
+            scheme: "HTTP"
+          initialDelaySeconds: 0
+          periodSeconds: 30
+          successThreshold: 1
+          timeoutSeconds: 10
+          command:
+            - "/cloud_sql_proxy"
+
+            # If connecting from a VPC-native GKE cluster, you can use the
+            # following flag to have the proxy connect over private IP
+            - "-ip_address_types=PRIVATE"
+
+            # Replace DB_PORT with the port the proxy should listen on
+            # Defaults: MySQL: 3306, Postgres: 5432, SQLServer: 1433
+            - "-instances=mysql=tcp:3306"
+          securityContext:
+            # The default Cloud SQL proxy image runs as the
+            # "nonroot" user and group (uid: 65532) by default.
+            runAsNonRoot: true
