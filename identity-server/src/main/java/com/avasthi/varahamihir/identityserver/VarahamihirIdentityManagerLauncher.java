@@ -139,9 +139,9 @@ public class VarahamihirIdentityManagerLauncher extends SpringBootServletInitial
     return passwordEncoder;
   }
 
-  @Bean(name = "tokenEncoder")
+/*  @Bean(name = "tokenEncoder")
   public PasswordEncoder tokenEncoder() {
     return new VarahamihirTokenEncoder();
-  }
+  }*/
 
 }

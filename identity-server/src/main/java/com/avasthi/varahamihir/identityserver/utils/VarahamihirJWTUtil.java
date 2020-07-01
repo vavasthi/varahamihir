@@ -101,7 +101,14 @@ public class VarahamihirJWTUtil {
                               String audience) throws JOSEException {
 
     Map<String, Object> claims = new HashMap<>();
-    claims.put(VarahamihirConstants.TOKEN_ROLE_CLAIM, grantedAuthorities);
+    if (tokenType == VarahamihirTokenType.REFRESH_TOKEN) {
+
+      claims.put(VarahamihirConstants.TOKEN_ROLE_CLAIM, new HashSet<>(Arrays.asList(Role.REFRESH.name())));
+    }
+    else {
+
+      claims.put(VarahamihirConstants.TOKEN_ROLE_CLAIM, grantedAuthorities);
+    }
     claims.put(VarahamihirConstants.TOKEN_TYPE_CLAIM, tokenType);
     claims.put(VarahamihirConstants.TOKEN_SUBJECT_TYPE, subjectType);
     return doGenerateToken(tenant, claims, username, audience);

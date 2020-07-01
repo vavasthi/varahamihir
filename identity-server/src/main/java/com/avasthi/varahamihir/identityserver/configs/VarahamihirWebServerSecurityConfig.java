@@ -7,7 +7,7 @@ import com.avasthi.varahamihir.identityserver.filters.TenantFilter;
 import com.avasthi.varahamihir.identityserver.filters.TenantHeaderFilter;
 import com.avasthi.varahamihir.identityserver.filters.VarahamihirJWTAuthWebFilter;
 import com.avasthi.varahamihir.identityserver.handlers.VarahamihirAuthenticationSuccessHandler;
-import com.avasthi.varahamihir.identityserver.resolvers;
+import com.avasthi.varahamihir.identityserver.resolvers.VarahamihirAuthenticationManagerResolver;
 import com.avasthi.varahamihir.identityserver.services.VarahamihirReactiveClientUserDetailService;
 import com.avasthi.varahamihir.identityserver.services.VarahamihirReactiveUserDetailService;
 import com.avasthi.varahamihir.identityserver.utils.VarahamihirJWTUtil;
@@ -54,7 +54,7 @@ public class VarahamihirWebServerSecurityConfig {
 
 
     AuthenticationWebFilter authenticationWebFilter
-            = new AuthenticationWebFilter(new resolvers.VarahamihirAuthenticationManagerResolver(new UserDetailsRepositoryReactiveAuthenticationManager(clientUserDetailService),
+            = new AuthenticationWebFilter(new VarahamihirAuthenticationManagerResolver(new UserDetailsRepositoryReactiveAuthenticationManager(clientUserDetailService),
             new UserDetailsRepositoryReactiveAuthenticationManager(userDetailService)));
     authenticationWebFilter.setAuthenticationSuccessHandler(new VarahamihirAuthenticationSuccessHandler());
     return http.csrf().disable()

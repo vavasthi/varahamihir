@@ -52,10 +52,6 @@ public class UserService {
   private PasswordEncoder passwordEncoder;
 
   @Autowired
-  @Qualifier(value = "tokenEncoder")
-  private PasswordEncoder tokenEncoder;
-
-  @Autowired
   private ClientService clientService;
 
   public Flux<User> findAll() {

@@ -6,6 +6,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.RUNTIME)
-@PreAuthorize("hasAnyAuthority('admin', 'tenant_admin') or (hasAuthority('user') and #username == authentication.name)")
+@PreAuthorize("hasAnyAuthority('ADMIN', 'TENANT_ADMIN') or (hasAuthority('USER') and #username == authentication.name)")
 public @interface AdminTenantAdminOrCurrentUserPermission {
 }
