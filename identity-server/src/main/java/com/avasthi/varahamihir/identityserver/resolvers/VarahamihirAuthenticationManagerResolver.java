@@ -28,14 +28,5 @@ public class VarahamihirAuthenticationManagerResolver implements ReactiveAuthent
       return Mono.just(clientReactiveAuthenticationManager);
     }).switchIfEmpty(Mono.just(userReactiveAuthenticationManager));
 
-//    AntPathMatcher pathMatcher = new AntPathMatcher();
-//    if (pathMatcher.match("/*/login", serverWebExchange.getRequest().getPath().toString())) {
-//
-//      return Mono.just(varahamihirBasicAuthenticationManager);
-//    }
-//    else if (pathMatcher.match("/**", serverWebExchange.getRequest().getPath().toString()) {
-//      return Mono.just(varahamihirAuthenticationManager);
-//    }
-//    return null;
   }
 }
