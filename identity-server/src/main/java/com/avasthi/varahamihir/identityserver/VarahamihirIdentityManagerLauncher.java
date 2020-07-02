@@ -9,13 +9,13 @@ import com.avasthi.varahamihir.identityserver.entities.Tenant;
 import com.avasthi.varahamihir.identityserver.entities.VarahamihirClientDetails;
 import com.avasthi.varahamihir.identityserver.services.ClientService;
 import com.avasthi.varahamihir.identityserver.services.TenantService;
-import com.avasthi.varahamihir.identityserver.utils.VarahamihirTokenEncoder;
 import io.dekorate.kubernetes.annotation.ImagePullPolicy;
 import io.dekorate.kubernetes.annotation.KubernetesApplication;
 import io.dekorate.kubernetes.annotation.Probe;
 import io.dekorate.kubernetes.annotation.ServiceType;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -25,16 +25,14 @@ import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.reactive.config.EnableWebFlux;
-import reactor.core.publisher.Hooks;
 
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
@@ -43,7 +41,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import static reactor.core.publisher.Hooks.*;
+import static reactor.core.publisher.Hooks.onOperatorDebug;
 
 /**
  * Created by vinay on 1/8/16.
@@ -51,16 +49,17 @@ import static reactor.core.publisher.Hooks.*;
 @EnableWebFlux
 @SpringBootApplication(scanBasePackages = {"com.avasthi.varahamihir"})
 @Configuration
-//@EnableDiscoveryClient
+@EnableDiscoveryClient
 @EntityScan(basePackages = {"com.avasthi.varahamihir"})
 @EnableJpaRepositories("com.avasthi.varahamihir")
 //@EnableSwagger2
-@KubernetesApplication(livenessProbe = @Probe(httpActionPath = "/actuator/health"),
-        readinessProbe = @Probe(httpActionPath = "/actuator/health"),
+@KubernetesApplication(livenessProbe = @Probe(httpActionPath = "/manage/health"),
+        readinessProbe = @Probe(httpActionPath = "/manage/health"),
         serviceType = ServiceType.NodePort,
         imagePullPolicy = ImagePullPolicy.Always)
+@PropertySource("classpath:jwt.properties")
 @Log4j2
-public class VarahamihirIdentityManagerLauncher extends SpringBootServletInitializer {
+public class VarahamihirIdentityManagerLauncher  {
 
 
   @Autowired
@@ -70,10 +69,7 @@ public class VarahamihirIdentityManagerLauncher extends SpringBootServletInitial
 
   public static void main(String[] args) throws Exception {
 
-    VarahamihirIdentityManagerLauncher launcher = new VarahamihirIdentityManagerLauncher();
-    launcher
-            .configure(new SpringApplicationBuilder(VarahamihirIdentityManagerLauncher.class))
-            .run(args);
+    SpringApplication.run(VarahamihirIdentityManagerLauncher.class, args);
   }
 
   @PostConstruct
@@ -110,14 +106,14 @@ public class VarahamihirIdentityManagerLauncher extends SpringBootServletInitial
     }
 //setupService.setup();
   }
-//  @Bean
+  @Bean
   public RouteLocator routes(RouteLocatorBuilder builder) {
 
     return builder.routes()
             .route(p -> p.path("/default/guardian/**").filters(f ->
-                    f.hystrix(c -> c.setName("guardian").setFallbackUri("forward:/fallback"))).uri("lb://guardian"))
+                    f.hystrix(c -> c.setName("guardian").setFallbackUri("forward:/fallback"))).uri("lb://guardian:8081"))
             .route(p -> p.path("/*/student/**").filters(f ->
-                    f.hystrix(c -> c.setName("student").setFallbackUri("forward:/fallback"))).uri("lb://student"))
+                    f.hystrix(c -> c.setName("student").setFallbackUri("forward:/fallback"))).uri("http://student:8081"))
             .build();
   }
 

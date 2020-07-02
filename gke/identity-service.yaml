@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2020-07-02T17:14:52Z"
+  generateName: identity-server-
+  name: identity-server-hs9cq
+  namespace: varahamihir-k8s-ns
+  resourceVersion: "2379705"
+  selfLink: /api/v1/namespaces/varahamihir-k8s-ns/services/identity-server-hs9cq
+  uid: 1060c0e8-b060-4d10-9075-332b028563f2
+spec:
+  clusterIP: 10.0.6.170
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8081
+  selector:
+    app: identity-server
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

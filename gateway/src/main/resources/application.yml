@@ -1,0 +1,14 @@
+spring:
+  cloud:
+    gateway:
+#      default-filters:
+#        - name: SCGWGlobalFilter
+      routes:
+        - id: identity-server
+          uri: http://identity-server:8081/
+          predicates:
+            - Path=/*/oauth/**
+            - Path=/*/user/*
+          filters:
+            - name: VarahamihirGatewayRequestPreFilter
+            - name: VarahamihirGatewayRequestPostFilter

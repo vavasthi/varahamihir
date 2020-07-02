@@ -30,16 +30,19 @@ public class VarahamihirJWTAuthConverters implements Function<ServerWebExchange,
     try {
       String authorizationHeader
               = VarahamihirJWTUtil.getAuthorizationPayload(serverWebExchange);
-      String[] pieces = authorizationHeader.split(" ");
-      if (pieces.length == 2
-              && pieces[0].toLowerCase().equals(bearerLowercase)) {
-        TokenClaims tokenClaims
-                = jwtUtil.retrieveTokenClaims(pieces[1]);
-        return Mono.just(jwtUtil.getAuthenticationToken(tokenClaims, pieces[1]));
+      if (authorizationHeader != null) {
+
+        String[] pieces = authorizationHeader.split(" ");
+        if (pieces.length == 2
+                && pieces[0].toLowerCase().equals(bearerLowercase)) {
+          TokenClaims tokenClaims
+                  = jwtUtil.retrieveTokenClaims(pieces[1]);
+          return Mono.just(jwtUtil.getAuthenticationToken(tokenClaims, pieces[1]));
+        }
       }
     } catch (ParseException | JOSEException | BadJOSEException e) {
       e.printStackTrace();
     }
-    return Mono.error(new UnauthorizedException("Token could not be validated."));
+    return Mono.empty();
   }
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.avasthi.varahamihir.common.services.DateTimeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
@@ -20,7 +21,7 @@ import javax.annotation.PostConstruct;
 )
 @Configuration
 @EnableJpaRepositories("com.avasthi.varahamihir")
-public class LessonLauncher extends SpringBootServletInitializer {
+public class LessonLauncher {
 
   @Autowired
   private DateTimeService dateTimeService;
@@ -28,20 +29,12 @@ public class LessonLauncher extends SpringBootServletInitializer {
 
   public static void main(String[] args) {
 
-    LessonLauncher launcher = new LessonLauncher();
-    launcher
-            .configure(new SpringApplicationBuilder(LessonLauncher.class))
-            .run(args);
+    SpringApplication.run(LessonLauncher.class, args);
   }
   @PostConstruct
   public void initialize() {
 
   }
-  @Override
-  protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-    return application.sources(LessonLauncher.class);
-  }
-
   @Bean
   public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
     return new PropertySourcesPlaceholderConfigurer();

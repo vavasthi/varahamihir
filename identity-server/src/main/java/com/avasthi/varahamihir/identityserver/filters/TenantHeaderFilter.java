@@ -20,7 +20,7 @@ public class TenantHeaderFilter extends VarahamihirAbstractFilter implements Web
   private static final String defaultSecret = "supersecretclient123";
 
   @Value("${tutorial.default.tenant.discriminator:default}")
-  private String defaultDiscriminator;
+  private String defaultDiscriminator = "default";
 
   @Override
   public Mono<Void> filter(ServerWebExchange serverWebExchange, WebFilterChain webFilterChain) {

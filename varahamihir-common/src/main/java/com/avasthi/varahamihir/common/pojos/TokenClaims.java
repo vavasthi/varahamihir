@@ -8,8 +8,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -18,9 +19,10 @@ import java.util.List;
 public class TokenClaims {
 
   private String subject;
+  private UUID tenantId;
   private String issuer;
   private List<String> audience;
-  private List<GrantedAuthority> authorities;
+  private Set<GrantedAuthority> authorities;
   private VarahamihirSubjectType subjectType;
   private VarahamihirTokenType tokenType;
   private String authToken;

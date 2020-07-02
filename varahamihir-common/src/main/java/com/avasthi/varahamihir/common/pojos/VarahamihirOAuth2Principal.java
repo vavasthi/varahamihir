@@ -14,7 +14,7 @@ import java.util.Set;
 public class VarahamihirOAuth2Principal implements Principal {
   @Override
   public String getName() {
-    return null;
+    return username;
   }
 
   @Override

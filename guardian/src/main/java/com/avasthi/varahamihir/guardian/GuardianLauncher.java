@@ -6,6 +6,7 @@ import io.dekorate.kubernetes.annotation.ImagePullPolicy;
 import io.dekorate.kubernetes.annotation.KubernetesApplication;
 import io.dekorate.kubernetes.annotation.Probe;
 import io.dekorate.kubernetes.annotation.ServiceType;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
@@ -20,14 +21,11 @@ import javax.annotation.PostConstruct;
         readinessProbe = @Probe(httpActionPath = "/manage/health"),
         serviceType = ServiceType.NodePort,
         imagePullPolicy = ImagePullPolicy.Always)
-public class GuardianLauncher extends SpringBootServletInitializer {
+public class GuardianLauncher {
 
   public static void main(String[] args) {
 
-    GuardianLauncher launcher = new GuardianLauncher();
-    launcher
-            .configure(new SpringApplicationBuilder(GuardianLauncher.class))
-            .run(args);
+    SpringApplication.run(GuardianLauncher.class, args);
   }
   @PostConstruct
   public void initialize() {

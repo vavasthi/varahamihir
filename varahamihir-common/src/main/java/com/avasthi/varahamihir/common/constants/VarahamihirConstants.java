@@ -31,9 +31,10 @@ public class VarahamihirConstants {
   public static final String V1_BASE_ENDPOINT = BASE_ENDPOINT;
   public static final String V1_REGISTRATION_ENDPOINT = V1_BASE_ENDPOINT + "/registration";
   public static final String V1_USER_ENDPOINT = V1_BASE_ENDPOINT + "/user";
+  public static final String V1_SERVICES_ENDPOINT = V1_BASE_ENDPOINT + "/services";
 
   public static final String V1_GUARDIAN_ENDPOINT = V1_BASE_ENDPOINT + "/guardian";
-  public static final String V1_STUDENT_ENDPOINT = V1_BASE_ENDPOINT + "/customer";
+  public static final String V1_STUDENT_ENDPOINT = V1_BASE_ENDPOINT + "/student";
 
   public static final String V1_TOKEN_ENDPOINT = BASE_ENDPOINT + "/oauth/token";
 
@@ -51,6 +52,7 @@ public class VarahamihirConstants {
   public static final String DEFAULT_TENANT = "default";
   public static final String TOKEN_TYPE_CLAIM = "token_type_claim";
   public static final String TOKEN_SUBJECT_TYPE = "token_subject_claim";
+  public static final String TOKEN_TENANT_ID = "token_tenant_id";
   public static final String TOKEN_ROLE_CLAIM = "roles";
   public static final int DEFAULT_EXPIRY = 100;
   public static final int DEFAULT_REFRESH_EXPIRY = 200;

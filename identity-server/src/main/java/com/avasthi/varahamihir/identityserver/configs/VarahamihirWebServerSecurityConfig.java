@@ -45,7 +45,7 @@ public class VarahamihirWebServerSecurityConfig {
   @Autowired
   private VarahamihirJWTUtil jwtUtil;
   private static final String[] WHITELISTED_AUTH_URLS = {
-          "/actuator/health",
+          "/actuator/**",
           "/*/login",
           "/*/registration"
   };
@@ -61,12 +61,10 @@ public class VarahamihirWebServerSecurityConfig {
             .addFilterAt(new AuthorizationHeaderFilter(), SecurityWebFiltersOrder.FIRST)
             .addFilterAt(new TenantHeaderFilter(), SecurityWebFiltersOrder.FIRST)
             .addFilterAt(new TenantFilter(), SecurityWebFiltersOrder.FIRST)
+            .addFilterAt(authenticationWebFilter, SecurityWebFiltersOrder.FIRST)
             .authorizeExchange()
             .pathMatchers(WHITELISTED_AUTH_URLS).permitAll()
             .pathMatchers(HttpMethod.OPTIONS).permitAll()
-            .and()
-            .addFilterAt(authenticationWebFilter, SecurityWebFiltersOrder.FIRST)
-            .authorizeExchange()
             .anyExchange().authenticated()
             .and()
             .addFilterAt(new VarahamihirJWTAuthWebFilter(jwtUtil), SecurityWebFiltersOrder.HTTP_BASIC)

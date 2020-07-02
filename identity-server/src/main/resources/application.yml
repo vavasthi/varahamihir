@@ -1,0 +1,13 @@
+spring:
+  cloud:
+    gateway:
+#      default-filters:
+#        - name: SCGWGlobalFilter
+      routes:
+        - id: student
+          uri: http://student-service:8081/
+          predicates:
+            - Path=/*/student/**
+          filters:
+            - name: VarahamihirGatewayRequestPreFilter
+            - name: VarahamihirGatewayRequestPostFilter

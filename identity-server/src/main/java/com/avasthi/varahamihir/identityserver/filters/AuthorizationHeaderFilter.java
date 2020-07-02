@@ -31,7 +31,11 @@ public class AuthorizationHeaderFilter extends VarahamihirAbstractFilter impleme
   public Mono<Void> filter(ServerWebExchange serverWebExchange, WebFilterChain webFilterChain) {
 
     String authorizationHeaderValue
-            = serverWebExchange.getRequest().getHeaders().getFirst(VarahamihirConstants.AUTHORIZATION_HEADER_NAME).trim();
+            = serverWebExchange.getRequest().getHeaders().getFirst(VarahamihirConstants.AUTHORIZATION_HEADER_NAME);
+    if (authorizationHeaderValue == null) {
+      return Mono.empty();
+    }
+    authorizationHeaderValue = authorizationHeaderValue.trim();
     String[] headerPieces = authorizationHeaderValue.split(" ");
     String authType = headerPieces[0].toLowerCase();
     String authToken = headerPieces[1];
@@ -44,8 +48,7 @@ public class AuthorizationHeaderFilter extends VarahamihirAbstractFilter impleme
                               .authToken(authToken)
                               .authType(AuthorizationHeaderValues.AuthType.Bearer)
                               .build()));
-    }
-    else if(authType.equals("basic")) {
+    } else if (authType.equals("basic")) {
       String[] decodedToken = new String(Base64Utils.decode(authToken.getBytes())).split(":");
       String username = decodedToken[0];
       String password = decodedToken[1];
@@ -59,10 +62,9 @@ public class AuthorizationHeaderFilter extends VarahamihirAbstractFilter impleme
                               .clientId(username)
                               .authType(AuthorizationHeaderValues.AuthType.Basic)
                               .build()));
-    }
-    else {
+    } else {
 
-      return unauthorizedException(serverWebExchange,"The authorization header is neither of type basic nor value.");
+      return unauthorizedException(serverWebExchange, "The authorization header is neither of type basic nor value.");
     }
   }
 }
