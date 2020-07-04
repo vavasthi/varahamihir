@@ -27,7 +27,7 @@ public class AuthorizationHeaderFilter extends VarahamihirAbstractFilter impleme
     String authorizationHeaderValue
             = serverWebExchange.getRequest().getHeaders().getFirst(VarahamihirConstants.AUTHORIZATION_HEADER_NAME);
     if (authorizationHeaderValue == null) {
-      return Mono.error(new UnauthorizedException("Authorization header is not present."));
+      return webFilterChain.filter(serverWebExchange);
     }
     authorizationHeaderValue = authorizationHeaderValue.trim();
     String[] headerPieces = authorizationHeaderValue.split(" ");

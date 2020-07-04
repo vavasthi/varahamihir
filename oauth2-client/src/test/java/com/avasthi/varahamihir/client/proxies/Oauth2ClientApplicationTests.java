@@ -1,4 +1,4 @@
-package com.avasthi.varahamihir.client.common;
+package com.avasthi.varahamihir.client.proxies;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

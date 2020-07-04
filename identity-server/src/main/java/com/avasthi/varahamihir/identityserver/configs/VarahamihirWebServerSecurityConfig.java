@@ -47,7 +47,7 @@ public class VarahamihirWebServerSecurityConfig {
   private static final String[] WHITELISTED_AUTH_URLS = {
           "/actuator/**",
           "/*/login",
-          "/*/registration"
+          "/*/registration/*"
   };
   @Bean
   public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
@@ -58,15 +58,15 @@ public class VarahamihirWebServerSecurityConfig {
             new UserDetailsRepositoryReactiveAuthenticationManager(userDetailService)));
     authenticationWebFilter.setAuthenticationSuccessHandler(new VarahamihirAuthenticationSuccessHandler());
     return http.csrf().disable()
-            .addFilterAt(new AuthorizationHeaderFilter(), SecurityWebFiltersOrder.FIRST)
-            .addFilterAt(new TenantHeaderFilter(), SecurityWebFiltersOrder.FIRST)
-            .addFilterAt(new TenantFilter(), SecurityWebFiltersOrder.FIRST)
-            .addFilterAt(authenticationWebFilter, SecurityWebFiltersOrder.FIRST)
             .authorizeExchange()
             .pathMatchers(WHITELISTED_AUTH_URLS).permitAll()
             .pathMatchers(HttpMethod.OPTIONS).permitAll()
             .anyExchange().authenticated()
             .and()
+            .addFilterAt(new TenantHeaderFilter(), SecurityWebFiltersOrder.FIRST)
+            .addFilterAt(new AuthorizationHeaderFilter(), SecurityWebFiltersOrder.FIRST)
+            .addFilterAt(new TenantFilter(), SecurityWebFiltersOrder.FIRST)
+            .addFilterAt(authenticationWebFilter, SecurityWebFiltersOrder.FIRST)
             .addFilterAt(new VarahamihirJWTAuthWebFilter(jwtUtil), SecurityWebFiltersOrder.HTTP_BASIC)
             .build();
   }

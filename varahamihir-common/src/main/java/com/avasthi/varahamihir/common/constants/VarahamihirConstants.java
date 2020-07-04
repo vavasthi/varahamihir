@@ -65,4 +65,5 @@ public class VarahamihirConstants {
   public static final String AUTHORIZATION_HEADER_IN_CONTEXT = "AUTHORIZATION_HEADER_IN_CONTEXT";
   public static final String AUTHORIZATION_HEADER_NAME = "Authorization";
   public static final String TENANT_HEADER = "X-tenant";
+  public static final String CONTENT_TYPE_HEADER = "Content-Type";
 }

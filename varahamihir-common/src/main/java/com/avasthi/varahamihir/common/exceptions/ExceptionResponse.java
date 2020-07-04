@@ -14,5 +14,6 @@ public class ExceptionResponse {
   private int status;
   private String error;
   private String messge;
+  private String reason;
   private String requestId;
 }

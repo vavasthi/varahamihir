@@ -11,10 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
@@ -41,7 +37,7 @@ import java.util.List;
 @EntityScan(basePackages = {"com.avasthi.varahamihir"})
 @ComponentScan(basePackages = {"com.avasthi.varahamihir"})
 @EnableJpaRepositories("com.avasthi.varahamihir")
-@EnableFeignClients(basePackages = {"com.avasthi.varahamihir.client.common"})
+@EnableFeignClients(basePackages = {"com.avasthi.varahamihir.client.proxies"})
 //@EnableSwagger2
 @KubernetesApplication(livenessProbe = @Probe(httpActionPath = "/actuator/health"),
         readinessProbe = @Probe(httpActionPath = "/actuator/health"),

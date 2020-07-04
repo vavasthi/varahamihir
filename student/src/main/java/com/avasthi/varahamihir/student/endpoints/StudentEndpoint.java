@@ -8,13 +8,10 @@
 
 package com.avasthi.varahamihir.student.endpoints;
 
-import com.avasthi.varahamihir.client.common.VarahamihirIdentityServerUserClient;
 import com.avasthi.varahamihir.common.annotations.AdminTenantAdminOrCurrentUserBodyPermission;
 import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
 import com.avasthi.varahamihir.common.endpoints.v1.BaseEndpoint;
 import com.avasthi.varahamihir.common.pojos.StudentPojo;
-import com.avasthi.varahamihir.common.pojos.UserPojo;
-import com.avasthi.varahamihir.common.pojos.VarahamihirOAuth2Principal;
 import com.avasthi.varahamihir.common.pojos.VarahamihirTokenPrincipal;
 import com.avasthi.varahamihir.student.service.StudentService;
 import io.swagger.annotations.Api;
@@ -51,7 +48,7 @@ public class StudentEndpoint extends BaseEndpoint {
 
     VarahamihirTokenPrincipal principal
             = (VarahamihirTokenPrincipal)authentication.getPrincipal();
-    return studentService.getUser(String.format("Bearer %s", principal.getAuthToken()), username);
+    return studentService.getStudent(String.format("Bearer %s", principal.getAuthToken()), username);
   }
 
 }

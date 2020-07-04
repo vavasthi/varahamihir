@@ -44,7 +44,7 @@ public class VarahamihirWebServerSecurityConfig {
   private static final String[] WHITELISTED_AUTH_URLS = {
           "/actuator/health",
           "/*/login",
-          "/*/registration"
+          "/*/registration/*"
   };
 
   @Bean

@@ -34,6 +34,7 @@ public class VarahamihirWebExceptionHandler implements WebExceptionHandler  {
               .status(vbe.getStatus().value())
               .error(vbe.getStatus().toString())
               .timestamp(vbe.getTimestamp())
+              .reason(vbe.getReason())
               .requestId(exchange.getRequest().getId())
               .build();
       String json = gson.toJson(er);
