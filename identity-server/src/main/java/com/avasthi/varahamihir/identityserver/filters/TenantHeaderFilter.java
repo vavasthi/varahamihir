@@ -15,7 +15,6 @@ import java.io.File;
 //@Component
 //@Order(VarahamihirConstants.TENANT_HEADER_PRECEDENCE)
 public class TenantHeaderFilter extends VarahamihirAbstractFilter implements WebFilter {
-  public static final String TENANT_HEADER = "X-tenant";
   private static final String defaultClient = "supersecretclient";
   private static final String defaultSecret = "supersecretclient123";
 
@@ -27,7 +26,7 @@ public class TenantHeaderFilter extends VarahamihirAbstractFilter implements Web
     String requestURI = serverWebExchange.getRequest().getPath().toString();
     String[] dirs = requestURI.split(File.separator);
     String tenantDiscriminatorInPath = dirs[1];
-    String tenantDiscriminator = serverWebExchange.getRequest().getHeaders().getFirst(TENANT_HEADER);
+    String tenantDiscriminator = serverWebExchange.getRequest().getHeaders().getFirst(VarahamihirConstants.TENANT_HEADER);
     if (requestURI.equals(VarahamihirConstants.HEALTH_ENDPOINT) || tenantDiscriminatorInPath.equals("actuator")) {
 
       tenantDiscriminator = defaultDiscriminator;

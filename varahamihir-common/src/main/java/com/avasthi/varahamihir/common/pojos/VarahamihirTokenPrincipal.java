@@ -21,7 +21,9 @@ public class VarahamihirTokenPrincipal implements Principal {
   public boolean implies(Subject subject) {
     return false;
   }
+  private String username;
   private String credentials;
   private String authToken;
   private Set<String> grantedAuthorities;
+  private String scope;
 }

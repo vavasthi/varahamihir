@@ -26,4 +26,6 @@ public class TokenClaims {
   private VarahamihirSubjectType subjectType;
   private VarahamihirTokenType tokenType;
   private String authToken;
+  private AbstractTokenRequest.GrantType grantType;
+  private String scope;
 }

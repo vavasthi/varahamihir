@@ -34,7 +34,7 @@ public class StudentService {
             .flatMap(tenantDiscriminatorContext -> {
               String tenantDiscriminator
                       = tenantDiscriminatorContext.<String>get(VarahamihirConstants.TENANT_DISCRIMINATOR_IN_CONTEXT);
-              return identityServerUserClient.getUser(authorizationHeader, tenantDiscriminator, username)
+              return identityServerUserClient.getUser(authorizationHeader, tenantDiscriminator, tenantDiscriminator, username)
                       .flatMap(user -> {
                         Optional<Student> optionalStudent
                                 = studentRepository.findById(user.getId());

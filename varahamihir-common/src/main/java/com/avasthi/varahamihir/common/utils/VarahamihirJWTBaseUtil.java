@@ -3,10 +3,8 @@ package com.avasthi.varahamihir.common.utils;
 import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
 import com.avasthi.varahamihir.common.enums.VarahamihirSubjectType;
 import com.avasthi.varahamihir.common.enums.VarahamihirTokenType;
-import com.avasthi.varahamihir.common.pojos.TokenClaims;
-import com.avasthi.varahamihir.common.pojos.VarahamihirGrantedAuthority;
-import com.avasthi.varahamihir.common.pojos.VarahamihirOAuth2Principal;
-import com.avasthi.varahamihir.common.pojos.VarahamihirTokenPrincipal;
+import com.avasthi.varahamihir.common.exceptions.UnauthorizedException;
+import com.avasthi.varahamihir.common.pojos.*;
 import com.nimbusds.jose.EncryptionMethod;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JWEAlgorithm;
@@ -49,6 +47,7 @@ public class VarahamihirJWTBaseUtil {
 
   public JWTClaimsSet getAllClaimsFromToken(String token) throws ParseException, JOSEException, BadJOSEException {
 
+
     JWTClaimsSet claimsSet = jwtProcessor().process(token, null);
     return claimsSet;
   }
@@ -67,7 +66,7 @@ public class VarahamihirJWTBaseUtil {
       final Date expiration = getExpirationDateFromToken(token);
       return expiration.before(new Date());
     }
-    catch(BadJWTException e) {
+    catch(Exception e) {
       return false;
     }
   }
@@ -87,21 +86,36 @@ public class VarahamihirJWTBaseUtil {
 
 
   public TokenClaims retrieveTokenClaims(String authToken) throws ParseException, JOSEException, BadJOSEException {
-    JWTClaimsSet claims = getAllClaimsFromToken(authToken);
-    Set<String> rolesSet = new HashSet<String>((List<String>)claims.getClaims().get(VarahamihirConstants.TOKEN_ROLE_CLAIM));
-    VarahamihirSubjectType subjectType
-            = VarahamihirSubjectType.valueOf((String)claims.getClaims().get(VarahamihirConstants.TOKEN_SUBJECT_TYPE));
-    VarahamihirTokenType tokenType
-            = VarahamihirTokenType.valueOf((String)claims.getClaims().get(VarahamihirConstants.TOKEN_TYPE_CLAIM));
-    return TokenClaims.builder()
-            .authorities(rolesSet.stream().map(s -> new VarahamihirGrantedAuthority(s)).collect(Collectors.toSet()))
-            .subject(claims.getSubject())
-            .issuer(claims.getIssuer())
-            .audience(claims.getAudience())
-            .authToken(authToken)
-            .tokenType(tokenType)
-            .subjectType(subjectType)
-            .build();
+    try {
+
+      JWTClaimsSet claims = getAllClaimsFromToken(authToken);
+      Set<String> rolesSet = new HashSet<String>((List<String>)claims.getClaims().get(VarahamihirConstants.TOKEN_ROLE_CLAIM));
+      VarahamihirSubjectType subjectType
+              = VarahamihirSubjectType.valueOf((String)claims.getClaims().get(VarahamihirConstants.TOKEN_SUBJECT_TYPE));
+      VarahamihirTokenType tokenType
+              = VarahamihirTokenType.valueOf((String)claims.getClaims().get(VarahamihirConstants.TOKEN_TYPE_CLAIM));
+      AbstractTokenRequest.GrantType grantType
+              = AbstractTokenRequest.GrantType.valueOf((String)claims.getClaims().get(VarahamihirConstants.GRANT_TYPE_CLAIM));
+      String scope = (String)claims.getClaims().get(VarahamihirConstants.TOKEN_SCOPE);
+      return TokenClaims.builder()
+              .authorities(rolesSet.stream().map(s -> new VarahamihirGrantedAuthority(s)).collect(Collectors.toSet()))
+              .subject(claims.getSubject())
+              .issuer(claims.getIssuer())
+              .audience(claims.getAudience())
+              .authToken(authToken)
+              .tokenType(tokenType)
+              .subjectType(subjectType)
+              .grantType(grantType)
+              .scope(scope)
+              .build();
+    }
+
+    catch(BadJWTException e) {
+      throw new UnauthorizedException(String.format("The token has probably expired or it is bad."));
+    }
+    catch(Exception e) {
+      throw new UnauthorizedException(String.format("Token can't be parsed."));
+    }
 
   }
   protected DirectEncrypter getDirectEncrypter() throws KeyLengthException {
@@ -128,6 +142,9 @@ public class VarahamihirJWTBaseUtil {
             .authToken(authToken)
             .tokenType(tokenClaims.getTokenType())
             .subjectType(tokenClaims.getSubjectType())
+            .audience(tokenClaims.getAudience())
+            .grantType(tokenClaims.getGrantType())
+            .scope(tokenClaims.getScope())
             .grantedAuthorities(tokenClaims.getAuthorities().stream().map(a -> a.getAuthority()).collect(Collectors.toSet()))
             .build();
     return new UsernamePasswordAuthenticationToken(principal, authToken, tokenClaims.getAuthorities());
@@ -135,9 +152,11 @@ public class VarahamihirJWTBaseUtil {
   public Authentication getClientAuthenticationToken(TokenClaims tokenClaims) {
     VarahamihirTokenPrincipal principal
             = VarahamihirTokenPrincipal.builder()
+            .username(tokenClaims.getSubject())
             .credentials(dummyPassword)
             .authToken(tokenClaims.getAuthToken())
             .grantedAuthorities(tokenClaims.getAuthorities().stream().map(a -> a.getAuthority()).collect(Collectors.toSet()))
+            .scope(tokenClaims.getScope())
             .build();
     return new UsernamePasswordAuthenticationToken(principal, tokenClaims.getAuthToken(), tokenClaims.getAuthorities());
   }

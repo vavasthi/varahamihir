@@ -7,6 +7,7 @@ import lombok.Data;
 
 import javax.security.auth.Subject;
 import java.security.Principal;
+import java.util.List;
 import java.util.Set;
 
 @Builder
@@ -25,5 +26,8 @@ public class VarahamihirOAuth2Principal implements Principal {
   private String authToken;
   private VarahamihirTokenType tokenType;
   private VarahamihirSubjectType subjectType;
+  private AbstractTokenRequest.GrantType grantType;
   private Set<String> grantedAuthorities;
+  private List<String> audience;
+  private String scope;
 }

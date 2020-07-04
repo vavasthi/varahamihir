@@ -51,7 +51,8 @@ public class VarahamihirJWTAuthWebFilter implements WebFilter {
   }
   private ServerWebExchangeMatcher getAuthMatcher(){
     List<ServerWebExchangeMatcher> matchers = new ArrayList<>(2);
-    matchers.add(new PathPatternParserServerWebExchangeMatcher("/**", HttpMethod.GET));
+//    matchers.add(new PathPatternParserServerWebExchangeMatcher("/**", HttpMethod.GET));
+    matchers.add(new PathPatternParserServerWebExchangeMatcher("/**"));
 
     ServerWebExchangeMatcher authMatcher = ServerWebExchangeMatchers.matchers(new OrServerWebExchangeMatcher(matchers));
     return authMatcher;

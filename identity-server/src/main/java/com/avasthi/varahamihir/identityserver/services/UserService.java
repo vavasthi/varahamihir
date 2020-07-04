@@ -51,9 +51,6 @@ public class UserService {
   @Qualifier(value = "passwordEncoder")
   private PasswordEncoder passwordEncoder;
 
-  @Autowired
-  private ClientService clientService;
-
   public Flux<User> findAll() {
     return Flux.fromIterable(userRepository.findAll());
   }
@@ -101,91 +98,6 @@ public class UserService {
 
   public void delete(UUID id) {
     userRepository.deleteById(id);
-  }
-
-  public Mono<VarahamihirAuthResponse> getLoginResponse(VarahamihirAuthRequest ar)
-          throws ParseException, JOSEException, BadJOSEException {
-
-    return Mono.subscriberContext()
-            .flatMap(tenantContext -> {
-
-              Tenant tenant = tenantContext.<Tenant>get(VarahamihirConstants.TENANT_IN_CONTEXT);
-
-              return Mono.subscriberContext()
-                      .flatMap(ahvContext -> {
-                        try {
-
-                          AuthorizationHeaderValues ahv
-                                  = ahvContext.<AuthorizationHeaderValues>get(VarahamihirConstants.AUTHORIZATION_HEADER_IN_CONTEXT);
-                          return getClientDetailsFromToken(ahv)
-                                  .flatMap(cdft -> {
-
-                                    return findByUsername(ar.getUsername()).flatMap((userDetails) -> {
-
-                                      if (passwordEncoder.matches(ar.getPassword(), userDetails.getPassword())) {
-
-                                        try {
-                                          VarahamihirAuthResponse response
-                                                  = VarahamihirAuthResponse.builder()
-                                                  .jti(UUID.randomUUID())
-                                                  .auth_token(varahamihirJwtUtil.generateToken(tenant, userDetails, VarahamihirTokenType.ACCESS_TOKEN, ar.getAudience()))
-                                                  .tokenType("Bearer")
-                                                  .refreshToken(varahamihirJwtUtil.generateToken(tenant, userDetails, VarahamihirTokenType.REFRESH_TOKEN, ar.getAudience()))
-                                                  .scope(cdft.getScope().stream().collect(Collectors.joining(",")))
-                                                  .expiry(cdft.getAccessTokenExpiry())
-                                                  .refreshTokenExpiry(cdft.getRefreshTokenExpiry())
-                                                  .build();
-                                          return Mono.just(response);
-                                        } catch (JOSEException e) {
-
-                                        }
-                                      }
-                                      return Mono.error(new UnauthorizedException(String.format("Password mismatch")));
-                                    }).switchIfEmpty(Mono.error(new EntityNotFoundException(String.format("User %s doesn't exist", ar.getUsername()))));
-                                  }).switchIfEmpty(Mono.error(new EntityNotFoundException(String.format("Client  %s could not be authorized.", ahv.getClientId()))));
-                        } catch (ParseException | JOSEException | BadJOSEException e) {
-                        }
-                        return Mono.error(new UnauthorizedException(String.format("Password mismatch")));
-                      });
-            });
-  }
-
-  private Mono<ClientDetailsFromToken> getClientDetailsFromToken(AuthorizationHeaderValues ahv)
-          throws ParseException, JOSEException, BadJOSEException {
-
-    return clientService.findByClientId(ahv.getClientId())
-            .flatMap( clientDetails -> {
-
-              Set<String> scope = clientDetails.getScope();
-              int expiry = clientDetails.getAccessTokenValidity();
-              int refreshExpiry = clientDetails.getRefreshTokenValidity();
-              switch(ahv.getAuthType()) {
-                case Bearer:
-                  try {
-
-                    JWTClaimsSet claimsSet
-                            = varahamihirJwtUtil.getAllClaimsFromToken(ahv.getAuthToken());
-                    return Mono.just(ClientDetailsFromToken.builder()
-                            .audience(claimsSet.getAudience().stream().collect(Collectors.toSet()))
-                            .clientId(claimsSet.getSubject())
-                            .scope(scope)
-                            .accessTokenExpiry(expiry)
-                            .refreshTokenExpiry(refreshExpiry)
-                            .build());
-                  } catch (ParseException|JOSEException|BadJOSEException e) {
-                    e.printStackTrace();
-                  }
-                case Basic:
-                  return Mono.just(ClientDetailsFromToken.builder()
-                          .audience(new HashSet<String>())
-                          .clientId(ahv.getClientId())
-                          .scope(scope)
-                          .accessTokenExpiry(expiry)
-                          .refreshTokenExpiry(refreshExpiry)
-                          .build());
-              }
-              return Mono.error(new TokenInvalidException("Token is invalid."));
-            }).switchIfEmpty(Mono.error(new UnauthorizedException(String.format("Client %s doesn't exist.", ahv.getClientId()))));
   }
 
   public Mono<UserPojo> create(UserPojo userPojo) {

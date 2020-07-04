@@ -4,6 +4,8 @@ package com.avasthi.varahamihir.identityserver;
 import com.avasthi.varahamihir.common.constants.MyConstants;
 import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
 import com.avasthi.varahamihir.common.enums.Role;
+import com.avasthi.varahamihir.common.filters.VarahamihirGatewayRequestPostFilter;
+import com.avasthi.varahamihir.common.filters.VarahamihirGatewayRequestPreFilter;
 import com.avasthi.varahamihir.common.pojos.VarahamihirGrantedAuthority;
 import com.avasthi.varahamihir.identityserver.entities.Tenant;
 import com.avasthi.varahamihir.identityserver.entities.VarahamihirClientDetails;
@@ -106,14 +108,17 @@ public class VarahamihirIdentityManagerLauncher  {
     }
 //setupService.setup();
   }
-  @Bean
   public RouteLocator routes(RouteLocatorBuilder builder) {
 
     return builder.routes()
-            .route(p -> p.path("/default/guardian/**").filters(f ->
+            .route(p -> p.path("/*/guardian/**").filters(f ->
                     f.hystrix(c -> c.setName("guardian").setFallbackUri("forward:/fallback"))).uri("lb://guardian:8081"))
             .route(p -> p.path("/*/student/**").filters(f ->
-                    f.hystrix(c -> c.setName("student").setFallbackUri("forward:/fallback"))).uri("http://student:8081"))
+                    f.hystrix(c -> c.setName("student").setFallbackUri("forward:/fallback")))
+                    .uri("http://student-service:8081")
+//                    .filter(new VarahamihirGatewayRequestPreFilter())
+ //           .filter(new VarahamihirGatewayRequestPostFilter())
+                    )
             .build();
   }
 

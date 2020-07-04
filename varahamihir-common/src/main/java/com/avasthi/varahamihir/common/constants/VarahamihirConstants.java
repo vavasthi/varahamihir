@@ -37,6 +37,7 @@ public class VarahamihirConstants {
   public static final String V1_STUDENT_ENDPOINT = V1_BASE_ENDPOINT + "/student";
 
   public static final String V1_TOKEN_ENDPOINT = BASE_ENDPOINT + "/oauth/token";
+  public static final String V1_REFRESH_TOKEN_ENDPOINT = V1_TOKEN_ENDPOINT + "/refresh";
 
   public static final String UNAUTHENTICATED_USER = "UnAuthenticated";
   public static final int AUTHORIZATION_HEADER_PRECEDENCE = SecurityWebFiltersOrder.REACTOR_CONTEXT.getOrder() - 1;
@@ -51,8 +52,10 @@ public class VarahamihirConstants {
 
   public static final String DEFAULT_TENANT = "default";
   public static final String TOKEN_TYPE_CLAIM = "token_type_claim";
+  public static final String GRANT_TYPE_CLAIM = "grant_type_claim";
   public static final String TOKEN_SUBJECT_TYPE = "token_subject_claim";
   public static final String TOKEN_TENANT_ID = "token_tenant_id";
+  public static final String TOKEN_SCOPE = "token_scope";
   public static final String TOKEN_ROLE_CLAIM = "roles";
   public static final int DEFAULT_EXPIRY = 100;
   public static final int DEFAULT_REFRESH_EXPIRY = 200;
@@ -61,4 +64,5 @@ public class VarahamihirConstants {
   public static final String USER_IN_CONTEXT = "USER_IN_CONTEXT";
   public static final String AUTHORIZATION_HEADER_IN_CONTEXT = "AUTHORIZATION_HEADER_IN_CONTEXT";
   public static final String AUTHORIZATION_HEADER_NAME = "Authorization";
+  public static final String TENANT_HEADER = "X-tenant";
 }

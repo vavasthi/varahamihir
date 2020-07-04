@@ -6,10 +6,13 @@ import com.avasthi.varahamihir.common.annotations.AdminTenantAdminOrCurrentUserP
 import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
 import com.avasthi.varahamihir.common.exceptions.NotFoundException;
 import com.avasthi.varahamihir.common.pojos.UserPojo;
+import com.avasthi.varahamihir.common.pojos.VarahamihirServiceInfo;
 import com.avasthi.varahamihir.identityserver.entities.User;
 import com.avasthi.varahamihir.identityserver.mappers.UserPojoMapper;
 import com.avasthi.varahamihir.identityserver.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.DefaultServiceInstance;
+import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 @RestController
 public class ServicesEndpoint {
 
@@ -27,7 +34,14 @@ public class ServicesEndpoint {
 
   @RequestMapping(value = VarahamihirConstants.V1_SERVICES_ENDPOINT)
   @AdminTenantAdminOrAuthenticatedPermission
-  public Flux<String> getServices() {
-    return Flux.fromIterable(discoveryClient.getServices());
+  public Flux<VarahamihirServiceInfo> getServices() {
+    final List<VarahamihirServiceInfo> serviceInstances = new ArrayList<>();
+    for (String s: discoveryClient.getServices()) {
+      serviceInstances.add(VarahamihirServiceInfo.builder()
+              .instances(discoveryClient.getInstances(s))
+              .name(s)
+              .build());
+    }
+    return Flux.fromArray(serviceInstances.toArray(new VarahamihirServiceInfo[serviceInstances.size()]));
   }
 }

@@ -15,6 +15,7 @@ import com.avasthi.varahamihir.common.endpoints.v1.BaseEndpoint;
 import com.avasthi.varahamihir.common.pojos.StudentPojo;
 import com.avasthi.varahamihir.common.pojos.UserPojo;
 import com.avasthi.varahamihir.common.pojos.VarahamihirOAuth2Principal;
+import com.avasthi.varahamihir.common.pojos.VarahamihirTokenPrincipal;
 import com.avasthi.varahamihir.student.service.StudentService;
 import io.swagger.annotations.Api;
 import lombok.extern.log4j.Log4j2;
@@ -42,13 +43,14 @@ public class StudentEndpoint extends BaseEndpoint {
 
   @RequestMapping(value = "/{studentname}",
           method = RequestMethod.GET,
-          consumes = MediaType.APPLICATION_JSON_VALUE)
+          consumes = MediaType.APPLICATION_JSON_VALUE,
+          produces = MediaType.APPLICATION_JSON_VALUE)
   @AdminTenantAdminOrCurrentUserBodyPermission
-  public Mono<StudentPojo> getStudent(@PathVariable("username") String username,
+  public Mono<StudentPojo> getStudent(@PathVariable("studentname") String username,
                                       Authentication authentication) {
 
-    VarahamihirOAuth2Principal principal
-            = (VarahamihirOAuth2Principal)authentication.getPrincipal();
+    VarahamihirTokenPrincipal principal
+            = (VarahamihirTokenPrincipal)authentication.getPrincipal();
     return studentService.getUser(String.format("Bearer %s", principal.getAuthToken()), username);
   }
 

@@ -72,7 +72,6 @@ public class StudentLauncher {
     return new JodaModule();
   }
 
-  @Bean
   public RouteLocator routes(RouteLocatorBuilder builder) {
 
     return builder.routes()

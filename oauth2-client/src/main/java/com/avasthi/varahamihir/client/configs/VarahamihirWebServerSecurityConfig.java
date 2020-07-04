@@ -62,6 +62,7 @@ public class VarahamihirWebServerSecurityConfig {
             .and()
           //  .addFilterAt(new AuthorizationHeaderFilter(), SecurityWebFiltersOrder.FIRST)
             .addFilterAt(new TenantHeaderFilter(), SecurityWebFiltersOrder.FIRST)
+            .addFilterAt(new AuthorizationHeaderFilter(), SecurityWebFiltersOrder.FIRST)
             .addFilterAt(authenticationWebFilter, SecurityWebFiltersOrder.FIRST)
             //        .addFilterAt(new TenantFilter(), SecurityWebFiltersOrder.FIRST)
             .addFilterAt(new VarahamihirJWTClientAuthWebFilter(jwtUtil), SecurityWebFiltersOrder.HTTP_BASIC)

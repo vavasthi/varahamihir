@@ -8,6 +8,7 @@ spring:
           uri: lb://identity-server-87prb:8081/
           predicates:
             - Path=/*/user/**
+            - Path=/*/tenant/**
           filters:
             - name: VarahamihirGatewayRequestPreFilter
             - name: VarahamihirGatewayRequestPostFilter

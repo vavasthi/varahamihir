@@ -2,7 +2,10 @@ package com.avasthi.varahamihir.client.filters;
 
 import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
 import com.avasthi.varahamihir.common.filters.VarahamihirAbstractFilter;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilter;
@@ -13,9 +16,9 @@ import java.io.File;
 
 
 @Component
+@Log4j2
 //@Order(VarahamihirConstants.TENANT_HEADER_PRECEDENCE)
 public class TenantHeaderFilter extends VarahamihirAbstractFilter implements WebFilter {
-  public static final String TENANT_HEADER = "X-tenant";
   private static final String defaultClient = "supersecretclient";
   private static final String defaultSecret = "supersecretclient123";
 
@@ -24,10 +27,11 @@ public class TenantHeaderFilter extends VarahamihirAbstractFilter implements Web
 
   @Override
   public Mono<Void> filter(ServerWebExchange serverWebExchange, WebFilterChain webFilterChain) {
+    logHeaders(serverWebExchange, webFilterChain);
     String requestURI = serverWebExchange.getRequest().getPath().toString();
     String[] dirs = requestURI.split(File.separator);
     String tenantDiscriminatorInPath = dirs[1];
-    String tenantDiscriminator = serverWebExchange.getRequest().getHeaders().getFirst(TENANT_HEADER);
+    String tenantDiscriminator = serverWebExchange.getRequest().getHeaders().getFirst(VarahamihirConstants.TENANT_HEADER);
     if (requestURI.equals(VarahamihirConstants.HEALTH_ENDPOINT) || tenantDiscriminatorInPath.equals("actuator")) {
 
       tenantDiscriminator = defaultDiscriminator;
@@ -45,4 +49,18 @@ public class TenantHeaderFilter extends VarahamihirAbstractFilter implements Web
               String.format("The header X-tenant should be same as the tenant discriminator in URL. Currently are %s and %s ", tenantDiscriminator, tenantDiscriminatorInPath));
     }
   }
+  private void logHeaders(ServerWebExchange exchange, WebFilterChain chain) {
+
+    chain.filter(exchange).then(Mono.fromRunnable(()->{
+      ServerHttpResponse response = exchange.getResponse();
+      exchange.getRequest().getHeaders().forEach((k,v)->{
+        log.info(String.format("Request headers : %s: %s", k, v));
+      });
+      HttpHeaders headers = response.getHeaders();
+      headers.forEach((k,v)->{
+        log.info(String.format("headers : %s: %s", k, v));
+        System.out.println(k + " : " + v);
+      });
+    }));
+  };
 }
