@@ -17,7 +17,6 @@ import java.io.File;
 
 @Component
 @Log4j2
-//@Order(VarahamihirConstants.TENANT_HEADER_PRECEDENCE)
 public class TenantHeaderFilter extends VarahamihirAbstractFilter implements WebFilter {
   private static final String defaultClient = "supersecretclient";
   private static final String defaultSecret = "supersecretclient123";

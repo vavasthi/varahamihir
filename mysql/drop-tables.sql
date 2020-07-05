@@ -1,0 +1,13 @@
+drop table clients_addl_info;
+drop table clients_authorities;
+drop table clients_authorized_grant_types;
+drop table clients_redirect_uri;
+drop table clients_resource_ids;
+drop table clients_scope;
+drop table clients;
+drop table guardian_children;
+drop table guardian;
+drop table students;
+drop table tenants;
+drop table user_granted_authorities;
+drop table users;

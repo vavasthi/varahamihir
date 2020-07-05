@@ -1,6 +1,5 @@
-package com.avasthi.varahamihir.student.entities;
+package com.avasthi.varahamihir.guardian.entities;
 
-import com.avasthi.varahamihir.common.filters.VarahamihirGatewayRequestPostFilter;
 import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -20,9 +19,9 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "students")
+@Table(name = "guardians")
 @EntityListeners(AuditingEntityListener.class)
-public class Student implements Serializable {
+public class Guardian implements Serializable {
 
     @Id
     @org.hibernate.annotations.Type(type="uuid-char")
@@ -31,9 +30,6 @@ public class Student implements Serializable {
     @Column(name = "tenant_id")
     @org.hibernate.annotations.Type(type="uuid-char")
     private UUID tenantId;
-    @Column(name = "guardian_id")
-    @org.hibernate.annotations.Type(type="uuid-char")
-    private UUID guardianId;
     @CreatedBy
     @Column(name = "created_by")
     private String createdBy;
@@ -46,4 +42,9 @@ public class Student implements Serializable {
     @LastModifiedDate
     @Column(name = "updated_at")
     private Date updatedAt;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "guardian_children", joinColumns = @JoinColumn(name = "guardian_id"))
+    @Column(name = "children")
+    @org.hibernate.annotations.Type(type="uuid-char")
+    private Set<UUID> children;
 }

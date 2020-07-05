@@ -35,15 +35,10 @@ public class VarahamihirWebServerSecurityConfig {
 
   @Autowired
   private VarahamihirReactiveAuthTokenUserDetailService authTokenUserDetailService;
-/*  @Autowired
-  @Qualifier(value = "varahamihirReactiveClientUserDetailService")
-  private VarahamihirReactiveClientUserDetailService clientUserDetailService;
-*/
   @Autowired
   private VarahamihirJWTBaseUtil  jwtUtil;
   private static final String[] WHITELISTED_AUTH_URLS = {
           "/actuator/health",
-          "/*/login",
           "/*/registration/*"
   };
 
@@ -69,31 +64,6 @@ public class VarahamihirWebServerSecurityConfig {
             .build();
   }
 
-
-/*  @Override
-  protected void configure(HttpSecurity http) throws Exception {
-/*        http.addFilterAfter(new CurrentUserExtractionFilter(), BasicAuthenticationFilter.class);
-        http.addFilterBefore(new TenantHeaderFilter(), CurrentUserExtractionFilter.class);*/
-
-/*        http.addFilterBefore(new TenantHeaderFilter(), BasicAuthenticationFilter.class);
-        http.addFilterBefore(new AuthenticationParameterExtractionFilter(), BasicAuthenticationFilter.class);
-        http.addFilterBefore(new SufficientAuthenticationParametersPresentFilter(), BasicAuthenticationFilter.class);
-        http.addFilterBefore(new AuthenticationFilter(authenticationManager()), BasicAuthenticationFilter.class);*/
-
-
-
-  private String[] actuatorEndpoints() {
-    return new String[]{
-            VarahamihirConstants.AUTOCONFIG_ENDPOINT,
-            VarahamihirConstants.BEANS_ENDPOINT,
-            VarahamihirConstants.CONFIGPROPS_ENDPOINT,
-            VarahamihirConstants.ENV_ENDPOINT,
-            VarahamihirConstants.MAPPINGS_ENDPOINT,
-            VarahamihirConstants.METRICS_ENDPOINT,
-            VarahamihirConstants.SHUTDOWN_ENDPOINT,
-            VarahamihirConstants.HEALTH_ENDPOINT,
-    };
-  }
 
   @Bean
   public ServerAuthenticationEntryPoint unauthorizedEntryPoint() {

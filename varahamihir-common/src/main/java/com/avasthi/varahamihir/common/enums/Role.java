@@ -40,10 +40,6 @@ public enum Role {
     throw new IllegalArgumentException(value + " is not a valid value");
   }
 
- // public final String getValue() {
- //   return value;
-//  }
-
   public Set<String> getGrantedAuthority() {
     return new HashSet<String>(Arrays.asList(value));
   }

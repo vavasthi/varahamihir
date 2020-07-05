@@ -46,7 +46,6 @@ public class VarahamihirWebServerSecurityConfig {
   private VarahamihirJWTUtil jwtUtil;
   private static final String[] WHITELISTED_AUTH_URLS = {
           "/actuator/**",
-          "/*/login",
           "/*/registration/*"
   };
   @Bean
