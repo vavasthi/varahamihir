@@ -15,6 +15,7 @@ public class StudentPojoMapper {
               .createdAt(s.getCreatedAt())
               .createdBy(s.getCreatedBy())
               .updatedBy(s.getUpdatedBy())
+              .guardianId(s.getGuardianId())
               .build(); // Not copying password into pojo
   }
   public Student convert(StudentPojo s) {
@@ -24,6 +25,7 @@ public class StudentPojoMapper {
             .createdAt(s.getCreatedAt())
             .createdBy(s.getCreatedBy())
             .tenantId(s.getTenantId())
+            .guardianId(s.getGuardianId())
             .updatedAt(s.getUpdatedAt())
             .updatedBy(s.getUpdatedBy())
             .build();

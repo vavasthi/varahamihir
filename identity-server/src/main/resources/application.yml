@@ -11,3 +11,10 @@ spring:
           filters:
             - name: VarahamihirGatewayRequestPreFilter
             - name: VarahamihirGatewayRequestPostFilter
+        - id: guardian
+          uri: http://guardian-service:8081/
+          predicates:
+            - Path=/*/registration/guardian,/*/guardian/**
+          filters:
+            - name: VarahamihirGatewayRequestPreFilter
+            - name: VarahamihirGatewayRequestPostFilter

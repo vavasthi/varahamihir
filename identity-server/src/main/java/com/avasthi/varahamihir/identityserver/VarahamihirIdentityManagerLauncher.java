@@ -54,7 +54,6 @@ import static reactor.core.publisher.Hooks.onOperatorDebug;
 @EnableDiscoveryClient
 @EntityScan(basePackages = {"com.avasthi.varahamihir"})
 @EnableJpaRepositories("com.avasthi.varahamihir")
-//@EnableSwagger2
 @KubernetesApplication(livenessProbe = @Probe(httpActionPath = "/manage/health"),
         readinessProbe = @Probe(httpActionPath = "/manage/health"),
         serviceType = ServiceType.NodePort,

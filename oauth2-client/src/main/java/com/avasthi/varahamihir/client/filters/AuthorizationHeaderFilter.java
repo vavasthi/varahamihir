@@ -12,11 +12,7 @@ import org.springframework.web.server.WebFilterChain;
 import reactor.core.publisher.Mono;
 
 
-//@Component
 public class AuthorizationHeaderFilter extends VarahamihirAbstractFilter implements WebFilter {
-  public static final String TENANT_HEADER = "X-tenant";
-  private static final String defaultClient = "supersecretclient";
-  private static final String defaultSecret = "supersecretclient123";
 
   @Value("${tutorial.default.tenant.discriminator:default}")
   private String defaultDiscriminator;
