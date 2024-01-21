@@ -1,9 +1,8 @@
 package com.avasthi.varahamihir.common.pojos;
 
-import lombok.*;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
+import lombok.Builder;
+import lombok.Data;
 
 @Data
 @Builder

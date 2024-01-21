@@ -9,15 +9,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.CONFLICT)
 public class EntityAlreadyExistsException extends VarahamihirBaseException {
 
-    public EntityAlreadyExistsException() {
-        super(HttpStatus.CONFLICT);
+    public EntityAlreadyExistsException(String error, String reason) {
+        super(HttpStatus.CONFLICT, error, reason);
     }
 
-    public EntityAlreadyExistsException(String reason) {
-        super(HttpStatus.CONFLICT, reason);
-    }
-
-    public EntityAlreadyExistsException(String reason, Throwable cause) {
-        super(HttpStatus.CONFLICT, reason, cause);
+    public EntityAlreadyExistsException(String error, String reason, Throwable cause) {
+        super(HttpStatus.CONFLICT, error, reason, cause);
     }
 }

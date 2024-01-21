@@ -1,20 +1,50 @@
+logging:
+    level:
+        org:
+            springframework:
+                cloud:
+                    gateway: DEBUG
+                security : DEBUG
+
+management:
+    endpoint:
+        gateway:
+            enabled: true
+    endpoints:
+        web:
+            exposure:
+                include: '*'
+    security:
+        enabled: false
+mongodb:
+    identity:
+        authenticationDatabase: identity
+        database: identity
+        host: localhost
+        password: identityPassword123
+        port: 27017
+        username: identityAdmin
+server:
+    port: 8080
+
+
 spring:
-  cloud:
-    gateway:
-#      default-filters:
-#        - name: SCGWGlobalFilter
-      routes:
-        - id: student
-          uri: http://student-service:8081/
-          predicates:
-            - Path=/*/registration/student,/*/student/**
-          filters:
-            - name: VarahamihirGatewayRequestPreFilter
-            - name: VarahamihirGatewayRequestPostFilter
-        - id: guardian
-          uri: http://guardian-service:8081/
-          predicates:
-            - Path=/*/registration/guardian,/*/guardian/**
-          filters:
-            - name: VarahamihirGatewayRequestPreFilter
-            - name: VarahamihirGatewayRequestPostFilter
+    data:
+        mongodb:
+            uri: mongodb://identityAdmin:identityPassword123@localhost:27017/identity
+            host: localhost
+            port: 27017
+            database: identity
+            username: identityAdmin
+            password: identityPassword123
+            auto-index-creation: true
+    application:
+        name: identity-server
+
+application:
+    security:
+        jwt:
+            secret-key-file: jwtRSA256-private.pem
+            expiration: 86400000 # a day
+            refresh-token:
+                expiration: 604800000 # 7 days

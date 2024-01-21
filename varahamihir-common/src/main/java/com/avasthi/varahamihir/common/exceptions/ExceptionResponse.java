@@ -13,7 +13,6 @@ public class ExceptionResponse {
   private String path;
   private int status;
   private String error;
-  private String messge;
-  private String reason;
+  private String message;
   private String requestId;
 }

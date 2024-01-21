@@ -19,9 +19,40 @@ import java.util.Date;
 /**
  * Created by vinay on 1/11/16.
  */
-public class VarahamihirBaseException extends ResponseStatusException {
+public class VarahamihirBaseException extends RuntimeException {
 
+  
   private Date timestamp = new Date();
+  private String error;
+  private HttpStatus status;
+
+  public String getError() {
+    return error;
+  }
+
+  public HttpStatus getStatus() {
+    return status;
+  }
+
+  public VarahamihirBaseException(HttpStatus status,
+                                  String error) {
+    this.status = status;
+    this.error = error;
+  }
+
+  public VarahamihirBaseException(HttpStatus status, String error, String reason) {
+    super(reason);
+    this.error = error;
+    this.status = status;
+  }
+
+  public VarahamihirBaseException(HttpStatus status, String error, String reason, Throwable cause) {
+    super(reason, cause);
+    this.error = error;
+    this.status = status;
+
+  }
+
 
   public Date getTimestamp() {
     return timestamp;
@@ -31,15 +62,4 @@ public class VarahamihirBaseException extends ResponseStatusException {
     this.timestamp = timestamp;
   }
 
-  public VarahamihirBaseException(HttpStatus status) {
-    super(status);
-  }
-
-  public VarahamihirBaseException(HttpStatus status, String reason) {
-    super(status, reason);
-  }
-
-  public VarahamihirBaseException(HttpStatus status, String reason, Throwable cause) {
-    super(status, reason, cause);
-  }
 }

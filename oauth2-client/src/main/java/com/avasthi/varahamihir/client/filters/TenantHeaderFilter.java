@@ -1,7 +1,6 @@
 package com.avasthi.varahamihir.client.filters;
 
 import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
-import com.avasthi.varahamihir.common.filters.VarahamihirAbstractFilter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;

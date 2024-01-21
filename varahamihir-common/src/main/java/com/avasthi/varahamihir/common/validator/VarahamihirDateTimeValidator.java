@@ -1,25 +1,15 @@
-/*
- * Copyright 2016 (c) Hubble Connected (HKT) Ltd. - All Rights Reserved
- *
- * Proprietary and confidential.
- *
- * Unauthorized copying of this file, via any medium is strictly prohibited.
- */
-
 package com.avasthi.varahamihir.common.validator;
 
 import com.avasthi.varahamihir.common.annotations.VarahamihirDateTime;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
 
 import lombok.extern.log4j.Log4j2;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-/**
- * Created by nikhilvs on 16/06/16.
- */
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
+
 @Log4j2
 public class VarahamihirDateTimeValidator implements ConstraintValidator<VarahamihirDateTime, String> {
 

@@ -1,69 +1,62 @@
 package com.avasthi.varahamihir.identityserver.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.mongodb.core.index.HashIndexed;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Date;
+import java.util.Collection;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
-@Getter
-@Setter
-@Entity
+@Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "users",
-        uniqueConstraints =
-          {
-                  @UniqueConstraint(name = "uq_email", columnNames = {"tenant_id","email"}),
-                  @UniqueConstraint(name = "uq_username", columnNames = {"tenant_id", "username"})
-          })
-@EntityListeners(AuditingEntityListener.class)
-public class User implements Serializable {
-
-    public String getPassword() {
-        return password;
-    }
-    @Id
-    @org.hibernate.annotations.Type(type="uuid-char")
-    @Column(name = "id")
-    private UUID id;
-    @Column(name = "tenant_id")
-    @org.hibernate.annotations.Type(type="uuid-char")
+@AllArgsConstructor
+@Document(collection = "users")
+public class User extends AbstractBaseEntity implements UserDetails {
     private UUID tenantId;
-    @CreatedBy
-    @Column(name = "created_by")
-    private String createdBy;
-    @LastModifiedBy
-    @Column(name = "updated_by")
-    private String updatedBy;
-    @CreatedDate
-    @Column(name = "created_at")
-    private Date createdAt;
-    @LastModifiedDate
-    @Column(name = "updated_at")
-    private Date updatedAt;
-    @Column(name = "fullname")
     private String fullname;
-    @Column(name = "username")
+    @Indexed(name = "user_username_index", unique = true)
     private String username;
-    @Column(name = "password")
     private String password;
-    @Column(name = "email")
+    @Indexed(name = "user_email_index", unique = true)
     private String email;
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_granted_authorities", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "granted_authorities")
-    private Set<String> grantedAuthorities;
+    private Set<Role> grantedAuthorities;
     private boolean expired = false;
     private boolean locked = false;
-    private boolean credentialsLocked = false;
+    private boolean credentialsExpired = false;
+
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return grantedAuthorities.stream().map(a -> a.getAuthority()).collect(Collectors.toList());
+    }
+
+    public Collection<Role> getGrantedAuthorities() {
+        return grantedAuthorities;
+    }
+    @Override
+    public boolean isAccountNonExpired() {
+        return !expired;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return !locked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return !credentialsExpired;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
 }

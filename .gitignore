@@ -27,3 +27,4 @@ build
 /nbdist/
 /.nb-gradle/
 google-services.json
+*.pem

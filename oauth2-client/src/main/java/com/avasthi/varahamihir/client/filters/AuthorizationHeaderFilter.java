@@ -1,8 +1,6 @@
 package com.avasthi.varahamihir.client.filters;
 
 import com.avasthi.varahamihir.common.constants.VarahamihirConstants;
-import com.avasthi.varahamihir.common.exceptions.UnauthorizedException;
-import com.avasthi.varahamihir.common.filters.VarahamihirAbstractFilter;
 import com.avasthi.varahamihir.common.pojos.AuthorizationHeaderValues;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.Base64Utils;
