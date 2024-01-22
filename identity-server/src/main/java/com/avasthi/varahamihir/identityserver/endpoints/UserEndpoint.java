@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(Paths.V1.Base)
+@RequestMapping(Paths.V1.Users.fullPath)
 @RequiredArgsConstructor
 public class UserEndpoint {
 
@@ -34,7 +34,7 @@ public class UserEndpoint {
     public Optional<User> getUser(@PathVariable(value = "username") @P("username") String username) {
         return userService.findOne(username);
     }
-    @RequestMapping(value = Paths.V1.Users.Base,  method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public Optional<User> createUser(@RequestBody User user) {
         return userService.save(user);
     }

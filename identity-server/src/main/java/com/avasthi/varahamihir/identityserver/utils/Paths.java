@@ -10,7 +10,7 @@ public class Paths {
 
             public static final String Base = "/users";
             public static final String fullPath = Paths.V1.fullPath + Base;
-            public static final String GetOne = "/users/{username}";
+            public static final String GetOne = "{username}";
         }
         public class Auth {
 
