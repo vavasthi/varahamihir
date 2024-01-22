@@ -1,0 +1,36 @@
+package com.avasthi.varahamihir.identityserver.services;
+
+import com.avasthi.varahamihir.common.errors.ExceptionMessage;
+import com.avasthi.varahamihir.common.exceptions.InvalidPasswordException;
+import com.avasthi.varahamihir.identityserver.entities.User;
+import com.avasthi.varahamihir.identityserver.pojo.AuthToken;
+import com.avasthi.varahamihir.identityserver.pojo.Login;
+import com.avasthi.varahamihir.identityserver.repositories.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.util.*;
+
+@Service
+@RequiredArgsConstructor
+public class AuthenticateService {
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
+
+    public Optional<AuthToken> auth(Login login) {
+        User user
+                = userRepository
+                .findByUsernameOrEmail(login.username())
+                .orElseThrow(() -> new UsernameNotFoundException(String.format("User %s not found", login.username())));
+        if (passwordEncoder.matches(login.password(), user.getPassword())) {
+            String authToken = jwtService.generateAuthToken(user);
+            String refreshToken = jwtService.generateRefreshToken(user);
+            return Optional.of(new AuthToken(user.getUsername(), authToken, refreshToken));
+        }
+        throw new InvalidPasswordException(String.format(ExceptionMessage.INVALID_PASSWORD.getReason(), login.username()),
+                String.format(ExceptionMessage.INVALID_PASSWORD.getError(), user.getUsername()));
+    }
+}

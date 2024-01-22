@@ -6,6 +6,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 public enum Role {
 
     USER("USER"),
+    REFRESH("REFRESH"),
     ADMIN("ADMIN"),
     TENANT_ADMIN("TENANT_ADMIN");
     Role(String authority) {

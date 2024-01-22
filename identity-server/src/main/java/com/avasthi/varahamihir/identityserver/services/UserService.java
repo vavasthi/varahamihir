@@ -1,5 +1,6 @@
 package com.avasthi.varahamihir.identityserver.services;
 
+import com.avasthi.varahamihir.common.errors.ExceptionMessage;
 import com.avasthi.varahamihir.common.exceptions.EntityAlreadyExistsException;
 import com.avasthi.varahamihir.identityserver.entities.Role;
 import com.avasthi.varahamihir.identityserver.entities.User;
@@ -27,13 +28,13 @@ public class UserService {
     public Optional<User> save(User user) {
         if (userRepository.findByUsernameOrEmail(user.getUsername()).isPresent()) {
 
-            throw new EntityAlreadyExistsException(String.format("This error occurs when you are trying to create a new user with same username as an existing user. It looks like a user with username %s already exists", user.getUsername()),
-                    String.format("Username %s already exists", user.getUsername()));
+            throw new EntityAlreadyExistsException(String.format(ExceptionMessage.USER_ALREADY_EXISTS.getReason(), user.getUsername()),
+                    String.format(ExceptionMessage.USER_ALREADY_EXISTS.getError(), user.getUsername()));
         }
         if (userRepository.findByUsernameOrEmail(user.getEmail()).isPresent()) {
 
-            throw new EntityAlreadyExistsException(String.format("This error occurs when you are trying to create a new user with same email as an existing user. It looks like a user with email %s already exists", user.getEmail()),
-                    String.format("Email %s already exists", user.getEmail()));
+            throw new EntityAlreadyExistsException(String.format(ExceptionMessage.EMAIL_ALREADY_EXISTS.getReason(), user.getEmail()),
+                    String.format(ExceptionMessage.USER_ALREADY_EXISTS.getError(), user.getEmail()));
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setGrantedAuthorities(Set.of(Role.USER));
