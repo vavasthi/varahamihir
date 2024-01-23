@@ -1,5 +1,6 @@
 package com.avasthi.varahamihir.identityserver;
 
+import com.avasthi.varahamihir.identityserver.factories.IdentityPasswordEncoderFactories;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import jakarta.annotation.PostConstruct;
@@ -38,7 +39,7 @@ public class VarahamihirIdentityManagerLauncher  {
   }
   @Bean(name = "passwordEncoder")
   public PasswordEncoder passwordEncoder() {
-    PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    PasswordEncoder passwordEncoder = IdentityPasswordEncoderFactories.createDelegatingPasswordEncoder();
     return passwordEncoder;
   }
 }

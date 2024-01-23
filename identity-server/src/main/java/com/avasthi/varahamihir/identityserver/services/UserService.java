@@ -5,6 +5,7 @@ import com.avasthi.varahamihir.common.exceptions.EntityAlreadyExistsException;
 import com.avasthi.varahamihir.identityserver.entities.Role;
 import com.avasthi.varahamihir.identityserver.entities.User;
 import com.avasthi.varahamihir.identityserver.repositories.UserRepository;
+import com.avasthi.varahamihir.identityserver.utils.Constants;
 import com.mongodb.MongoWriteException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,7 +23,9 @@ public class UserService {
         return userRepository.findByUsernameOrEmail(usernameOrEmail);
     }
     public List<User> findAll() {
-        return userRepository.findAll();
+        List<User> users = userRepository.findAll();
+        users.forEach(u -> u.setPassword(null));
+        return users;
     }
 
     public Optional<User> save(User user) {

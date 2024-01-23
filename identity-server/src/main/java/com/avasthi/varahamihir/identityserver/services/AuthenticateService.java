@@ -26,11 +26,18 @@ public class AuthenticateService {
                 .findByUsernameOrEmail(login.username())
                 .orElseThrow(() -> new UsernameNotFoundException(String.format("User %s not found", login.username())));
         if (passwordEncoder.matches(login.password(), user.getPassword())) {
-            String authToken = jwtService.generateAuthToken(user);
-            String refreshToken = jwtService.generateRefreshToken(user);
-            return Optional.of(new AuthToken(user.getUsername(), authToken, refreshToken));
+            return Optional.of(generateTokens(user));
         }
         throw new InvalidPasswordException(String.format(ExceptionMessage.INVALID_PASSWORD.getReason(), login.username()),
                 String.format(ExceptionMessage.INVALID_PASSWORD.getError(), user.getUsername()));
+    }
+
+    public Optional<AuthToken> refresh(User user) {
+        return Optional.of(generateTokens(user));
+    }
+    private AuthToken generateTokens(User user) {
+        String authToken = jwtService.generateAuthToken(user);
+        String refreshToken = jwtService.generateRefreshToken(user);
+        return new AuthToken(user.getUsername(), authToken, refreshToken);
     }
 }

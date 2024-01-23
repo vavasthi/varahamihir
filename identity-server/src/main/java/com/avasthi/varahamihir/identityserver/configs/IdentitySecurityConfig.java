@@ -1,6 +1,8 @@
 package com.avasthi.varahamihir.identityserver.configs;
 
 import com.avasthi.varahamihir.identityserver.filters.JwtAuthenticationFilter;
+import com.avasthi.varahamihir.identityserver.handlers.IdentityAccessDeniedHandler;
+import com.avasthi.varahamihir.identityserver.handlers.IdentityAuthenticationFailureHandler;
 import com.avasthi.varahamihir.identityserver.utils.Paths;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -41,7 +43,10 @@ public class IdentitySecurityConfig {
                         .requestMatchers(HttpMethod.POST, Paths.V1.Users.fullPath, Paths.V1.Auth.fullPath).permitAll()
                         .anyRequest()
                         .authenticated())
-                .sessionManagement((sm) -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .sessionManagement((sm) -> {
+                    sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                    sm.sessionAuthenticationFailureHandler(new IdentityAuthenticationFailureHandler());
+                })
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .logout(lo -> {
@@ -49,8 +54,9 @@ public class IdentitySecurityConfig {
                     lo.addLogoutHandler(logoutHandler);
                 })
         ;
-
-
+        httpSecurity.exceptionHandling(customizer -> {
+            customizer.accessDeniedHandler(new IdentityAccessDeniedHandler());
+        });
         return httpSecurity.build();
     }
 }

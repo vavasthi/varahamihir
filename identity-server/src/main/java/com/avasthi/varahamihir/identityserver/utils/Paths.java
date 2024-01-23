@@ -16,6 +16,7 @@ public class Paths {
 
             public static final String Base = "/auth";
             public static final String fullPath = Paths.V1.fullPath + Base;
+            public static final String Refresh = "refresh";
         }
     }
 }

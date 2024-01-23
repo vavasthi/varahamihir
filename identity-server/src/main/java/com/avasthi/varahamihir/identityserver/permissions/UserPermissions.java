@@ -10,6 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -19,5 +20,9 @@ public class UserPermissions {
 
     public boolean authorizedForAdminAndCurrentUser(User principal, String username) {
         return principal.getUsername().equalsIgnoreCase(username);
+    }
+    public boolean authorizedForAdminAndCurrentUser(List<User> users) {
+        users.forEach(u -> u.setPassword(null));
+        return true;
     }
 }

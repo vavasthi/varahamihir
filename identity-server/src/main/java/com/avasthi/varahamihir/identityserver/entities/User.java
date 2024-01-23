@@ -1,5 +1,7 @@
 package com.avasthi.varahamihir.identityserver.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,6 +27,7 @@ public class User extends AbstractBaseEntity implements UserDetails {
     private String fullname;
     @Indexed(name = "user_username_index", unique = true)
     private String username;
+    @JsonProperty( value = "password", access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     @Indexed(name = "user_email_index", unique = true)
     private String email;
