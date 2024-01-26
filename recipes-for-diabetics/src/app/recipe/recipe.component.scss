@@ -1,0 +1,13 @@
+.cls-recipe {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.cls-recipe-rightcolumn {
+    display:flex;
+    flex-direction: column;
+    width:40%;
+}.cls-recipe-cover {
+    width:40%
+}

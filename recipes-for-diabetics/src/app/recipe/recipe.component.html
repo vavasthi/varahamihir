@@ -1,0 +1,7 @@
+<div class="cls-recipe">
+    <app-ingredients [ingredients]="recipe.ingredients"></app-ingredients>
+    <div class="cls-recipe-rightcol">
+        <img class="cls-recipe-cover" src={{recipe.url}}/>
+        <app-sugar-chart [sugarReadings]="recipe.sugarReadings"></app-sugar-chart>
+    </div>
+</div>
