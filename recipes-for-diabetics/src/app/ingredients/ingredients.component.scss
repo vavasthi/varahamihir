@@ -1,7 +1,11 @@
 .cls-ingredients {
+    height:max-content;
+    justify-content: stretch;
+}
+.cls-ingredient-list {
     display:flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+    min-height: 100%;
     gap: 1em;
-    width:50vw;
-    border:solid red 1px
 }

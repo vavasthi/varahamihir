@@ -1,15 +1,12 @@
 .ingredient-card {
-    height: 10vh;
     display:flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
     width: 100%;
-    img {
-        height: 100%;
-    }
   }
-  
+  .cls-ingredient-image {
+    height:10vh
+  }
   .ingredient-header-image {
     background-size: cover;
   }

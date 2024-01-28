@@ -1,13 +1,46 @@
+
+.cls-recipe-page {
+    display:flex;
+    flex-direction: column;
+    padding-left: 1em;
+    gap:2em;
+    width:80vw;
+
+}
+.cls-recipe-header {
+    display: flex;
+    flex-direction: row;
+    text-decoration-color: green;
+    color:green;
+    font-family: 'Pacifico', cursive;
+    font-size: 5vw;
+    gap:.5em;
+    width:100%;
+}
+.cls-recipe-icon {
+    text-decoration-color: green;
+    color:green;
+    font-size: 1.5em;
+}
 .cls-recipe {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
+    align-content: center;
+    justify-content:space-between;
+    gap:2em;
+    flex-wrap: wrap;
 }
-.cls-recipe-rightcolumn {
+.cls-recipe-rightcol {
+    display:flex;
+    flex-basis: 30%;
+    flex-direction: column;
+    gap:1em
+}
+.cls-recipe-leftcol {
     display:flex;
     flex-direction: column;
-    width:40%;
-}.cls-recipe-cover {
-    width:40%
+    gap:1em
+}
+.cls-recipe-cover {
+    width:100%
 }

@@ -1,7 +1,19 @@
-<div class="cls-recipe">
-    <app-ingredients [ingredients]="recipe.ingredients"></app-ingredients>
-    <div class="cls-recipe-rightcol">
-        <img class="cls-recipe-cover" src={{recipe.url}}/>
-        <app-sugar-chart [sugarReadings]="recipe.sugarReadings"></app-sugar-chart>
+<div class="cls-recipe-page">
+    <br/>
+    <div class="cls-recipe-header">
+        <span class="material-symbols-outlined cls-recipe-icon">
+            menu_book
+            </span>
+        <div class="cls-recipe-name">{{recipe.name}}</div>
+    </div>
+    <div class="cls-recipe">
+        <div class="cls-recipe-leftcol">
+            <app-ingredients [ingredients]="recipe.ingredients"></app-ingredients>
+            <app-sugar-chart [sugarReadings]="recipe.sugarReadings"></app-sugar-chart>
+        </div>
+        <div class="cls-recipe-rightcol">
+            <img class="cls-recipe-cover" src={{recipe.url}}/>
+            <app-nutritional-values [name]="recipe.name" [nutrition]="recipe.nutrition"></app-nutritional-values>
+        </div>
     </div>
 </div>

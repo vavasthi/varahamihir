@@ -1,26 +1,15 @@
 import { Ingredient } from "./ingredient";
+import { Nutrition } from "./nutrition";
 import { Step } from "./step";
 import { SugarReading } from "./sugar-reading";
 
-export class Recipe {
+export interface Recipe {
+    id:string,
     name:string;
     url:string;
     ingredients:Ingredient[];
-    preperation:Step[];
+    preparation:Step[];
     cooking:Step[];
     sugarReadings: SugarReading[];
-
-    constructor(name:string, 
-        url:string, 
-        ingredients:Ingredient[], 
-        preperation:Step[], 
-        cooking:Step[],
-        sugarReadings:SugarReading[]) {
-            this.name = name;
-            this.url = url;
-            this.ingredients = ingredients;
-            this.preperation = preperation;
-            this.cooking = cooking;
-            this.sugarReadings = sugarReadings;
-    }
+    nutrition:Nutrition;
 }
