@@ -1,2 +1,26 @@
+<mat-toolbar class="cls-toolbar" color="primary">
+    <mat-toolbar-row>
+        <span>Varahamihir</span>
+        <span class="cls-auto-spacer"></span>
+        <button mat-icon-button class="cls-toolbar-icon" aria-hidden="false" aria-label="User Icon"
+            [matMenuTriggerFor]="menu">
+            <mat-icon>account_circle</mat-icon>
+        </button>
+    </mat-toolbar-row>
+</mat-toolbar>
+<mat-menu #menu="matMenu">
+    <button mat-menu-item>
+        <mat-icon>dialpad</mat-icon>
+        <span>Redial</span>
+    </button>
+    <button mat-menu-item disabled>
+        <mat-icon>voicemail</mat-icon>
+        <span>Check voice mail</span>
+    </button>
+    <button mat-menu-item>
+        <mat-icon>notifications_off</mat-icon>
+        <span>Disable alerts</span>
+    </button>
+</mat-menu>
 <router-outlet></router-outlet>
 <app-recipe></app-recipe>
