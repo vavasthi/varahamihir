@@ -1,5 +1,6 @@
 package com.avasthi.varahamihir.identityserver.endpoints;
 
+import com.avasthi.varahamihir.common.annotations.RefreshRolePermission;
 import com.avasthi.varahamihir.identityserver.entities.User;
 import com.avasthi.varahamihir.identityserver.pojo.AuthToken;
 import com.avasthi.varahamihir.identityserver.pojo.Login;
@@ -25,6 +26,7 @@ public class AuthEndpoint {
     public Optional<AuthToken> login(@RequestBody Login login) {
         return authenticateService.auth(login);
     }
+    @RefreshRolePermission
     @RequestMapping(path = Paths.V1.Auth.Refresh, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public Optional<AuthToken> refresh(@AuthenticationPrincipal User user) {
         return authenticateService.refresh(user);

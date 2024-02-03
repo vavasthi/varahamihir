@@ -1,0 +1,25 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$varahamihir-primary: mat.define-palette(mat.$green-palette);
+$varahamihir-accent: mat.define-palette(mat.$purple-palette);
+
+$varahamihir-theme: mat.define-light-theme((
+ color: (
+   primary: $varahamihir-primary,
+   accent: $varahamihir-accent,
+ ),
+ typography: mat.define-typography-config(),
+ density: 0,
+));
+$varahamihir-theme: mat.define-dark-theme((
+ color: (
+   primary: $varahamihir-primary,
+   accent: $varahamihir-accent,
+ ),
+ typography: mat.define-typography-config(),
+ density: 0,
+));
+
+@include mat.all-component-themes($varahamihir-theme);

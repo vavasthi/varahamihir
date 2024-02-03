@@ -38,6 +38,6 @@ public class AuthenticateService {
     private AuthToken generateTokens(User user) {
         String authToken = jwtService.generateAuthToken(user);
         String refreshToken = jwtService.generateRefreshToken(user);
-        return new AuthToken(user.getUsername(), authToken, refreshToken);
+        return new AuthToken(user.getUsername(), authToken, refreshToken, user.getGrantedAuthorities());
     }
 }
