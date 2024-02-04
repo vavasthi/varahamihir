@@ -2,16 +2,26 @@
     <mat-toolbar-row>
         <span>Varahamihir</span>
         <span class="cls-auto-spacer"></span>
+        @if(currentUser == null) {
+
+        <button mat-icon-button class="cls-toolbar-icon" aria-hidden="false" aria-label="Login" (click)="login()">
+            <mat-icon>login</mat-icon>
+        </button>
+        }
+        @else {
+
         <button mat-icon-button class="cls-toolbar-icon" aria-hidden="false" aria-label="User Icon"
             [matMenuTriggerFor]="menu">
             <mat-icon>account_circle</mat-icon>
         </button>
+        }
+        <app-theme-switch></app-theme-switch>
     </mat-toolbar-row>
 </mat-toolbar>
 <mat-menu #menu="matMenu">
-    <button mat-menu-item>
-        <mat-icon>dialpad</mat-icon>
-        <span>Redial</span>
+    <button mat-menu-item (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        <span>Logout</span>
     </button>
     <button mat-menu-item disabled>
         <mat-icon>voicemail</mat-icon>
@@ -24,4 +34,3 @@
 </mat-menu>
 <router-outlet></router-outlet>
 <app-recipe></app-recipe>
-<app-auth></app-auth>

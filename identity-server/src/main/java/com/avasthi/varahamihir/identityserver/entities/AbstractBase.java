@@ -14,7 +14,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class AbstractBaseEntity {
+public abstract class AbstractBase {
 
 
   private UUID id = UUID.randomUUID();

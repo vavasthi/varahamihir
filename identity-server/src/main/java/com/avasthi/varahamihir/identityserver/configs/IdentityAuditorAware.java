@@ -15,14 +15,14 @@ import java.util.Optional;
 @EnableMongoAuditing
 @Configuration
 @RequiredArgsConstructor
-public class IdentityAuditorAware implements AuditorAware<User> {
+public class IdentityAuditorAware implements AuditorAware<String> {
 
     private final UserService userService;
     @Override
-    public Optional<User> getCurrentAuditor() {
+    public Optional<String> getCurrentAuditor() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
-            return userService.findOne(authentication.getName());
+            return Optional.of(userService.findOne(authentication.getName()).get().getId().toString());
         }
         return Optional.empty();
     }

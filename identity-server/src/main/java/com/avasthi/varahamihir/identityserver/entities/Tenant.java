@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @Builder
 @AllArgsConstructor
-public class Tenant extends AbstractBaseEntity {
+public class Tenant extends AbstractBase {
 
 
   private String name;

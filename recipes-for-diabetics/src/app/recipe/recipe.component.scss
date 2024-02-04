@@ -11,16 +11,16 @@
 .cls-recipe-header {
     display: flex;
     flex-direction: row;
-    text-decoration-color: green;
-    color:green;
+    text-decoration-color: var(--color-primary);
+    color: var(--color-primary);
     font-family: 'Pacifico', cursive;
     font-size: 5vw;
     gap:.5em;
     width:100%;
 }
 .cls-recipe-icon {
-    text-decoration-color: green;
-    color:green;
+    text-decoration-color: var(--color-primary);
+    color:var(--color-primary);
     font-size: 1.5em;
 }
 .cls-recipe {

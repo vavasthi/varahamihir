@@ -18,5 +18,13 @@ public class Paths {
             public static final String fullPath = Paths.V1.fullPath + Base;
             public static final String Refresh = "refresh";
         }
+        public class Content {
+
+            public static final String Base = "/content";
+            public static final String fullPath = Paths.V1.fullPath + Base;
+            public static final String contentId = "contentId";
+            public static final String filename = "filename";
+            public static final String contentPath = "/{" + contentId + "}/{" + filename + "}";
+        }
     }
 }

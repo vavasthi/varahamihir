@@ -1,12 +1,10 @@
 package com.avasthi.varahamihir.identityserver.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.mongodb.core.index.HashIndexed;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,7 +20,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(collection = "users")
-public class User extends AbstractBaseEntity implements UserDetails {
+public class User extends AbstractBase implements UserDetails {
     private UUID tenantId;
     private String fullname;
     @Indexed(name = "user_username_index", unique = true)

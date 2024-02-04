@@ -1,9 +1,6 @@
 package com.avasthi.varahamihir.identityserver.advice;
 
-import com.avasthi.varahamihir.common.exceptions.EntityAlreadyExistsException;
-import com.avasthi.varahamihir.common.exceptions.ExceptionResponse;
-import com.avasthi.varahamihir.common.exceptions.InvalidPasswordException;
-import com.avasthi.varahamihir.common.exceptions.TokenSigningException;
+import com.avasthi.varahamihir.common.exceptions.*;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -58,6 +55,22 @@ public class IdentityExceptionHandler {
                 .requestId(request.getRequestId())
                 .status(HttpStatus.FAILED_DEPENDENCY.value())
                 .stackTrace(Arrays.stream(tse.getStackTrace()).map(ste -> ste.toString()).collect(Collectors.toList()))
+                .build();
+    }
+    @ExceptionHandler(ContentWritingFailedException.class)
+    @ResponseStatus(HttpStatus.FAILED_DEPENDENCY)
+    public ExceptionResponse handleInvalidPasswordException(ContentWritingFailedException cwfe,
+                                                            HttpServletRequest request) {
+
+        cwfe.printStackTrace();
+        return ExceptionResponse.builder()
+                .error(cwfe.getError())
+                .message(cwfe.getMessage())
+                .timestamp(cwfe.getTimestamp())
+                .path(request.getRequestURI())
+                .requestId(request.getRequestId())
+                .status(HttpStatus.FAILED_DEPENDENCY.value())
+                .stackTrace(Arrays.stream(cwfe.getStackTrace()).map(ste -> ste.toString()).collect(Collectors.toList()))
                 .build();
     }
 }

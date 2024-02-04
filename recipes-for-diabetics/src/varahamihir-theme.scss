@@ -2,24 +2,43 @@
 
 @include mat.core();
 
-$varahamihir-primary: mat.define-palette(mat.$green-palette);
-$varahamihir-accent: mat.define-palette(mat.$purple-palette);
+@include mat.strong-focus-indicators();
 
-$varahamihir-theme: mat.define-light-theme((
+$varahamihir-primary-light: mat.define-palette(mat.$green-palette,100,400,A200,A700);
+$varahamihir-accent-light: mat.define-palette(mat.$purple-palette,100,300,A200,A400);
+
+$varahamihir-primary-dark: mat.define-palette(mat.$green-palette,800,900);
+$varahamihir-accent-dark: mat.define-palette(mat.$purple-palette,400,600,900,A700);
+
+
+$varahamihir-theme-light: mat.define-light-theme((
  color: (
-   primary: $varahamihir-primary,
-   accent: $varahamihir-accent,
+   primary: $varahamihir-primary-light,
+   accent: $varahamihir-accent-light,
  ),
  typography: mat.define-typography-config(),
  density: 0,
 ));
-$varahamihir-theme: mat.define-dark-theme((
+$varahamihir-theme-dark: mat.define-dark-theme((
  color: (
-   primary: $varahamihir-primary,
-   accent: $varahamihir-accent,
+   primary: $varahamihir-primary-dark,
+   accent: $varahamihir-accent-dark,
  ),
  typography: mat.define-typography-config(),
  density: 0,
 ));
 
-@include mat.all-component-themes($varahamihir-theme);
+@include mat.all-component-themes($varahamihir-theme-light);
+:root {
+  --color-primary: mat.get-color-from-palette($varahamihir-primary-light, default);
+  --color-primary: mat.get-color-from-palette($varahamihir-primary-light, default-contrast);
+}
+.dark-theme {
+
+  --color-primary: mat.get-color-from-palette($varahamihir-primary-dark, default);
+  --color-primary: mat.get-color-from-palette($varahamihir-primary-dark, default-contrast);
+}
+.dark-theme {
+  @include mat.all-component-themes($varahamihir-theme-dark)
+}
+ 

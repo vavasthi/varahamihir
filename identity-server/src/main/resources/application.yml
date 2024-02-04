@@ -1,6 +1,6 @@
 logging:
     level:
-        root: DEBUG
+#        root: DEBUG
         org:
             springframework:
                 cloud:
@@ -49,3 +49,7 @@ application:
             expiration: 86400000 # a day
             refresh-token:
                 expiration: 604800000 # 7 days
+
+varahamihir:
+    content:
+        basepath: content
