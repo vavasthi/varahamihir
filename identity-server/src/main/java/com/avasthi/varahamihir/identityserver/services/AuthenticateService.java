@@ -6,6 +6,7 @@ import com.avasthi.varahamihir.identityserver.entities.User;
 import com.avasthi.varahamihir.identityserver.pojo.AuthToken;
 import com.avasthi.varahamihir.identityserver.pojo.Login;
 import com.avasthi.varahamihir.identityserver.repositories.UserRepository;
+import com.avasthi.varahamihir.identityserver.utils.Constants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -38,6 +39,6 @@ public class AuthenticateService {
     private AuthToken generateTokens(User user) {
         String authToken = jwtService.generateAuthToken(user);
         String refreshToken = jwtService.generateRefreshToken(user);
-        return new AuthToken(user.getUsername(), authToken, refreshToken, user.getGrantedAuthorities());
+        return new AuthToken(user.getUsername(), authToken, refreshToken, user.getGrantedAuthorities(), user.getProfilePicture() == null ? Constants.defaultProfilePicture : user.getProfilePicture());
     }
 }

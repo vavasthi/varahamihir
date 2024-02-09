@@ -10,11 +10,14 @@ $varahamihir-accent-light: mat.define-palette(mat.$purple-palette,100,300,A200,A
 $varahamihir-primary-dark: mat.define-palette(mat.$green-palette,800,900);
 $varahamihir-accent-dark: mat.define-palette(mat.$purple-palette,400,600,900,A700);
 
+$varahamihir-warn-light: mat.define-palette(mat.$red-palette);
+$varahamihir-warn-dark: mat.define-palette(mat.$red-palette);
 
 $varahamihir-theme-light: mat.define-light-theme((
  color: (
    primary: $varahamihir-primary-light,
    accent: $varahamihir-accent-light,
+   warn: $varahamihir-warn-light
  ),
  typography: mat.define-typography-config(),
  density: 0,
@@ -23,6 +26,7 @@ $varahamihir-theme-dark: mat.define-dark-theme((
  color: (
    primary: $varahamihir-primary-dark,
    accent: $varahamihir-accent-dark,
+   warn: $varahamihir-warn-dark
  ),
  typography: mat.define-typography-config(),
  density: 0,
@@ -39,6 +43,6 @@ $varahamihir-theme-dark: mat.define-dark-theme((
   --color-primary: mat.get-color-from-palette($varahamihir-primary-dark, default-contrast);
 }
 .dark-theme {
-  @include mat.all-component-themes($varahamihir-theme-dark)
+  @include mat.all-component-colors($varahamihir-theme-dark)
 }
  

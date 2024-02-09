@@ -30,16 +30,8 @@ public class IdentitySecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity.csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests((auth) -> auth.requestMatchers(
-                                "/api/v1/auth/**",
-                                "/swagger-resources",
-                                "/swagger-resources/**",
-                                "/configuration/ui",
-                                "/configuration/security",
-                                "/swagger-ui/**",
-                                "/webjars/**",
-                                "/swagger-ui.html"
-                        ).permitAll()
+                .authorizeHttpRequests((auth) -> auth
+                        .requestMatchers(HttpMethod.GET, "/content/**", Paths.V1.Content.fullPath + "/**").permitAll()
                         .requestMatchers(HttpMethod.POST, Paths.V1.Users.fullPath, Paths.V1.Auth.fullPath).permitAll()
                         .anyRequest()
                         .authenticated())

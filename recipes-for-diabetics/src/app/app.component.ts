@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { RecipeComponent } from './recipe/recipe.component';
@@ -14,6 +14,9 @@ import { User } from './pojo/user';
 import { AuthService } from './services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ThemeSwitchComponent } from './theme-switch/theme-switch.component';
+import { MainMenuBarComponent } from './main-menu-bar/main-menu-bar.component';
+import { HomeComponent } from './home/home.component';
+import { CustomSidenavMenuItems } from './pojo/custom-sidenav-menu-items';
 
 @Component({
   selector: 'app-root',
@@ -28,28 +31,31 @@ import { ThemeSwitchComponent } from './theme-switch/theme-switch.component';
     MatMenuModule,
     LoginDialogComponent,
     ThemeSwitchComponent,
-    MatButtonModule],
+    MatButtonModule,
+    MainMenuBarComponent,
+    HomeComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
   title = 'Recipes for Diebetes';
-  currentUser:User|null = null;
+  currentUser: Signal<User | undefined>;
+  sideNavMenu: CustomSidenavMenuItems[] = [
+    {
+      icon:  'home',
+      label: 'Home',
+      route: ""
+    },
+    {
+      icon:  'skillet_cooktop',
+      label: 'Recipes',
+      route: "lwd"
+    }
+
+  ]
   constructor(private dialog: MatDialog,
-    private authService:AuthService,
-    private snackBar:MatSnackBar) {
-    this.authService.getCurrentUser().subscribe(user => {
-      this.currentUser = user;
-    })
-  }
-  login() {
-    const dialogRef = this.dialog.open(LoginDialogComponent)
-    dialogRef.afterClosed().subscribe(result => {
-      dialogRef.close();
-    })
-  }
-  logout() {
-    this.snackBar.open("Loggging out..", "Ok", {duration: 5000})
-    this.authService.setCurrentUser(null)
+    private authService: AuthService,
+    private snackBar: MatSnackBar) {
+    this.currentUser = this.authService.getCurrentUser()
   }
 }

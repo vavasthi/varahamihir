@@ -29,6 +29,7 @@ public class User extends AbstractBase implements UserDetails {
     private String password;
     @Indexed(name = "user_email_index", unique = true)
     private String email;
+    private String profilePicture;
     private Set<Role> grantedAuthorities;
     private boolean expired = false;
     private boolean locked = false;

@@ -1,19 +1,40 @@
 <div class="cls-recipe-page">
-    <br/>
+    <br />
     <div class="cls-recipe-header">
         <span class="material-symbols-outlined cls-recipe-icon">
             menu_book
-            </span>
+        </span>
         <div class="cls-recipe-name">{{recipe.name}}</div>
     </div>
     <div class="cls-recipe">
-        <div class="cls-recipe-leftcol">
-            <app-ingredients [ingredients]="recipe.ingredients"></app-ingredients>
-            <app-sugar-chart [sugarReadings]="recipe.sugarReadings"></app-sugar-chart>
+        <div class="cls-recipe-top">
+
+            <div class="cls-recipe-leftcol">
+                <app-ingredients [ingredients]="recipe.ingredients"></app-ingredients>
+                <app-sugar-chart [sugarReadings]="recipe.sugarReadings"></app-sugar-chart>
+            </div>
+            <div class="cls-recipe-rightcol">
+                <img class="cls-recipe-cover" src={{recipe.url}} />
+                <app-nutritional-values [name]="recipe.name" [nutrition]="recipe.nutrition"></app-nutritional-values>
+            </div>
         </div>
-        <div class="cls-recipe-rightcol">
-            <img class="cls-recipe-cover" src={{recipe.url}}/>
-            <app-nutritional-values [name]="recipe.name" [nutrition]="recipe.nutrition"></app-nutritional-values>
-        </div>
+    </div>
+    <div class="cls-recipe-step-block">
+        <div class="cls-recipe-subheader">Preparation</div>
+        <br />
+        <ol class="cls-list-wrapping">
+            @for (preparation of recipe.preparation; track preparation.process) {
+            <li>{{preparation.process}}</li>
+            }
+        </ol>
+    </div>
+    <div class="cls-recipe-step-block">
+        <div class="cls-recipe-subheader">Cooking Steps</div>
+        <br />
+        <ol class="cls-list-wrapping">
+            @for (cooking of recipe.cooking; track cooking.process) {
+            <li>{{cooking.process}}</li>
+            }
+        </ol>
     </div>
 </div>

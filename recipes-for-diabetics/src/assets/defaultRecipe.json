@@ -70,7 +70,6 @@
 			}
 		}
 	],
-	"preparation" : [],
 	"cooking" : [],
 	"sugarReadings": [
 		{
@@ -259,5 +258,13 @@
 				"acronym": "%"
 			}
 		}
-	}
+	},
+	"preparation": [
+		{
+			"process" : "Do step 1"
+		},
+		{
+			"process" : "Do step 2"
+		}
+	]
 }

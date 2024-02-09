@@ -1,6 +1,6 @@
 logging:
     level:
-#        root: DEBUG
+        root: DEBUG
         org:
             springframework:
                 cloud:
@@ -41,6 +41,8 @@ spring:
             auto-index-creation: true
     application:
         name: identity-server
+    mvc:
+        static-path-pattern: /content/**
 
 application:
     security:

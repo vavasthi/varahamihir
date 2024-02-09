@@ -1,0 +1,50 @@
+.cls-custom-sidenav-header {
+
+    padding-top: 24px;
+    text-align: center;
+
+    >img {
+        border-radius: 100%;
+        object-fit: cover;
+        margin-bottom: 10px;
+    }
+
+    .cls-custom-sidenav-header-text {
+        height: 3rem;
+        >h2 {
+            margin: 0;
+            font-size: 1rem;
+            line-height: 1.5rem;
+        }
+
+        >p {
+            margin: 0;
+            font-size: 0.8 rem;
+        }
+    }
+    .cls-custom-sidenav-header-text-hidden {
+        opacity: 0;
+        height: 0px !important;
+    }
+    .menu-item {
+        border-left: 5px solid;
+        border-left-color: rgba(0,0,0,0);
+    }
+    .selected-menu-item {
+        border-left-color: var(--color-primary);
+        background: rgba(0,0,0,0.05);
+    }
+}
+:host * {
+    transition: all 500ms ease-in-out;
+}
+.material-symbols-outlined {
+  font-variation-settings:
+  'wght' 600,
+  'GRAD' 0,
+  'opsz' 16
+}
+.material-symbols-filled {
+  font-variation-settings:
+  'FILL' 1
+}
