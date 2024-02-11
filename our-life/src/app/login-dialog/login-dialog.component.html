@@ -1,0 +1,34 @@
+<div class="cls-login-container">
+
+    <mat-card class="cls-login-card">
+        <mat-card-content>
+            <form [formGroup]="loginForm" (ngSubmit)="onLogin()" ngCa>
+    
+                <div class="auth-container">
+                    @if (authenticationFailed) {
+                    <mat-error>
+                        The username and password were not recognized
+                    </mat-error>
+                    }
+                    <mat-form-field class="cls-input-field-width">
+                        <mat-label>Username</mat-label>
+                        <input  width="100px" matInput type="text" formControlName="username" name="username" required />
+                        <mat-error>Please provide a valid username.</mat-error>
+                    </mat-form-field>
+                    <br/>
+                    <mat-form-field class="cls-input-field-width"> 
+                        <mat-label>Password</mat-label>
+                        <input width="100px" matInput [type]="hidePassword ? 'password' : 'text'" id="password" formControlName="password" required>
+                        <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+                            <mat-icon matListItemIcon class="material-symbols-outlined" >{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                          </button>
+                        <mat-error>Please provide a valid password.</mat-error>
+                    </mat-form-field>
+                    <mat-dialog-actions class="dialog-action-block">
+                        <button mat-raised-button color="primary" type="button" (click)="onCancel($event)">Cancel</button>
+                        <button mat-raised-button color="primary" [disabled]="!loginForm.valid">Login</button>
+                    </mat-dialog-actions>
+                </div>
+            </form>
+            </mat-card-content>
+    </mat-card></div>

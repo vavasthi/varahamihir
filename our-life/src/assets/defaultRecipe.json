@@ -1,0 +1,271 @@
+{
+	"id" : "52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
+	"name": "Paneer Butter Masala",
+	"description" : "This is a very popular Indian vegetarian dish made of paneer and butter.",
+	"url": "https://thumbs.dreamstime.com/z/indian-main-course-paneer-butter-masala-punjabi-curry-109156136.jpg?ct=jpeg",
+	"ingredients": [
+		{
+			"name": "Jeera",
+			"url": "https://as1.ftcdn.net/v2/jpg/01/45/64/60/1000_F_145646010_VvQuqzNWcySHfqxhjEwo2fd21v996IbS.jpg",
+			"quantity": {
+				"value": 10,
+				"unit": {
+					"name": "Grams",
+					"acronym": "gm"
+				}
+			}
+		},
+		{
+			"name": "Haldi",
+			"url": "https://as1.ftcdn.net/v2/jpg/01/82/27/42/1000_F_182274289_RvpPTYZmC3n98ZXuH85d31XBfyEhk6b1.jpg",
+			"quantity": {
+				"value": 10,
+				"unit": {
+					"name": "Grams",
+					"acronym": "gm"
+				}
+			}
+		},
+		{
+			"name": "Jeera",
+			"url": "https://as1.ftcdn.net/v2/jpg/01/45/64/60/1000_F_145646010_VvQuqzNWcySHfqxhjEwo2fd21v996IbS.jpg",
+			"quantity": {
+				"value": 10,
+				"unit": {
+					"name": "Grams",
+					"acronym": "gm"
+				}
+			}
+		},
+		{
+			"name": "Haldi",
+			"url": "https://as1.ftcdn.net/v2/jpg/01/82/27/42/1000_F_182274289_RvpPTYZmC3n98ZXuH85d31XBfyEhk6b1.jpg",
+			"quantity": {
+				"value": 10,
+				"unit": {
+					"name": "Grams",
+					"acronym": "gm"
+				}
+			}
+		},
+		{
+			"name": "Jeera",
+			"url": "https://as1.ftcdn.net/v2/jpg/01/45/64/60/1000_F_145646010_VvQuqzNWcySHfqxhjEwo2fd21v996IbS.jpg",
+			"quantity": {
+				"value": 10,
+				"unit": {
+					"name": "Grams",
+					"acronym": "gm"
+				}
+			}
+		},
+		{
+			"name": "Haldi",
+			"url": "https://as1.ftcdn.net/v2/jpg/01/82/27/42/1000_F_182274289_RvpPTYZmC3n98ZXuH85d31XBfyEhk6b1.jpg",
+			"quantity": {
+				"value": 10,
+				"unit": {
+					"name": "Grams",
+					"acronym": "gm"
+				}
+			}
+		}
+	],
+	"cooking" : [],
+	"sugarReadings": [
+		{
+			"minutes": 0,
+			"reading": 80
+		},
+		{
+			"minutes": 15,
+			"reading": 90
+		},
+		{
+			"minutes": 30,
+			"reading": 120
+		},
+		{
+			"minutes": 45,
+			"reading": 140
+		},
+		{
+			"minutes": 60,
+			"reading": 150
+		},
+		{
+			"minutes": 75,
+			"reading": 140
+		},
+		{
+			"minutes": 90,
+			"reading": 120
+		},
+		{
+			"minutes": 105,
+			"reading": 90
+		},
+		{
+			"minutes": 115,
+			"reading": 70
+		}
+	],
+	"nutrition": {
+		"quantity": {
+			"value": 1,
+			"unit": {
+				"name": "Serving",
+				"acronym": "srv"
+			}
+		},
+		"calories": 375,
+		"totalFat": {
+			"value": 22,
+			"unit": {
+				"name": "Grams",
+				"acronym": "gm"
+			}
+		},
+		"saturatedFat": {
+			"value": 1.5,
+			"unit": {
+				"name": "Grams",
+				"acronym": "gm"
+			}
+		},
+		"transFat": {
+			"value": 0,
+			"unit": {
+				"name": "Grams",
+				"acronym": "gm"
+			}
+		},
+		"polyUnsaturatedFat": {
+			"value": 0,
+			"unit": {
+				"name": "Grams",
+				"acronym": "gm"
+			}
+		},
+		"monoUnsaturatedFat": {
+			"value": 0,
+			"unit": {
+				"name": "Grams",
+				"acronym": "gm"
+			}
+		},
+		"cholestrol": {
+			"value": 0,
+			"unit": {
+				"name": "Milligrams",
+				"acronym": "mg"
+			}
+		},
+		"sodium": {
+			"value": 168,
+			"unit": {
+				"name": "Milligrams",
+				"acronym": "mg"
+			}
+		},
+		"potassium": {
+			"value": 1788,
+			"unit": {
+				"name": "Milligrams",
+				"acronym": "mg"
+			}
+		},
+		"totalCarbohydrates": {
+			"value": 44,
+			"unit": {
+				"name": "Grams",
+				"acronym": "gm"
+			}
+		},
+		"dietaryFiber": {
+			"value": 11,
+			"unit": {
+				"name": "Grams",
+				"acronym": "gm"
+			}
+		},
+		"sugars": {
+			"value": 2.3,
+			"unit": {
+				"name": "Grams",
+				"acronym": "gm"
+			}
+		},
+		"protein": {
+			"value": 18,
+			"unit": {
+				"name": "Grams",
+				"acronym": "gm"
+			}
+		},
+		"vitaminA": {
+			"value": 0,
+			"unit": {
+				"name": "percent",
+				"acronym": "%"
+			}
+		},
+		"vitaminB6": {
+			"value": 20,
+			"unit": {
+				"name": "percent",
+				"acronym": "%"
+			}
+		},
+		"vitaminC": {
+			"value": 0,
+			"unit": {
+				"name": "percent",
+				"acronym": "%"
+			}
+		},
+		"vitaminD": {
+			"value": 0,
+			"unit": {
+				"name": "percent",
+				"acronym": "%"
+			}
+		},
+		"calcium": {
+			"value": 93,
+			"unit": {
+				"name": "percent",
+				"acronym": "%"
+			}
+		},
+		"iron": {
+			"value": 368,
+			"unit": {
+				"name": "percent",
+				"acronym": "%"
+			}
+		},
+		"magnesium": {
+			"value": 91,
+			"unit": {
+				"name": "percent",
+				"acronym": "%"
+			}
+		},
+		"cobalamin": {
+			"value": 0,
+			"unit": {
+				"name": "percent",
+				"acronym": "%"
+			}
+		}
+	},
+	"preparation": [
+		{
+			"process" : "Do step 1"
+		},
+		{
+			"process" : "Do step 2"
+		}
+	]
+}

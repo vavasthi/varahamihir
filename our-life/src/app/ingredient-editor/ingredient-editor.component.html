@@ -1,0 +1,49 @@
+<form  class="ingredient-editor-form">
+    <form [formGroup]="ingredientEditorForm"  class="ingredient-editor-form">
+    <div class="cls-ingredient-header-block">
+        <div class="cls-ingredient-header-block-text">
+
+            <mat-form-field>
+                <mat-label>Name</mat-label>
+                <input matInput required formControlName="name" name="name"/>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Description</mat-label>
+                <input matInput formControlName="description" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Brand</mat-label>
+                <input matInput formControlName="brand" />
+            </mat-form-field>
+        </div>
+        <div class="cls-ingredient-header-block-image">
+
+            <mat-form-field>
+                <mat-label>URL</mat-label>
+                <input matInput required formControlName="url"/>
+            </mat-form-field>
+            @if (url()) {
+
+                <img width="100%" [src]="url()"/>
+            }
+            @else {
+                <app-drag-and-drop [multiple]=false (fileSelected)="onFileSelected($event)"/>
+            }
+        </div>
+    </div>
+</form>
+<mat-card class="ingredient-card">
+    <mat-card-header>
+        <div mat-card-avatar class="ingredient-header-image"></div>
+        <mat-card-title>Shiba Inu</mat-card-title>
+        <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+    </mat-card-header>
+    <img class="ingredient-image" mat-card-image width="10vh"
+        src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+    <mat-card-content>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-button>LIKE</button>
+        <button mat-button>SHARE</button>
+    </mat-card-actions>
+</mat-card>

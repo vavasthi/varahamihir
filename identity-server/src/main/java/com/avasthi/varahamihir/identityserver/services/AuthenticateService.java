@@ -39,6 +39,6 @@ public class AuthenticateService {
     private AuthToken generateTokens(User user) {
         String authToken = jwtService.generateAuthToken(user);
         String refreshToken = jwtService.generateRefreshToken(user);
-        return new AuthToken(user.getUsername(), authToken, refreshToken, user.getGrantedAuthorities(), user.getProfilePicture() == null ? Constants.defaultProfilePicture : user.getProfilePicture());
+        return new AuthToken(user.getUsername(), user.getFullname(), authToken, refreshToken, user.getGrantedAuthorities(), user.getProfilePicture() == null ? Constants.defaultProfilePicture : user.getProfilePicture());
     }
 }

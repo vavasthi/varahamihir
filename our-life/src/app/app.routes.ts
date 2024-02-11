@@ -1,0 +1,16 @@
+import { Routes } from '@angular/router';
+import { LoginDialogComponent } from './login-dialog/login-dialog.component';
+import { HomeComponent } from './home/home.component';
+import { LwdAppHomeComponent } from './lwd-app-home/lwd-app-home.component';
+import { IngredientEditorComponent } from './ingredient-editor/ingredient-editor.component';
+import { RecipeEditorComponent } from './recipe-editor/recipe-editor.component';
+
+export const routes: Routes = [
+    { path:'', title: 'Our Life | Home', component: HomeComponent},
+    { path:'login', title: 'Our Life | Login', component: LoginDialogComponent},
+    {path: 'lwd/recipe/edit/:id', title: 'Our Life | Living with diabetes | Recipe Edit', component: RecipeEditorComponent },
+    { path:'lwd/recipe/edit', title: 'Our Life | Living with diabetes | Recipe Edit', component: RecipeEditorComponent },
+    { path: 'lwd/ingredient/edit/:id', title: 'Our Life | Living with diabetes | Ingredients Edit', component: IngredientEditorComponent },
+    { path: 'lwd/ingredient/edit', title: 'Our Life | Living with diabetes | Ingredients Edit', component: IngredientEditorComponent },
+    { path:'lwd', title: 'Our Life | Living with diabetes', component: LwdAppHomeComponent}
+];

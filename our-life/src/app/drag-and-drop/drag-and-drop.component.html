@@ -1,0 +1,32 @@
+<div class="container" appDragAndDrop (fileDropped)="onFileDropped($event)">
+    @if (multiple) {
+
+        <input type="file" #fileDropRef id="fileDropRef" multiple (change)="fileBrowseHandler($event)" />
+    }
+    @else {
+
+        <input type="file" #fileDropRef id="fileDropRef" (change)="fileBrowseHandler($event)" />
+    }
+    <span class="material-symbols-outlined">place_item</span>
+    <h3>Drag and drop file here</h3>
+    <label for="fileDropRef">Browse for file</label>
+</div>
+<!--
+<div class="files-list">
+    @for (file of files; track files) {
+        <div class="single-file">
+            <img src="assets/img/dnd/ic-file.svg" width="45px" alt="file">
+            <div class="info">
+                <h4 class="name">
+                    {{ file?.name }}
+                </h4>
+                <p class="size">
+                    {{ formatBytes(file?.size) }}
+                </p>
+                <mat-progress-bar mode="determinate" value="file?.progress"></mat-progress-bar>
+            </div>
+            <img src="assets/img/dnd/ic-delete-file.svg" class="delete" width="20px" alt="file" (click)="deleteFile(file)">
+        </div>
+    }
+</div>
+-->

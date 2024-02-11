@@ -7,8 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
@@ -71,6 +73,24 @@ public class IdentityExceptionHandler {
                 .requestId(request.getRequestId())
                 .status(HttpStatus.FAILED_DEPENDENCY.value())
                 .stackTrace(Arrays.stream(cwfe.getStackTrace()).map(ste -> ste.toString()).collect(Collectors.toList()))
+                .build();
+    }
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    @ResponseStatus(HttpStatus.FAILED_DEPENDENCY)
+    public ExceptionResponse handleContentSizeTooBigException(MaxUploadSizeExceededException msee,
+                                                              HttpServletRequest request) {
+
+        msee.printStackTrace();
+        return ExceptionResponse.builder()
+                .error(String.format("Detailed %s Title %s Type %s",
+                                msee.getDetailMessageCode(),
+                                msee.getTitleMessageCode(),
+                                msee.getTypeMessageCode()))
+                .message(msee.getMessage())
+                .timestamp(new Date())
+                .path(request.getRequestURI())
+                .requestId(request.getRequestId())
+                .status(HttpStatus.FAILED_DEPENDENCY.value())
                 .build();
     }
 }
