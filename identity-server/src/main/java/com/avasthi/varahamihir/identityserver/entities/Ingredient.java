@@ -13,6 +13,8 @@ import java.util.Objects;
 @AllArgsConstructor
 public final class Ingredient extends AbstractBase {
     private String name;
+    private String description;
+    private String brand;
     private String url;
     private Quantity quantity;
 }

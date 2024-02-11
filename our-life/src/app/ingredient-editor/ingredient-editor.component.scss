@@ -38,3 +38,14 @@
     width:80vw;
     margin:auto
 }
+.cls-ingredient-header-block-quantity {
+    display:flex;
+    flex-direction: row;
+    align-items:normal;
+    width:fit-content;
+}
+.ingredient-unit-selection {
+    opacity: 0.75;
+    font-size: 0.75em;
+  }
+  

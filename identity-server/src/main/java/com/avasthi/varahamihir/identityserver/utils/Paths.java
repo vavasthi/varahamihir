@@ -43,5 +43,10 @@ public class Paths {
             public static final String Base = "/ingredient";
             public static final String fullPath = Paths.V1.fullPath + Base;
         }
+        public class Unit {
+
+            public static final String Base = "/unit";
+            public static final String fullPath = Paths.V1.fullPath + Base;
+        }
     }
 }

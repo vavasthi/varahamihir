@@ -1,4 +1,4 @@
-import { Component, Input, Signal, WritableSignal, inject, signal } from '@angular/core';
+import { Component, Input, Signal, WritableSignal, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { IngredientService } from '../services/ingredient.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -11,6 +11,9 @@ import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular
 import { MatInputModule } from '@angular/material/input';
 import { FileUploadServiceService } from '../services/file-upload-service.service';
 import { Content } from '../pojo/content';
+import { UnitService } from '../services/unit.service';
+import { Unit } from '../pojo/unit';
+import {MatSelectModule} from '@angular/material/select';
 
 @Component({
     selector: 'app-ingredient-editor',
@@ -23,6 +26,7 @@ import { Content } from '../pojo/content';
         MatInputModule,
         FormsModule,
         ReactiveFormsModule,
+        MatSelectModule,
         DragAndDropComponent]
 })
 export class IngredientEditorComponent {
@@ -31,15 +35,19 @@ export class IngredientEditorComponent {
     name:new FormControl(''),
     description: new FormControl(''),
     url: new FormControl(''),
-    brand: new FormControl('')
+    brand: new FormControl(''),
+    quantity: new FormControl(''),
+    unit: new FormControl('')
   })
   url:WritableSignal<string|undefined> = signal(undefined)
 
   @Input() id = '';
+  unitList =this.unitService.getUnits()
   ingredientWithNutrition: IngredientWithNutrition | undefined;
   constructor(private ingredientService: IngredientService,
     private snackBar: MatSnackBar,
-    private fileUploadService: FileUploadServiceService) {
+    private fileUploadService: FileUploadServiceService,
+    private unitService: UnitService) {
 
   }
   ngOnInit(): void {

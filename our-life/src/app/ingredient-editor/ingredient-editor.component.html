@@ -1,11 +1,10 @@
-<form  class="ingredient-editor-form">
-    <form [formGroup]="ingredientEditorForm"  class="ingredient-editor-form">
+<form [formGroup]="ingredientEditorForm" class="ingredient-editor-form">
     <div class="cls-ingredient-header-block">
         <div class="cls-ingredient-header-block-text">
 
             <mat-form-field>
                 <mat-label>Name</mat-label>
-                <input matInput required formControlName="name" name="name"/>
+                <input matInput required formControlName="name" name="name" />
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Description</mat-label>
@@ -15,19 +14,35 @@
                 <mat-label>Brand</mat-label>
                 <input matInput formControlName="brand" />
             </mat-form-field>
+            <div class="cls-ingredient-header-block-quantity">
+
+                <mat-form-field>
+                    <mat-label>Quantity</mat-label>
+                    <input matInput formControlName="quantity" type="number"/>
+                </mat-form-field>
+                    <mat-select formControlName="unit">
+                    @if(unitList()) {
+    
+                    @for (unit of unitList(); track unit) {
+                    <mat-option [value]="unit">{{unit.name}}</mat-option>
+                    }
+                    }
+                </mat-select>
+            </div>
+
         </div>
         <div class="cls-ingredient-header-block-image">
 
             <mat-form-field>
                 <mat-label>URL</mat-label>
-                <input matInput required formControlName="url"/>
+                <input matInput required formControlName="url" />
             </mat-form-field>
             @if (url()) {
 
-                <img width="100%" [src]="url()"/>
+            <img width="100%" [src]="url()" />
             }
             @else {
-                <app-drag-and-drop [multiple]=false (fileSelected)="onFileSelected($event)"/>
+            <app-drag-and-drop [multiple]=false (fileSelected)="onFileSelected($event)" />
             }
         </div>
     </div>
