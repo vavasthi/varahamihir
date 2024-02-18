@@ -18,18 +18,17 @@
 
                 <mat-form-field>
                     <mat-label>Quantity</mat-label>
-                    <input matInput formControlName="quantity" type="number"/>
+                    <input matInput formControlName="quantity" type="number" />
                 </mat-form-field>
-                    <mat-select formControlName="unit">
+                <mat-select formControlName="unit">
                     @if(unitList()) {
-    
+
                     @for (unit of unitList(); track unit) {
                     <mat-option [value]="unit">{{unit.name}}</mat-option>
                     }
                     }
                 </mat-select>
             </div>
-
         </div>
         <div class="cls-ingredient-header-block-image">
 
@@ -44,21 +43,124 @@
             @else {
             <app-drag-and-drop [multiple]=false (fileSelected)="onFileSelected($event)" />
             }
+            <mat-form-field class="cls-ingredient-tag-list">
+                <mat-label>Additional Tags</mat-label>
+                <mat-chip-grid #chipGrid aria-label="Enter tags">
+                    @for (tag of tags; track tag) {
+                    <mat-chip-row (removed)="remove(tag)" [editable]="true" (edited)="edit(tag, $event)"
+                        [aria-description]="'press enter to edit ' + tag">
+                        {{tag}}
+                        <button matChipRemove [attr.aria-label]="'remove ' + tag">
+                            <mat-icon class="material-symbols-outlined">cancel</mat-icon>
+                        </button>
+                    </mat-chip-row>
+                    }
+                    <input placeholder="New tag..." [matChipInputFor]="chipGrid"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                        (matChipInputTokenEnd)="add($event)" />
+                </mat-chip-grid>
+            </mat-form-field>
+        </div>
+    </div>
+    <mat-card class="cls-ingredient-nutrition-block-title">
+        <mat-card-title>Nutritional Values</mat-card-title>
+    </mat-card>
+    <div class="cls-ingredient-nutrition-block">
+
+        <div class="cls-ingredient-nutrition-primary-block">
+            <mat-form-field>
+                <mat-label>Calories</mat-label>
+                <input matInput required formControlName="calories" name="calories" type="number" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Total Fat (grams)</mat-label>
+                <input matInput required formControlName="totalFat" name="totalFat" type="number" />
+            </mat-form-field>
+            @if (ingredientEditorForm.controls['totalFat'].valid) {
+
+            <mat-form-field class="cls-ingredient-nutrition-items-indent-1">
+                <mat-label>Saturated Fat (grams)</mat-label>
+                <input matInput required formControlName="saturatedFat" name="saturtedFat" type="number" />
+            </mat-form-field>
+            <mat-form-field class="cls-ingredient-nutrition-items-indent-1">
+                <mat-label>Trans Fat (grams)</mat-label>
+                <input matInput required formControlName="transFat" name="transFat" type="number" />
+            </mat-form-field>
+            <mat-form-field class="cls-ingredient-nutrition-items-indent-1">
+                <mat-label>Polyusaturated Fat (grams)</mat-label>
+                <input matInput required formControlName="polyUnsaturatedFat" name="polyUnsaturatedFat" type="number" />
+            </mat-form-field>
+            <mat-form-field class="cls-ingredient-nutrition-items-indent-1">
+                <mat-label>Mono Unsaturated Fat (grams)</mat-label>
+                <input matInput required formControlName="monoUnsaturatedFat" name="monoUnsaturatedFat" type="number" />
+            </mat-form-field>
+            }
+            <mat-form-field>
+                <mat-label>Cholestrol (milligrams)</mat-label>
+                <input matInput required formControlName="cholestrol" name="cholestrol" type="number" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Total Carbohydrates (grams)</mat-label>
+                <input matInput required formControlName="totalCarbohydrates" name="totalCarbohydrates" type="number" />
+            </mat-form-field>
+            @if (ingredientEditorForm.controls['totalCarbohydrates'].valid) {
+
+            <mat-form-field class="cls-ingredient-nutrition-items-indent-1">
+                <mat-label>Dietary Fiber (grams)</mat-label>
+                <input matInput required formControlName="dietaryFiber" name="dietaryFiber" type="number" />
+            </mat-form-field>
+            <mat-form-field class="cls-ingredient-nutrition-items-indent-1">
+                <mat-label>Sugars (grams)</mat-label>
+                <input matInput required formControlName="sugars" name="sugars" type="number" />
+            </mat-form-field>
+            }
+            <mat-form-field>
+                <mat-label>Protein (grams)</mat-label>
+                <input matInput required formControlName="protein" name="prtein" type="number" />
+            </mat-form-field>
+        </div>
+        <div class="cls-ingredient-nutrition-secondary-block">
+            <mat-form-field>
+                <mat-label>Sodium (milligrams)</mat-label>
+                <input matInput required formControlName="sodium" name="sodium" type="number" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Calcium (milligrams)</mat-label>
+                <input matInput required formControlName="calcium" name="calcium" type="number" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Potassium (milligrams)</mat-label>
+                <input matInput required formControlName="potassium" name="potassium" type="number" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Iron (milligrams)</mat-label>
+                <input matInput required formControlName="iron" name="iron" type="number" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Magnesium (milligrams)</mat-label>
+                <input matInput required formControlName="magnesium" name="magnesium" type="number" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Cobalamin (micrograms)</mat-label>
+                <input matInput required formControlName="cobalamin" name="cobalamin" type="number" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Vitamin A (milligrams)</mat-label>
+                <input matInput required formControlName="vitaminA" name="vitaminA" type="number" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Vitamin C (milligrams)</mat-label>
+                <input matInput required formControlName="vitaminC" name="vitaminC" type="number" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Vitamin B6 (milligrams)</mat-label>
+                <input matInput required formControlName="vitaminB6" name="vitaminB6" type="number" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Vitamin D (micrograms)</mat-label>
+                <input matInput required formControlName="vitaminD" name="vitaminD" type="number" />
+            </mat-form-field>
+
         </div>
     </div>
 </form>
-<mat-card class="ingredient-card">
-    <mat-card-header>
-        <div mat-card-avatar class="ingredient-header-image"></div>
-        <mat-card-title>Shiba Inu</mat-card-title>
-        <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-    </mat-card-header>
-    <img class="ingredient-image" mat-card-image width="10vh"
-        src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-    <mat-card-content>
-    </mat-card-content>
-    <mat-card-actions>
-        <button mat-button>LIKE</button>
-        <button mat-button>SHARE</button>
-    </mat-card-actions>
-</mat-card>

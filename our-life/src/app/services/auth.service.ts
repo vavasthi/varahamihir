@@ -54,4 +54,28 @@ export class AuthService {
         'password': password
       }, this.httpOptions)
   }
+  refresh() {
+
+    var refreshHttpOptions = {
+      headers: { 'Content-Type': 'application/json',
+      'Authorization' : 'Bearer ' + this.user()?.refreshToken
+     }
+    }
+      return this
+      .httpClient
+      .post<User>(this.refreshUrl, {}, refreshHttpOptions)
+      .subscribe({
+        next: (response) => {
+
+          var user = response as User;
+          this.setCurrentUser(user);
+          this.snackBar.open("Auth Token refreshed", "Ok", { duration: 5000 })
+        },
+        error: (err) => {
+          console.log(err)
+          this.setCurrentUser(undefined)
+          this.snackBar.open("Recipes Load Failed", "Ok", { duration: 5000 })
+        }
+      })
+  }
 }

@@ -6,6 +6,7 @@
 	"ingredients": [
 		{
 			"name": "Jeera",
+			"description":"Also known as Cumin",
 			"url": "https://as1.ftcdn.net/v2/jpg/01/45/64/60/1000_F_145646010_VvQuqzNWcySHfqxhjEwo2fd21v996IbS.jpg",
 			"quantity": {
 				"value": 10,
@@ -18,30 +19,7 @@
 		},
 		{
 			"name": "Haldi",
-			"url": "https://as1.ftcdn.net/v2/jpg/01/82/27/42/1000_F_182274289_RvpPTYZmC3n98ZXuH85d31XBfyEhk6b1.jpg",
-			"quantity": {
-				"value": 10,
-				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
-				"unit": {
-					"name": "Grams",
-					"acronym": "gm"
-				}
-			}
-		},
-		{
-			"name": "Jeera",
-			"url": "https://as1.ftcdn.net/v2/jpg/01/45/64/60/1000_F_145646010_VvQuqzNWcySHfqxhjEwo2fd21v996IbS.jpg",
-			"quantity": {
-				"value": 10,
-				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
-				"unit": {
-					"name": "Grams",
-					"acronym": "gm"
-				}
-			}
-		},
-		{
-			"name": "Haldi",
+			"description":"Also known as Turmeric",
 			"url": "https://as1.ftcdn.net/v2/jpg/01/82/27/42/1000_F_182274289_RvpPTYZmC3n98ZXuH85d31XBfyEhk6b1.jpg",
 			"quantity": {
 				"value": 10,
@@ -54,6 +32,7 @@
 		},
 		{
 			"name": "Jeera",
+			"description":"Also known as Cumin",
 			"url": "https://as1.ftcdn.net/v2/jpg/01/45/64/60/1000_F_145646010_VvQuqzNWcySHfqxhjEwo2fd21v996IbS.jpg",
 			"quantity": {
 				"value": 10,
@@ -66,6 +45,33 @@
 		},
 		{
 			"name": "Haldi",
+			"description":"Also known as Turmeric",
+			"url": "https://as1.ftcdn.net/v2/jpg/01/82/27/42/1000_F_182274289_RvpPTYZmC3n98ZXuH85d31XBfyEhk6b1.jpg",
+			"quantity": {
+				"value": 10,
+				"unit": {
+					"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
+					"name": "Grams",
+					"acronym": "gm"
+				}
+			}
+		},
+		{
+			"name": "Jeera",
+			"description":"Also known as Cumin",
+			"url": "https://as1.ftcdn.net/v2/jpg/01/45/64/60/1000_F_145646010_VvQuqzNWcySHfqxhjEwo2fd21v996IbS.jpg",
+			"quantity": {
+				"value": 10,
+				"unit": {
+					"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
+					"name": "Grams",
+					"acronym": "gm"
+				}
+			}
+		},
+		{
+			"name": "Haldi",
+			"description":"Also known as Turmeric",
 			"url": "https://as1.ftcdn.net/v2/jpg/01/82/27/42/1000_F_182274289_RvpPTYZmC3n98ZXuH85d31XBfyEhk6b1.jpg",
 			"quantity": {
 				"value": 10,

@@ -16,5 +16,6 @@ public final class Ingredient extends AbstractBase {
     private String description;
     private String brand;
     private String url;
+    private String[] tags;
     private Quantity quantity;
 }

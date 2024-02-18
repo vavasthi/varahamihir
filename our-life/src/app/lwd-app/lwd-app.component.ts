@@ -16,6 +16,7 @@ import * as storedRecipe from '../../assets/defaultRecipe.json';
 import { Recipe } from '../pojo/recipe';
 import { RecipeService } from '../services/recipe.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from '../services/auth.service';
 
 @Component({
     selector: 'app-lwd-app',
@@ -41,15 +42,27 @@ export class LwdAppComponent {
   displayedColumns: string[] = ['name', 'description', 'image'];
   
   constructor(private recipeService:RecipeService, 
+    private authService: AuthService,
     private router:Router,
     private snackBar : MatSnackBar) {
+      this.loadRecipes(false)
+  }
+  private loadRecipes(retrying:boolean) {
 
     this.recipeService.getAllRecipe().subscribe({
       next: (response) => {
         this.snackBar.open("Recipes Loaded", "Ok", { duration: 5000 })
       },
       error: (err) => {
-        this.snackBar.open("Recipes Load Failed", "Ok", { duration: 5000 })
+        if (err.status == 403 && !retrying) {
+          this.authService.refresh();
+          this.loadRecipes(true);
+        }
+        else {
+
+          console.log(err)
+          this.snackBar.open("Recipes Load Failed", "Ok", { duration: 5000 })
+          }
       }
     })
   }
