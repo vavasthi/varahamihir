@@ -20,14 +20,17 @@
                     <mat-label>Quantity</mat-label>
                     <input matInput formControlName="quantity" type="number" />
                 </mat-form-field>
-                <mat-select formControlName="unit">
-                    @if(unitList()) {
+                <mat-form-field>
+                    <mat-label>Choose Unit</mat-label>
+                    <mat-select formControlName="unit">
+                        @if(unitList()) {
 
-                    @for (unit of unitList(); track unit) {
-                    <mat-option [value]="unit">{{unit.name}}</mat-option>
-                    }
-                    }
-                </mat-select>
+                        @for (unit of unitList(); track unit) {
+                        <mat-option [value]="unit">{{unit.name}}</mat-option>
+                        }
+                        }
+                    </mat-select>
+                </mat-form-field>
             </div>
         </div>
         <div class="cls-ingredient-header-block-image">
@@ -80,24 +83,24 @@
 
             <mat-form-field class="cls-ingredient-nutrition-items-indent-1">
                 <mat-label>Saturated Fat (grams)</mat-label>
-                <input matInput required formControlName="saturatedFat" name="saturtedFat" type="number" />
+                <input matInput formControlName="saturatedFat" name="saturtedFat" type="number" />
             </mat-form-field>
             <mat-form-field class="cls-ingredient-nutrition-items-indent-1">
                 <mat-label>Trans Fat (grams)</mat-label>
-                <input matInput required formControlName="transFat" name="transFat" type="number" />
+                <input matInput formControlName="transFat" name="transFat" type="number" />
             </mat-form-field>
             <mat-form-field class="cls-ingredient-nutrition-items-indent-1">
                 <mat-label>Polyusaturated Fat (grams)</mat-label>
-                <input matInput required formControlName="polyUnsaturatedFat" name="polyUnsaturatedFat" type="number" />
+                <input matInput formControlName="polyUnsaturatedFat" name="polyUnsaturatedFat" type="number" />
             </mat-form-field>
             <mat-form-field class="cls-ingredient-nutrition-items-indent-1">
                 <mat-label>Mono Unsaturated Fat (grams)</mat-label>
-                <input matInput required formControlName="monoUnsaturatedFat" name="monoUnsaturatedFat" type="number" />
+                <input matInput formControlName="monoUnsaturatedFat" name="monoUnsaturatedFat" type="number" />
             </mat-form-field>
             }
             <mat-form-field>
                 <mat-label>Cholestrol (milligrams)</mat-label>
-                <input matInput required formControlName="cholestrol" name="cholestrol" type="number" />
+                <input matInput formControlName="cholestrol" name="cholestrol" type="number" />
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Total Carbohydrates (grams)</mat-label>
@@ -107,58 +110,58 @@
 
             <mat-form-field class="cls-ingredient-nutrition-items-indent-1">
                 <mat-label>Dietary Fiber (grams)</mat-label>
-                <input matInput required formControlName="dietaryFiber" name="dietaryFiber" type="number" />
+                <input matInput formControlName="dietaryFiber" name="dietaryFiber" type="number" />
             </mat-form-field>
             <mat-form-field class="cls-ingredient-nutrition-items-indent-1">
                 <mat-label>Sugars (grams)</mat-label>
-                <input matInput required formControlName="sugars" name="sugars" type="number" />
+                <input matInput formControlName="sugars" name="sugars" type="number" />
             </mat-form-field>
             }
             <mat-form-field>
                 <mat-label>Protein (grams)</mat-label>
-                <input matInput required formControlName="protein" name="prtein" type="number" />
+                <input matInput formControlName="protein" name="prtein" type="number" />
             </mat-form-field>
         </div>
         <div class="cls-ingredient-nutrition-secondary-block">
             <mat-form-field>
                 <mat-label>Sodium (milligrams)</mat-label>
-                <input matInput required formControlName="sodium" name="sodium" type="number" />
+                <input matInput formControlName="sodium" name="sodium" type="number" />
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Calcium (milligrams)</mat-label>
-                <input matInput required formControlName="calcium" name="calcium" type="number" />
+                <input matInput formControlName="calcium" name="calcium" type="number" />
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Potassium (milligrams)</mat-label>
-                <input matInput required formControlName="potassium" name="potassium" type="number" />
+                <input matInput formControlName="potassium" name="potassium" type="number" />
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Iron (milligrams)</mat-label>
-                <input matInput required formControlName="iron" name="iron" type="number" />
+                <input matInput formControlName="iron" name="iron" type="number" />
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Magnesium (milligrams)</mat-label>
-                <input matInput required formControlName="magnesium" name="magnesium" type="number" />
+                <input matInput formControlName="magnesium" name="magnesium" type="number" />
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Cobalamin (micrograms)</mat-label>
-                <input matInput required formControlName="cobalamin" name="cobalamin" type="number" />
+                <input matInput formControlName="cobalamin" name="cobalamin" type="number" />
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Vitamin A (milligrams)</mat-label>
-                <input matInput required formControlName="vitaminA" name="vitaminA" type="number" />
+                <input matInput formControlName="vitaminA" name="vitaminA" type="number" />
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Vitamin C (milligrams)</mat-label>
-                <input matInput required formControlName="vitaminC" name="vitaminC" type="number" />
+                <input matInput formControlName="vitaminC" name="vitaminC" type="number" />
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Vitamin B6 (milligrams)</mat-label>
-                <input matInput required formControlName="vitaminB6" name="vitaminB6" type="number" />
+                <input matInput formControlName="vitaminB6" name="vitaminB6" type="number" />
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Vitamin D (micrograms)</mat-label>
-                <input matInput required formControlName="vitaminD" name="vitaminD" type="number" />
+                <input matInput formControlName="vitaminD" name="vitaminD" type="number" />
             </mat-form-field>
 
         </div>

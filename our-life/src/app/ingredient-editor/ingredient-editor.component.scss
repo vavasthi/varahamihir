@@ -1,83 +1,91 @@
 .ingredient-card {
-    max-width: 400px;
-  }
-  
-  .ingredient-header-image {
-    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-    background-size: cover;
-  }
-  
-  .ingredient-image {
-    width:20vh
-  }
-  .igredient-editor-form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-  
+  max-width: 400px;
+}
+
+.ingredient-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+
+.ingredient-image {
+  width: 20vh
+}
+
+.igredient-editor-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .cls-ingredient-header-block {
-    display:flex;
-    flex-direction: row;
-    padding-left: 1em;
-    gap:2em;
-    width:80vw;
-    margin:auto
+  display: flex;
+  flex-direction: row;
+  padding-left: 1em;
+  gap: 2em;
+  width: 80vw;
+  margin: auto
 }
+
 .cls-ingredient-header-block-text {
-    display:flex;
-    flex-direction: column;
-    padding-left: 1em;
-    gap:2em;
-    width:80vw;
-    margin:auto
+  display: flex;
+  flex-direction: column;
+  padding-left: 1em;
+  gap: 2em;
+  width: 80vw;
+  margin: auto
 }
+
 .cls-ingredient-header-block-image {
-    display:flex;
-    flex-direction: column;
-    padding-left: 1em;
-    gap:2em;
-    width:80vw;
-    margin:auto
+  display: flex;
+  flex-direction: column;
+  padding-left: 1em;
+  gap: 2em;
+  width: 80vw;
+  margin: auto
 }
+
 .cls-ingredient-header-block-quantity {
-    display:flex;
-    flex-direction: row;
-    align-items:normal;
-    width:fit-content;
+  display: flex;
+  flex-direction: row;
+  align-items: normal;
+  width: fit-content;
 }
+
 .ingredient-unit-selection {
-    opacity: 0.75;
-    font-size: 0.75em;
-  }
-  .cls-ingredient-nutrition-block {
-    display:flex;
-    flex-direction: row;
-    padding-left: 1em;
-    gap:2em;
-    width:100%;
-    margin:auto;
-    border: solid red 1px
+  opacity: 0.75;
+  font-size: 0.75em;
 }
+
+.cls-ingredient-nutrition-block {
+  display: flex;
+  flex-direction: row;
+  padding-left: 1em;
+  gap: 2em;
+  width: 100%;
+  margin: auto;
+  padding: 1em;
+}
+
 .cls-ingredient-nutrition-primary-block {
-  display:flex;
+  display: flex;
   flex-direction: column;
-  padding-left: 1em;
-  gap:2em;
-  width:80vw;
-  margin:auto
+  gap: 2em;
+  width: 40vw;
 }
+
 .cls-ingredient-nutrition-block-title {
-  width:100%;
+  width: 100%;
 }
+
 .cls-ingredient-nutrition-secondary-block {
-  display:flex;
+  display: flex;
   flex-direction: column;
   padding-left: 1em;
-  gap:2em;
-  width:80vw;
-  margin:auto
+  gap: 2em;
+  width: 40vw;
+  margin: auto
 }
+
 .cls-ingredient-nutrition-items-indent-1 {
   padding-left: 5%;
 }
