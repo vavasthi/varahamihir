@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.index.Indexed;
 
-import java.util.Objects;
 import java.util.UUID;
 
 @Data
@@ -22,7 +21,7 @@ public final class Nutrition extends AbstractBase{
     private Quantity transFat;
     private Quantity polyUnsaturatedFat;
     private Quantity monoUnsaturatedFat;
-    private Quantity cholestrol;
+    private Quantity cholesterol;
     private Quantity sodium;
     private Quantity totalCarbohydrates;
     private Quantity dietaryFiber;

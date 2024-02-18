@@ -8,7 +8,7 @@ export interface Nutrition {
     transFat:Quantity|null;
     polyUnsaturatedFat:Quantity|null;
     monoUnsaturatedFat:Quantity|null;
-    cholestrol:Quantity|null;
+    cholesterol:Quantity|null;
     sodium:Quantity|null;
     totalCarbohydrates:Quantity|null;
     dietaryFiber:Quantity|null;

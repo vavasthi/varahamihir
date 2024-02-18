@@ -16,4 +16,5 @@ import java.util.Objects;
 public final class Unit extends AbstractBase {
     private String name;
     private String acronym;
+    private Float multiplicationFactorToGrams;
 }
