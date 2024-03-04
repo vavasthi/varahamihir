@@ -1,8 +1,8 @@
 import { Injectable, Signal } from '@angular/core';
 import { Recipe } from '../pojo/recipe';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AuthService } from './auth.service';
-import { User } from '../pojo/user';
+import { AuthService } from '../../services/auth.service';
+import { User } from '../../pojo/user';
 import { PageableRecipe } from '../pojo/pageable-recipe';
 
 @Injectable({

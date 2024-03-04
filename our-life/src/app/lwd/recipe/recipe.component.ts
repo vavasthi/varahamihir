@@ -8,7 +8,7 @@ import { SugarChartComponent } from '../sugar-chart/sugar-chart.component';
 import {MatIconModule} from '@angular/material/icon';
 import { NutritionalValuesComponent } from '../nutritional-values/nutritional-values.component';
 import {MatListModule} from '@angular/material/list'
-import * as storedRecipe from '../../assets/defaultRecipe.json';
+import * as storedRecipe from '../../../assets/defaultRecipe.json';
 
 @Component({
   selector: 'app-recipe',

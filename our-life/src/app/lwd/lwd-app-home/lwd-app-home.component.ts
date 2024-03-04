@@ -9,8 +9,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { LoginDialogComponent } from '../login-dialog/login-dialog.component';
-import { ThemeSwitchComponent } from '../theme-switch/theme-switch.component';
+import { LoginDialogComponent } from '../../login-dialog/login-dialog.component';
+import { ThemeSwitchComponent } from '../../theme-switch/theme-switch.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { LwdAppComponent } from "../lwd-app/lwd-app.component";
 

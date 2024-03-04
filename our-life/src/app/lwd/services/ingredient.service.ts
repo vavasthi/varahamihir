@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, Signal } from '@angular/core';
-import { AuthService } from './auth.service';
-import { User } from '../pojo/user';
+import { AuthService } from '../../services/auth.service';
+import { User } from '../../pojo/user';
 import { IngredientWithNutrition } from '../pojo/ingredient-with-nutrition';
 import { PageableIngredient } from '../pojo/pageable-ingredient';
 

@@ -13,7 +13,8 @@
 				"unit": {
 					"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
 					"name": "Grams",
-					"acronym": "gm"
+					"acronym": "gm",
+					"multiplicationFactorToGrams": 1
 				}
 			}
 		},
@@ -26,7 +27,8 @@
 				"unit": {
 					"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
 					"name": "Grams",
-					"acronym": "gm"
+					"acronym": "gm",
+					"multiplicationFactorToGrams": 1
 				}
 			}
 		},
@@ -39,7 +41,8 @@
 				"unit": {
 					"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
 					"name": "Grams",
-					"acronym": "gm"
+					"acronym": "gm",
+					"multiplicationFactorToGrams": 1
 				}
 			}
 		},
@@ -52,7 +55,8 @@
 				"unit": {
 					"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
 					"name": "Grams",
-					"acronym": "gm"
+					"acronym": "gm",
+					"multiplicationFactorToGrams": 1
 				}
 			}
 		},
@@ -65,7 +69,8 @@
 				"unit": {
 					"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
 					"name": "Grams",
-					"acronym": "gm"
+					"acronym": "gm",
+					"multiplicationFactorToGrams": 1
 				}
 			}
 		},
@@ -78,7 +83,8 @@
 				"unit": {
 					"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
 					"name": "Grams",
-					"acronym": "gm"
+					"acronym": "gm",
+					"multiplicationFactorToGrams": 1
 				}
 			}
 		}
@@ -128,7 +134,8 @@
 			"unit": {
 				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
 				"name": "Serving",
-				"acronym": "srv"
+				"acronym": "srv",
+				"multiplicationFactorToGrams": 1
 			}
 		},
 		"calories": 375,
@@ -137,7 +144,8 @@
 			"unit": {
 				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
 				"name": "Grams",
-				"acronym": "gm"
+				"acronym": "gm",
+				"multiplicationFactorToGrams": 1
 			}
 		},
 		"saturatedFat": {
@@ -145,7 +153,8 @@
 			"unit": {
 				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
 				"name": "Grams",
-				"acronym": "gm"
+				"acronym": "gm",
+				"multiplicationFactorToGrams": 1
 			}
 		},
 		"transFat": {
@@ -153,7 +162,8 @@
 			"unit": {
 				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
 				"name": "Grams",
-				"acronym": "gm"
+				"acronym": "gm",
+				"multiplicationFactorToGrams": 1
 			}
 		},
 		"polyUnsaturatedFat": {
@@ -161,7 +171,8 @@
 			"unit": {
 				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
 				"name": "Grams",
-				"acronym": "gm"
+				"acronym": "gm",
+				"multiplicationFactorToGrams": 1
 			}
 		},
 		"monoUnsaturatedFat": {
@@ -169,7 +180,8 @@
 			"unit": {
 				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
 				"name": "Grams",
-				"acronym": "gm"
+				"acronym": "gm",
+				"multiplicationFactorToGrams": 1
 			}
 		},
 		"cholesterol": {
@@ -177,7 +189,8 @@
 			"unit": {
 				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
 				"name": "Milligrams",
-				"acronym": "mg"
+				"acronym": "mg",
+				"multiplicationFactorToGrams": 0.001
 			}
 		},
 		"sodium": {
@@ -185,7 +198,8 @@
 			"unit": {
 				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
 				"name": "Milligrams",
-				"acronym": "mg"
+				"acronym": "mg",
+				"multiplicationFactorToGrams": 0.001
 			}
 		},
 		"potassium": {
@@ -193,7 +207,8 @@
 			"unit": {
 				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
 				"name": "Milligrams",
-				"acronym": "mg"
+				"acronym": "mg",
+				"multiplicationFactorToGrams": 0.001
 			}
 		},
 		"totalCarbohydrates": {
@@ -201,7 +216,8 @@
 			"unit": {
 				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
 				"name": "Grams",
-				"acronym": "gm"
+				"acronym": "gm",
+				"multiplicationFactorToGrams": 1
 			}
 		},
 		"dietaryFiber": {
@@ -209,7 +225,8 @@
 			"unit": {
 				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
 				"name": "Grams",
-				"acronym": "gm"
+				"acronym": "gm",
+				"multiplicationFactorToGrams": 1
 			}
 		},
 		"sugars": {
@@ -217,7 +234,8 @@
 			"unit": {
 				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
 				"name": "Grams",
-				"acronym": "gm"
+				"acronym": "gm",
+				"multiplicationFactorToGrams": 1
 			}
 		},
 		"protein": {
@@ -225,71 +243,80 @@
 			"unit": {
 				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
 				"name": "Grams",
-				"acronym": "gm"
+				"acronym": "gm",
+				"multiplicationFactorToGrams": 1
 			}
 		},
 		"vitaminA": {
 			"value": 0,
 			"unit": {
 				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
-				"name": "percent",
-				"acronym": "%"
+				"name": "Milligrams",
+				"acronym": "mg",
+				"multiplicationFactorToGrams": 0.001
 			}
 		},
 		"vitaminB6": {
 			"value": 20,
 			"unit": {
 				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
-				"name": "percent",
-				"acronym": "%"
+				"name": "Milligrams",
+				"acronym": "mg",
+				"multiplicationFactorToGrams": 0.001
 			}
 		},
 		"vitaminC": {
 			"value": 0,
 			"unit": {
 				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
-				"name": "percent",
-				"acronym": "%"
+				"name": "Milligrams",
+				"acronym": "mg",
+				"multiplicationFactorToGrams": 0.001
 			}
 		},
 		"vitaminD": {
 			"value": 0,
 			"unit": {
 				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
-				"name": "percent",
-				"acronym": "%"
+				"name": "Milligrams",
+				"acronym": "mg",
+				"multiplicationFactorToGrams": 0.001
 			}
 		},
 		"calcium": {
 			"value": 93,
 			"unit": {
 				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
-				"name": "percent",
-				"acronym": "%"
+				"name": "Milligrams",
+				"acronym": "mg",
+				"multiplicationFactorToGrams": 0.001
 			}
 		},
 		"iron": {
 			"value": 368,
 			"unit": {
 				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
-				"name": "percent",
-				"acronym": "%"
+				"name": "Milligrams",
+				"acronym": "mg",
+				"multiplicationFactorToGrams": 0.001
 			}
 		},
 		"magnesium": {
 			"value": 91,
 			"unit": {
 				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
-				"name": "percent",
-				"acronym": "%"
+				"name": "Milligrams",
+				"acronym": "mg",
+				"multiplicationFactorToGrams": 0.001
 			}
 		},
 		"cobalamin": {
 			"value": 0,
 			"unit": {
 				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
-				"name": "percent",
-				"acronym": "%"
+				"name": "Milligrams",
+				"acronym": "mg",
+				"multiplicationFactorToGrams": 0.001
 			}
 		}
 	},

@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { SugarReading } from '../pojo/sugar-reading';
-import { ThemeSwitchComponent } from '../theme-switch/theme-switch.component';
-import { ThemeSwitchService } from '../services/theme-switch.service';
+import { ThemeSwitchComponent } from '../../theme-switch/theme-switch.component';
+import { ThemeSwitchService } from '../../services/theme-switch.service';
 declare var google: any;
 
 @Component({

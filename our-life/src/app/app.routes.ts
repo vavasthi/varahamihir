@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { HomeComponent } from './home/home.component';
-import { LwdAppHomeComponent } from './lwd-app-home/lwd-app-home.component';
-import { IngredientEditorComponent } from './ingredient-editor/ingredient-editor.component';
-import { RecipeEditorComponent } from './recipe-editor/recipe-editor.component';
+import { LwdAppHomeComponent } from './lwd/lwd-app-home/lwd-app-home.component';
+import { IngredientEditorComponent } from './lwd/ingredient-editor/ingredient-editor.component';
+import { RecipeEditorComponent } from './lwd/recipe-editor/recipe-editor.component';
 
 export const routes: Routes = [
     { path:'', title: 'Our Life | Home', component: HomeComponent},

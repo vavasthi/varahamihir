@@ -1,6 +1,6 @@
 import { Injectable, Signal, WritableSignal, signal } from '@angular/core';
-import { User } from '../pojo/user';
-import { AuthService } from './auth.service';
+import { User } from '../../pojo/user';
+import { AuthService } from '../../services/auth.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Unit } from '../pojo/unit';
 import { MatSnackBar } from '@angular/material/snack-bar';

@@ -1,7 +1,7 @@
 import { Component, Input, Signal, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
-import { RecipeComponent } from '../recipe/recipe.component';
+import { RecipeComponent } from '../lwd/recipe/recipe.component';
 import { AuthComponent } from '../auth/auth.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';

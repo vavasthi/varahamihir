@@ -1,7 +1,7 @@
 import { Component, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { RecipeComponent } from './recipe/recipe.component';
+import { RecipeComponent } from './lwd/recipe/recipe.component';
 import { AuthComponent } from './auth/auth.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
