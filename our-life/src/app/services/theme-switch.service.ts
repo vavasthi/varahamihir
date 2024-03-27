@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
 
@@ -7,10 +7,13 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ThemeSwitchService {
 
-  constructor(@Inject(DOCUMENT) private document: Document) { 
+  private renderer: Renderer2;
+
+  constructor(@Inject(DOCUMENT) private document: Document, rendererFactory: RendererFactory2) { 
 
     this.theme = this.document.documentElement.classList.contains(ThemeSwitchService.DARK_THEME_CLASS) ? ThemeSwitchService.DARK_THEME_DARK : ThemeSwitchService.DARK_THEME_LIGHT;
     this.themeChangeEvent = new BehaviorSubject<string>(this.theme);
+    this.renderer = rendererFactory.createRenderer(null, null);
   }
 
   public theme: string;

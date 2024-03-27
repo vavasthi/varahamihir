@@ -2,48 +2,42 @@
 @use '@angular/material-experimental' as matx;
 
 @include mat.core();
-
 @include mat.strong-focus-indicators();
 
-$varahamihir-primary-light: mat.define-palette(mat.$green-palette,100,400,A200,A700);
-$varahamihir-accent-light: mat.define-palette(mat.$purple-palette,100,300,A200,A400);
-
-$varahamihir-primary-dark: mat.define-palette(mat.$green-palette,800,900);
-$varahamihir-accent-dark: mat.define-palette(mat.$purple-palette,400,600,900,A700);
-
-$varahamihir-warn-light: mat.define-palette(mat.$red-palette);
-$varahamihir-warn-dark: mat.define-palette(mat.$red-palette);
-
-$varahamihir-theme-light: mat.define-light-theme((
+// Define a dark theme
+$varahamihir-dark-theme: mat.define-dark-theme((
  color: (
-   primary: $varahamihir-primary-light,
-   accent: $varahamihir-accent-light,
-   warn: $varahamihir-warn-light
+   primary: mat.define-palette(mat.$green-palette),
+   accent: mat.define-palette(mat.$purple-palette),
  ),
- typography: mat.define-typography-config(),
- density: 0,
-));
-$varahamihir-theme-dark: mat.define-dark-theme((
- color: (
-   primary: $varahamihir-primary-dark,
-   accent: $varahamihir-accent-dark,
-   warn: $varahamihir-warn-dark
- ),
- typography: mat.define-typography-config(),
- density: 0,
+  // Only include `typography` and `density` in the default dark theme.
+  typography: mat.define-typography-config(),
+  density: 0,
 ));
 
-@include mat.all-component-themes($varahamihir-theme-light);
-:root {
-  --color-primary: mat.get-color-from-palette($varahamihir-primary-light, default);
-  --color-primary: mat.get-color-from-palette($varahamihir-primary-light, default-contrast);
-}
-.dark-theme {
+// Define a light theme
+$varahamihir-light-theme: mat.define-light-theme((
+ color: (
+   primary: mat.define-palette(mat.$green-palette),
+   accent: mat.define-palette(mat.$purple-palette),
+ ),
+));
 
-  --color-primary: mat.get-color-from-palette($varahamihir-primary-dark, default);
-  --color-primary: mat.get-color-from-palette($varahamihir-primary-dark, default-contrast);
+// Apply the dark theme by default
+@include mat.all-component-themes($varahamihir-light-theme);
+
+// Apply the light theme only when the user prefers light themes.
+@media (prefers-color-scheme: light) {
+ // Use the `-color` mixins to only apply color styles without reapplying the same
+ // typography and density styles.
+ @include mat.all-component-themes($varahamihir-light-theme);
+}
+
+.dark-theme {
+  --color-primary: mat.get-color-from-palette(mat.$green-palette, default);
+  --color-primary: mat.get-color-from-palette(mat.$green-palette, default-contrast);
 }
 .dark-theme {
-  @include mat.all-component-colors($varahamihir-theme-dark)
+  @include mat.all-component-themes($varahamihir-dark-theme)
 }
- 
+
