@@ -1,1 +1,14 @@
-Home
+<div class="cls-login-container">
+
+    <mat-card class="cls-login-card">
+        <mat-card-content>
+            <form [formGroup]="testForm" (ngSubmit)="onTest()" ngCa>
+                    <mat-form-field class="cls-input-field-width">
+                        <mat-label>Username</mat-label>
+                        <input  width="100px" matInput type="text" formControlName="input" name="input" required />
+                        <mat-error>Please provide a valid username.</mat-error>
+                    </mat-form-field>
+            </form>
+            </mat-card-content>
+    </mat-card>
+</div>
