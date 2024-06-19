@@ -1,5 +1,14 @@
 <mat-card>
+  <mat-card-header>
+
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>Health Facts</mat-card-title>
+  </mat-card-header>
+  <img mat-card-image class="cls-sugar-chart-cover-image" [src]="coverImage" alt="Photo of a Shiba Inu">
+
+
     <mat-card-content>
+      <br/>
             <div class="cls-chart">
 
                 <div  #lineChart></div>

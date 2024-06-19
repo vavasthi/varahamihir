@@ -32,6 +32,7 @@ export class SugarChartComponent {
     })
   }
   @Input() sugarReadings?: SugarReading[];
+  @Input() coverImage?:string;
 
   @ViewChild('lineChart') lineChart?: ElementRef
 

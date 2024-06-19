@@ -7,17 +7,16 @@
         <div class="cls-recipe-name">{{recipe.name}}</div>
     </div>
     <div class="cls-recipe">
-        <div class="cls-recipe-top">
+        <app-ingredients [ingredients]="recipe.ingredients"></app-ingredients>
+        <div class="cls-recipe-row">
+          <div class="cls-recipe-leftcol">
+              <app-sugar-chart [sugarReadings]="recipe.sugarReadings" [coverImage]="recipe.url"></app-sugar-chart>
+          </div>
+          <div class="cls-recipe-rightcol">
 
-            <div class="cls-recipe-leftcol">
-                <app-ingredients [ingredients]="recipe.ingredients"></app-ingredients>
-                <app-sugar-chart [sugarReadings]="recipe.sugarReadings"></app-sugar-chart>
-            </div>
-            <div class="cls-recipe-rightcol">
-                <img class="cls-recipe-cover" src={{recipe.url}} />
-                <app-nutritional-values [name]="recipe.name" [nutrition]="recipe.nutrition"></app-nutritional-values>
-            </div>
-        </div>
+              <app-nutritional-values [name]="recipe.name" [nutrition]="recipe.nutrition"></app-nutritional-values>
+          </div>
+      </div>
     </div>
     <div class="cls-recipe-step-block">
         <div class="cls-recipe-subheader">Preparation</div>

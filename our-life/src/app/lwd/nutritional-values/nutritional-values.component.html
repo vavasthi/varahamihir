@@ -1,6 +1,8 @@
 <mat-card>
-    <mat-card-title>Nutrition Facts</mat-card-title>
+    <mat-card-header>
+      <mat-card-title>Nutrition Facts</mat-card-title>
     <mat-card-subtitle>{{name}}</mat-card-subtitle>
+    </mat-card-header>
     <mat-card-content>
         <table class="cls-nutrition-table">
             <tr>
@@ -48,7 +50,7 @@
                     <td class="cls-nutrition-border">{{nutrition?.cholesterol?.value}}{{nutrition?.cholesterol?.unit?.acronym}}
                     </td>
                 </tr>
-    
+
             }
             @if (nutrition?.sodium) {
                 <tr>
@@ -56,7 +58,7 @@
                     <td class="cls-nutrition-border">{{nutrition?.sodium?.value}}{{nutrition?.sodium?.unit?.acronym}}
                     </td>
                 </tr>
-    
+
             }
             @if (nutrition?.potassium) {
                 <tr>
@@ -64,7 +66,7 @@
                     <td class="cls-nutrition-border-4">{{nutrition?.potassium?.value}}{{nutrition?.potassium?.unit?.acronym}}
                     </td>
                 </tr>
-    
+
             }
             @if (nutrition?.totalCarbohydrates) {
                 <tr>
@@ -78,7 +80,7 @@
                         <td class="cls-nutrition-border">{{nutrition?.dietaryFiber?.value}}{{nutrition?.dietaryFiber?.unit?.acronym}}
                         </td>
                     </tr>
-        
+
                 }
                 @if (nutrition?.sugars) {
                     <tr>
@@ -86,7 +88,7 @@
                         <td class="cls-nutrition-border-4">{{nutrition?.sugars?.value}}{{nutrition?.sugars?.unit?.acronym}}
                         </td>
                     </tr>
-        
+
                 }
                 @if (nutrition?.protein) {
                     <tr>
@@ -117,7 +119,7 @@
                     <td class="cls-nutrition-border">Cobalamin</td>
                     <td class="cls-nutrition-border">{{nutrition?.cobalamin?.value}}{{nutrition?.cobalamin?.unit?.acronym}}</td>
                 </tr>
-        
+
             }
         </table>
     </mat-card-content>
