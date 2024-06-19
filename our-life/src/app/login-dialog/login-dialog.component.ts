@@ -16,7 +16,7 @@ import { ActivatedRoute, NavigationEnd, NavigationStart, Router } from '@angular
 @Component({
   selector: 'app-login-dialog',
   standalone: true,
-  imports: [FormsModule, 
+  imports: [FormsModule,
     MatCardModule,
     MatInputModule,
     MatIconModule,
@@ -37,23 +37,24 @@ export class LoginDialogComponent {
   previousUrl : string|undefined;
   authenticationFailed : boolean = false;
 
-  constructor(private authService: AuthService, 
+  constructor(private authService: AuthService,
     private router:Router,
     private activatedRoute:ActivatedRoute,
     private snackBar: MatSnackBar) {
       this.user = this.authService.getCurrentUser()
+      console.log("Login component ", this.user)
       this.previousUrl = ""
       if (this.router.getCurrentNavigation()) {
 
         const state = this.router.getCurrentNavigation()?.extras.state as {
           previousUrl: string
         };
-      
+
         this.previousUrl =  state.previousUrl;
       }
   }
   onLogin() {
-      this.authService.login(this.loginForm.controls['username'].value, 
+      this.authService.login(this.loginForm.controls['username'].value,
       this.loginForm.controls['password'].value).subscribe({
         next: (response) => {
           var user = response as User;

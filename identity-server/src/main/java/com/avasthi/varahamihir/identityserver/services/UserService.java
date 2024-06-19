@@ -7,6 +7,7 @@ import com.avasthi.varahamihir.identityserver.entities.User;
 import com.avasthi.varahamihir.identityserver.repositories.UserRepository;
 import com.avasthi.varahamihir.identityserver.utils.Constants;
 import com.mongodb.MongoWriteException;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

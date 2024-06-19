@@ -8,7 +8,7 @@ import { RecipeEditorComponent } from './lwd/recipe-editor/recipe-editor.compone
 export const routes: Routes = [
     { path:'', title: 'Our Life | Home', component: HomeComponent},
     { path:'login', title: 'Our Life | Login', component: LoginDialogComponent},
-    {path: 'lwd/recipe/edit/:id', title: 'Our Life | Living with diabetes | Recipe Edit', component: RecipeEditorComponent },
+    { path: 'lwd/recipe/edit/:id', title: 'Our Life | Living with diabetes | Recipe Edit', component: RecipeEditorComponent },
     { path:'lwd/recipe/edit', title: 'Our Life | Living with diabetes | Recipe Edit', component: RecipeEditorComponent },
     { path: 'lwd/ingredient/edit/:id', title: 'Our Life | Living with diabetes | Ingredients Edit', component: IngredientEditorComponent },
     { path: 'lwd/ingredient/edit', title: 'Our Life | Living with diabetes | Ingredients Edit', component: IngredientEditorComponent },

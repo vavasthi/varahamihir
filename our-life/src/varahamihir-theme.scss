@@ -4,16 +4,7 @@
 @include mat.core();
 @include mat.strong-focus-indicators();
 
-// Define a dark theme
-$varahamihir-dark-theme: mat.define-dark-theme((
- color: (
-   primary: mat.define-palette(mat.$green-palette),
-   accent: mat.define-palette(mat.$purple-palette),
- ),
-  // Only include `typography` and `density` in the default dark theme.
-  typography: mat.define-typography-config(),
-  density: 0,
-));
+mat.$theme-ignore-duplication-warnings: true;
 
 // Define a light theme
 $varahamihir-light-theme: mat.define-light-theme((
@@ -23,21 +14,29 @@ $varahamihir-light-theme: mat.define-light-theme((
  ),
 ));
 
-// Apply the dark theme by default
+// Define a dark theme
+$varahamihir-dark-theme: mat.define-dark-theme((
+ color: (
+   primary: mat.define-palette(mat.$green-palette),
+   accent: mat.define-palette(mat.$purple-palette),
+ ),
+  // Only include `typography` and `density` in the default dark theme.
+  typography: mat.define-typography-config(),
+));
+
+
+// Apply the light theme by default
 @include mat.all-component-themes($varahamihir-light-theme);
 
 // Apply the light theme only when the user prefers light themes.
 @media (prefers-color-scheme: light) {
  // Use the `-color` mixins to only apply color styles without reapplying the same
  // typography and density styles.
- @include mat.all-component-themes($varahamihir-light-theme);
+ @include mat.all-component-colors($varahamihir-light-theme);
 }
 
 .dark-theme {
   --color-primary: mat.get-color-from-palette(mat.$green-palette, default);
   --color-primary: mat.get-color-from-palette(mat.$green-palette, default-contrast);
+  @include mat.all-component-colors($varahamihir-dark-theme)
 }
-.dark-theme {
-  @include mat.all-component-themes($varahamihir-dark-theme)
-}
-
