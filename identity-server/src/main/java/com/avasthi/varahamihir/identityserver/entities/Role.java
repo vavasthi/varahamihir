@@ -9,6 +9,7 @@ public enum Role {
     REFRESH("REFRESH"),
     ADMIN("ADMIN"),
     TENANT_ADMIN("TENANT_ADMIN"),
+    EQUATION_EDITOR("EQUATION_EDITOR"),
     RECIPE_EDITOR("RECIPE_EDITOR");
     Role(String authority) {
         this.authority = new SimpleGrantedAuthority(authority);

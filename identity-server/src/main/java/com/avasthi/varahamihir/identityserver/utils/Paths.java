@@ -48,5 +48,10 @@ public class Paths {
             public static final String Base = "/unit";
             public static final String fullPath = Paths.V1.fullPath + Base;
         }
+        public class Equation {
+
+            public static final String Base = "/equation";
+            public static final String fullPath = Paths.V1.fullPath + Base;
+        }
     }
 }

@@ -2,5 +2,18 @@
   <mat-card-title>Welcome to my web presence.</mat-card-title>
   <mat-card-content>
     This website is a collection of different interests that I have. You can browse through these and get in touch with me if you think we can collaborate on any of these.
+    </mat-card-content>
+</mat-card>
+Here are some of the maths equations that I find fascinating.
+<mat-card class="cls-equations">
+  <mat-card-header>
+      <mat-card-title><h1>Equations</h1></mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="cls-equation-list">
+      @for (equation of equations; track equation) {
+        <div>
+        {{equation.name}} <span [appMathjax]="equation.equation"> </span>
+        </div>
+      }
   </mat-card-content>
 </mat-card>

@@ -6,28 +6,41 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormsModule, FormControl, Validators, ReactiveFormsModule, FormGroup } from '@angular/forms';
+import { MathjaxDirective } from '../directives/mathjax.directive';
+import { EquationService } from '../services/equation.service';
+import { Equation } from '../pojo/equation';
 
 @Component({
-    selector: 'app-home',
-    standalone: true,
-    templateUrl: './home.component.html',
-    styleUrl: './home.component.scss',
-    imports: [MainMenuBarComponent, 
-        MatCardModule, 
-        MatIconModule, 
-        MatButtonModule, 
-        MatInputModule,
-        ReactiveFormsModule, 
-        FormsModule]
+  selector: 'app-home',
+  standalone: true,
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.scss',
+  imports: [MainMenuBarComponent,
+    MatCardModule,
+    MatIconModule,
+    MatButtonModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MathjaxDirective,
+    FormsModule]
 })
 export class HomeComponent {
 
-    testForm:FormGroup = new FormGroup({
-        input:new FormControl('Username Initial Value')
-      })
-      onTest() {
-      }
+  equations:Equation[] = []
+  constructor(private equationService:EquationService){
+    equationService.getAllEquations().subscribe(pe => {
+      console.log(pe)
+      this.equations = pe.content
+      console.log(this.equations)
+    })
+  }
+
+  testForm: FormGroup = new FormGroup({
+    input: new FormControl('Username Initial Value')
+  })
+  onTest() {
+  }
 
 }
