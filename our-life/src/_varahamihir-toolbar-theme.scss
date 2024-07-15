@@ -1,0 +1,22 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+  @mixin color($theme) {
+    .cls-toolbar {
+      @if mat.get-theme-type($theme) == dark {
+
+        background-color:mat.get-theme-color($theme, secondary, 50);
+      }
+      @else {
+
+        background-color:mat.get-theme-color($theme, secondary, 80);
+      }
+    }
+  }
+
+  @mixin theme($theme) {
+    @if mat.theme-has($theme, color) {
+      @include color($theme);
+    }
+  }
+

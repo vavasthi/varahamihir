@@ -1,5 +1,6 @@
 package com.avasthi.varahamihir.identityserver;
 
+import com.avasthi.varahamihir.identityserver.entities.User;
 import com.avasthi.varahamihir.identityserver.factories.IdentityPasswordEncoderFactories;
 import com.avasthi.varahamihir.identityserver.repositories.UserRepository;
 import com.avasthi.varahamihir.identityserver.services.UserService;

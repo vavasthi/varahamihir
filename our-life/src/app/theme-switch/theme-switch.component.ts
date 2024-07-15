@@ -1,5 +1,6 @@
 import { Component, Inject, Input } from '@angular/core';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import {MatButtonModule} from '@angular/material/button';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { DOCUMENT } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
 import { ThemeSwitchService } from '../services/theme-switch.service';
@@ -7,30 +8,24 @@ import { ThemeSwitchService } from '../services/theme-switch.service';
 @Component({
   selector: 'app-theme-switch',
   standalone: true,
-  imports: [MatButtonToggleModule],
+  imports: [MatSlideToggleModule
+],
   templateUrl: './theme-switch.component.html',
   styleUrl: './theme-switch.component.scss'
 })
 export class ThemeSwitchComponent {
+isChecked: any = false;
+themeType:string = "Light";
 
-  @Input() theme:string;
   constructor(private themeSwitchService:ThemeSwitchService,
     @Inject(DOCUMENT) private document: Document) {
-
-      this.theme = this.document.documentElement.classList.contains(ThemeSwitchService.DARK_THEME_CLASS) ? ThemeSwitchService.DARK_THEME_DARK : ThemeSwitchService.DARK_THEME_LIGHT;
-      themeSwitchService.getThemeChangeEvent().subscribe( theme => {
-        this.theme = theme;
+      themeSwitchService.getThemeChangeEvent().subscribe(theme => {
+        this.isChecked = (theme == ThemeSwitchService.DARK_THEME_CLASS ? true : false);
+        this.themeType = (theme == ThemeSwitchService.DARK_THEME_CLASS ? "Dark" : "Light");
       })
   }
-  public selectDarkTheme(): void {
+  public toggleTheme(): void {
 
-    this.themeSwitchService.selectDarkTheme();
-  }
-
-  public selectLightTheme(): void {
-    this.themeSwitchService.selectLightTheme();
-  }
-  public setTheme(theme:string) {
-    this.theme = theme;
+    this.themeSwitchService.toggleTheme();
   }
 }

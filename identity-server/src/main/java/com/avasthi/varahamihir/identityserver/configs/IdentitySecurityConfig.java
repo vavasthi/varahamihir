@@ -51,4 +51,14 @@ public class IdentitySecurityConfig {
         });
         return httpSecurity.build();
     }
+    /*
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    @PostConstruct
+    void resetAllPassword() {
+        for (User user : userRepository.findAll()) {
+            user.setPassword(passwordEncoder.encode("password1234#"));
+            userRepository.save(user);
+        }
+    }*/
 }
