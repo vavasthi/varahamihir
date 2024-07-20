@@ -1,10 +1,11 @@
 import { Injectable, Signal, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpContext } from '@angular/common/http';
 import { User } from '../pojo/user';
 import { BehaviorSubject } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialogRef } from '@angular/material/dialog';
 import { LoginDialogComponent } from '../login-dialog/login-dialog.component';
+import { RequestAuthOption } from '../pojo/request-auth-option';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,9 +15,6 @@ export class AuthService {
   baseUrl: string = "/api/v1";
   authUrl: string = this.baseUrl + "/auth";
   refreshUrl: string = this.baseUrl + "/auth/refresh";
-  httpOptions = {
-    headers: { 'Content-Type': 'application/json' }
-  }
 
   constructor(private httpClient: HttpClient, private snackBar: MatSnackBar) {
     var storedUserJson = localStorage.getItem(this.currentUserKeyName);
@@ -52,14 +50,17 @@ export class AuthService {
       .post<User>(this.authUrl, {
         'username': username,
         'password': password
-      }, this.httpOptions)
+      },
+      {
+        context: new HttpContext().set(RequestAuthOption.NONE, true),
+        headers: { 'Content-Type': 'application/json' }
+      })
   }
   refresh() {
 
     var refreshHttpOptions = {
-      headers: { 'Content-Type': 'application/json',
-      'Authorization' : 'Bearer ' + this.user()?.refreshToken
-     }
+      headers: { 'Content-Type': 'application/json'},
+      context: new HttpContext().set(RequestAuthOption.REFRESH_TOKEN, true),
     }
       return this
       .httpClient

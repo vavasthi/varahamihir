@@ -1,9 +1,10 @@
 import { Injectable, Signal } from '@angular/core';
 import { Recipe } from '../pojo/recipe';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpContext, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../pojo/user';
 import { PageableRecipe } from '../pojo/pageable-recipe';
+import { RequestAuthOption } from '../../pojo/request-auth-option';
 
 @Injectable({
   providedIn: 'root'
@@ -14,19 +15,18 @@ export class RecipeService {
   recipeUrl: string = this.baseUrl + "/recipe/1/50";
 
   user: Signal<User|undefined>;
-  
+
   constructor(private authService: AuthService,
-    private httpClient:HttpClient) { 
+    private httpClient:HttpClient) {
       this.user = this.authService.getCurrentUser()
   }
-  
+
   getHttpOptions():HttpHeaders {
 
     return new HttpHeaders()
       .set('Content-Type', 'application/json; charset=utf-8')
-      .set('Authorization', 'Bearer ' + this.user()?.authToken)
     }
-  
+
   createRecipe(recipe:Recipe) {
 
     return this
@@ -37,6 +37,10 @@ export class RecipeService {
 
     return this
       .httpClient
-      .get<PageableRecipe>(this.recipeUrl, {headers:this.getHttpOptions()})
+      .get<PageableRecipe>(this.recipeUrl,
+        {
+          context: new HttpContext().set(RequestAuthOption.AUTH_TOKEN, true),
+          headers:this.getHttpOptions()
+        })
   }
 }

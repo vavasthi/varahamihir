@@ -4,8 +4,11 @@ import { provideRouter, withComponentInputBinding, withDebugTracing } from '@ang
 import { routes } from './app.routes';
 
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
+import { AuthenticationInterceptor } from './interceptors/authentication.interceptor';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes, withComponentInputBinding()), provideAnimations(), provideHttpClient(withFetch())]
+  providers: [provideRouter(routes, withComponentInputBinding()), provideAnimations(), provideHttpClient(withFetch(), withInterceptorsFromDi()),
+    {provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true},
+  ]
 };

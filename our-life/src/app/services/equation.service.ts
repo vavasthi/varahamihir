@@ -1,8 +1,9 @@
 import { Injectable, Signal } from '@angular/core';
 import { User } from '../pojo/user';
 import { AuthService } from './auth.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpContext, HttpHeaders } from '@angular/common/http';
 import { PageableEquation } from '../pojo/pageable-equation';
+import { RequestAuthOption } from '../pojo/request-auth-option';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,10 @@ export class EquationService {
 
     return this
       .httpClient
-      .get<PageableEquation>(this.allEquationUrl, {headers:this.getHttpOptions()})
+      .get<PageableEquation>(this.allEquationUrl,
+        {
+          context: new HttpContext().set(RequestAuthOption.NONE, true),
+          headers:this.getHttpOptions()
+      })
   }
 }

@@ -64,6 +64,7 @@ export class LoginDialogComponent {
           this.authenticationFailed = false;
         },
         error: (err) => {
+          console.log(err)
           this.authService.setCurrentUser(undefined)
           this.authenticationFailed = true;
         }
