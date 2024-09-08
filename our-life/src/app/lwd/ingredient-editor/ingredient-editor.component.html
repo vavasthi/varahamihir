@@ -47,15 +47,16 @@
                 </mat-form-field>
             </div>
         </div>
-        <div class="cls-ingredient-header-block-image">
+        <div>
 
-            <mat-form-field>
-                <mat-label>URL</mat-label>
-                <input matInput required formControlName="url" />
-            </mat-form-field>
-            @if (url()) {
+            @if (images.length > 0) {
 
-            <img width="100%" [src]="url()" />
+              <div class="cls-ingredient-header-block-image">
+              @for (image of this.images; track image) {
+
+                <img width="64px" [src]="image.url" />
+              }
+            </div>
             }
             @else {
             <app-drag-and-drop [multiple]=false (fileSelected)="onFileSelected($event)" />

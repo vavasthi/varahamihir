@@ -5,6 +5,7 @@ import com.avasthi.varahamihir.common.exceptions.ContentWritingFailedException;
 import com.avasthi.varahamihir.common.exceptions.EntityNotFoundException;
 import com.avasthi.varahamihir.identityserver.entities.Content;
 import com.avasthi.varahamihir.identityserver.repositories.ContentRepository;
+import com.avasthi.varahamihir.identityserver.utils.Paths;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -51,7 +52,7 @@ public class ContentService {
                     .storagePathname(destinationFile.toString())
                     .build();
             content.setUrl(String.format("%s/%s/%s",
-                    servletRequest.getRequestURI(),
+                    Paths.V1.Content.fullPath,
                     content.getId().toString(),
                     URLEncoder.encode(uploadedFilename, Charset.forName("UTF-8"))));
             contentRepository.save(content);

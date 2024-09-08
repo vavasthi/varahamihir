@@ -37,10 +37,9 @@
 
 .cls-ingredient-header-block-image {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   padding-left: 1em;
   gap: 2em;
-  width: 80vw;
   margin: auto
 }
 .cls-ingredient-header-unit-type-selection {

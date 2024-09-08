@@ -82,6 +82,7 @@ export class IngredientEditorComponent {
   unitList?: Unit[] = this.allUnitList();
   unitTypeList = this.unitService.getUnitTypes()
   ingredientWithNutrition: IngredientWithNutrition | undefined;
+  images: Content[] = [];
 
   constructor(private ingredientService: IngredientService,
     private snackBar: MatSnackBar,
@@ -136,24 +137,10 @@ export class IngredientEditorComponent {
   onFileSelected(event: any) {
 
     var fileList = event as FileList
-    if (fileList.length == 1) {
-
-      this.fileUploadService.uploadFile(fileList[0]).subscribe(response => {
-        console.log(response)
-        var content = response as Content;
-        this.url.set(content.url)
-        this.ingredientEditorForm.patchValue({ url: content.url })
-      })
-      }
-      else {
-
         this.fileUploadService.uploadFiles(fileList).subscribe(response => {
           console.log("Multiple file uploads", response)
-          var content = response as Content;
-          this.url.set(content.url)
-          this.ingredientEditorForm.patchValue({ url: content.url })
+          this.images = response as Content[];
         })
-        }
   }
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
