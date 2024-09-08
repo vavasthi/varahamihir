@@ -5,6 +5,9 @@
 @use '_varahamihir-toolbar-theme' as vtoolbar;
 @use '@angular/material' as mat;
 
+mat.$theme-ignore-duplication-warnings: true;
+
+
 // Note: Color palettes are generated from primary: #80BCBD, secondary: #D5F0C1, tertiary: #F9F7C9
 $_palettes: (
   primary: (
@@ -159,7 +162,7 @@ $dark-theme: mat.define-theme((
   ),
 ));
 .light-theme {
-  @include mat.all-component-themes($light-theme);
+/*  @include mat.all-component-themes($light-theme);*/
   @include mat.all-component-colors($light-theme);
   @include mat.core-theme($light-theme);
   @include vtoolbar.theme($light-theme);
@@ -172,7 +175,7 @@ $dark-theme: mat.define-theme((
 }
 
 .dark-theme {
-  @include mat.all-component-themes($dark-theme);
+/*  @include mat.all-component-themes($dark-theme);*/
   @include mat.all-component-colors($dark-theme);
   @include mat.core-theme($dark-theme);
   @include vtoolbar.theme($dark-theme);

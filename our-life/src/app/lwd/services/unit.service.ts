@@ -1,9 +1,10 @@
 import { Injectable, Signal, WritableSignal, signal } from '@angular/core';
 import { User } from '../../pojo/user';
 import { AuthService } from '../../services/auth.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpContext, HttpHeaders } from '@angular/common/http';
 import { Unit } from '../pojo/unit';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { RequestAuthOption } from '../../pojo/request-auth-option';
 
 @Injectable({
   providedIn: 'root'
@@ -11,47 +12,69 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class UnitService {
 
   baseUrl: string = "/api/v1";
-  unitUrl: string = this.baseUrl + "/unit";
+  unitUrl: string = this.baseUrl + "/unit/Both";
+  unitTypeUrl: string = this.baseUrl + "/unit/unitType";
 
   user: Signal<User|undefined>;
   units:WritableSignal<Unit[]|undefined> = signal(undefined);
-  
+  unitTypes:WritableSignal<String[]|undefined> = signal(undefined);
+
   constructor(private authService: AuthService,
     private snackBar:MatSnackBar,
-    private httpClient:HttpClient) { 
+    private httpClient:HttpClient) {
       this.user = this.authService.getCurrentUser()
-      this.loadAllUnits(false)
+      this.loadAllUnitTypes().subscribe({
+        next: (response) => {
+          console.log(response)
+          this.unitTypes.set(response)
+        },
+        error: (err) => {
+          console.log(err)
+          this.snackBar.open("Unit load failed.", "Ok", {duration : 5000})
+        }
+      })
+      this.loadAllUnits().subscribe({
+        next: (response) => {
+          console.log(response)
+          this.units.set(response)
+        },
+        error: (err) => {
+          console.log(err)
+          this.snackBar.open("Unit load failed.", "Ok", {duration : 5000})
+        }
+      })
   }
-  
+
   getHttpOptions():HttpHeaders {
 
     return new HttpHeaders()
       .set('Content-Type', 'application/json; charset=utf-8')
-      .set('Authorization', 'Bearer ' + this.user()?.authToken)
   }
-  
+
   getUnits():Signal<Unit[]|undefined> {
     return this.units
   }
-  loadAllUnits(retrying:boolean) {
+  getUnitTypes():Signal<String[]|undefined> {
+    return this.unitTypes
+  }
+  loadAllUnits() {
 
     return this
       .httpClient
-      .get<Unit[]>(this.unitUrl, {headers:this.getHttpOptions()}).subscribe({
-        next: (response) => {
-          this.units.set(response);
-        },
-        error: (err) => {
-          if (err.status == 403 && !retrying) {
-            this.authService.refresh();
-            this.loadAllUnits(true);
-          }
-          else {
-  
-            console.log(err)
-            this.snackBar.open("Units Load Failed", "Ok", { duration: 5000 })
-            }
-        }
-      })
+      .get<Unit[]>(this.unitUrl,
+        {
+          context: new HttpContext().set(RequestAuthOption.AUTH_TOKEN, true),
+          headers:this.getHttpOptions()
+        })
+  }
+  loadAllUnitTypes() {
+
+    return this
+      .httpClient
+      .get<String[]>(this.unitTypeUrl,
+        {
+          context: new HttpContext().set(RequestAuthOption.AUTH_TOKEN, true),
+          headers:this.getHttpOptions()
+        })
   }
 }

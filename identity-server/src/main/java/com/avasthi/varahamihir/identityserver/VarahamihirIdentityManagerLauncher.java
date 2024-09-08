@@ -43,4 +43,5 @@ public class VarahamihirIdentityManagerLauncher  {
     PasswordEncoder passwordEncoder = IdentityPasswordEncoderFactories.createDelegatingPasswordEncoder();
     return passwordEncoder;
   }
+
 }

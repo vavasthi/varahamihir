@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -23,9 +24,14 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ContentEndpoint {
     private final ContentService contentService;
-    @RequestMapping(method = RequestMethod.POST)
-    public Optional<Content> save(@RequestParam("file")MultipartFile file) {
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public Optional<Content> save(@RequestParam("file") MultipartFile file) {
         return contentService.save(file);
+    }
+
+    @RequestMapping(value = Paths.V1.Content.multiple, method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public List<Content> save(@RequestParam("files") MultipartFile[] files) {
+        return contentService.save(files);
     }
 
     @RequestMapping(value = Paths.V1.Content.contentPath, method = RequestMethod.GET)

@@ -1,5 +1,6 @@
 package com.avasthi.varahamihir.identityserver.entities;
 
+import com.avasthi.varahamihir.identityserver.pojo.UnitType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -36,5 +37,5 @@ public final class Nutrition extends AbstractBase{
     private Quantity vitaminC;
     private Quantity vitaminB6;
     private Quantity vitaminD;
-
+    UnitType unitType;
 }

@@ -45,10 +45,17 @@ spring:
         name: identity-server
     mvc:
         static-path-pattern: /content/**
+    http:
+        multipart:
+            enabled: true
+            max-file-size: 50MB
+            max-request-size: 50MB
     servlet:
         multipart:
-            max-file-size: 10MB
-            max-request-size: 10MB
+            enabled: true
+            max-file-size: 50MB
+            max-request-size: 50MB
+
 
 application:
     security:

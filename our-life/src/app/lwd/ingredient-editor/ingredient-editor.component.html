@@ -14,7 +14,21 @@
                 <mat-label>Brand</mat-label>
                 <input matInput formControlName="brand" />
             </mat-form-field>
-            <div class="cls-ingredient-header-block-quantity">
+            <div class="cls-ingredient-header-unit-type-selection">
+
+              <mat-form-field>
+                  <mat-label>Choose Unit Type</mat-label>
+                  <mat-select formControlName="unitType">
+                      @if(unitTypeList()) {
+
+                      @for (unitType of unitTypeList(); track unitType) {
+                      <mat-option [value]="unitType">{{unitType}}</mat-option>
+                      }
+                      }
+                  </mat-select>
+              </mat-form-field>
+          </div>
+          <div class="cls-ingredient-header-block-quantity">
 
                 <mat-form-field>
                     <mat-label>Quantity</mat-label>
@@ -23,10 +37,10 @@
                 <mat-form-field>
                     <mat-label>Choose Unit</mat-label>
                     <mat-select formControlName="unit">
-                        @if(unitList()) {
+                        @if(unitList) {
 
-                        @for (unit of unitList(); track unit) {
-                        <mat-option [value]="unit">{{unit.name}}</mat-option>
+                        @for (unit of unitList; track unit) {
+                        <mat-option [value]="unit">{{unit.value}}</mat-option>
                         }
                         }
                     </mat-select>

@@ -1,6 +1,8 @@
 export interface Unit {
-    id:string;
-    name:string;
+    value:string;
     acronym:string;
-    multiplicationFactorToGrams:number;
+    conversionToPrimary: number;
+    unitSystem: string;
+    quantityType: string;
+    primary: string;
 }

@@ -20,9 +20,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -63,6 +61,14 @@ public class ContentService {
             throw new ContentWritingFailedException(String.format(ExceptionMessage.CONTENT_WRITING_FAILED_ERROR.getReason(), destinationFile.toString()),
                     String.format(ExceptionMessage.CONTENT_WRITING_FAILED_ERROR.getError(), destinationFile.toString()));
         }
+    }
+    public List<Content> save(MultipartFile[] files) {
+
+        List<Content> contentList = new ArrayList<>();
+        for (MultipartFile file : files) {
+            contentList.add(save(file).get());
+        }
+        return contentList;
     }
     public Optional<Content> findById(UUID id) {
         return contentRepository.findById(id);

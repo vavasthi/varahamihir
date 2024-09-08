@@ -11,10 +11,12 @@
 			"quantity": {
 				"value": 10,
 				"unit": {
-					"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
-					"name": "Grams",
+					"value": "Grams",
 					"acronym": "gm",
-					"multiplicationFactorToGrams": 1
+					"conversionToPrimary": 1,
+          "unitSystem":"METRIC",
+          "quantityType":"WEIGHT",
+          "primary":"Gram"
 				}
 			}
 		},
@@ -25,10 +27,12 @@
 			"quantity": {
 				"value": 10,
 				"unit": {
-					"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
-					"name": "Grams",
+					"value": "Grams",
 					"acronym": "gm",
-					"multiplicationFactorToGrams": 1
+					"conversionToPrimary": 1,
+          "unitSystem":"METRIC",
+          "quantityType":"WEIGHT",
+          "primary":"Gram"
 				}
 			}
 		},
@@ -39,10 +43,12 @@
 			"quantity": {
 				"value": 10,
 				"unit": {
-					"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
-					"name": "Grams",
+					"value": "Grams",
 					"acronym": "gm",
-					"multiplicationFactorToGrams": 1
+					"conversionToPrimary": 1,
+          "unitSystem":"METRIC",
+          "quantityType":"WEIGHT",
+          "primary":"Gram"
 				}
 			}
 		},
@@ -53,10 +59,12 @@
 			"quantity": {
 				"value": 10,
 				"unit": {
-					"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
-					"name": "Grams",
+					"value": "Grams",
 					"acronym": "gm",
-					"multiplicationFactorToGrams": 1
+					"conversionToPrimary": 1,
+          "unitSystem":"METRIC",
+          "quantityType":"WEIGHT",
+          "primary":"Gram"
 				}
 			}
 		},
@@ -67,10 +75,12 @@
 			"quantity": {
 				"value": 10,
 				"unit": {
-					"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
-					"name": "Grams",
+					"value": "Grams",
 					"acronym": "gm",
-					"multiplicationFactorToGrams": 1
+					"conversionToPrimary": 1,
+          "unitSystem":"METRIC",
+          "quantityType":"WEIGHT",
+          "primary":"Gram"
 				}
 			}
 		},
@@ -81,10 +91,12 @@
 			"quantity": {
 				"value": 10,
 				"unit": {
-					"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
-					"name": "Grams",
+					"value": "Grams",
 					"acronym": "gm",
-					"multiplicationFactorToGrams": 1
+					"conversionToPrimary": 1,
+          "unitSystem":"METRIC",
+          "quantityType":"WEIGHT",
+          "primary":"Gram"
 				}
 			}
 		}
@@ -132,191 +144,233 @@
 		"quantity": {
 			"value": 1,
 			"unit": {
-				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
-				"name": "Serving",
+				"value": "Serving",
 				"acronym": "srv",
-				"multiplicationFactorToGrams": 1
+				"conversionToPrimary": 1,
+        "unitSystem":"METRIC",
+        "quantityType":"WEIGHT",
+        "primary":"Gram"
 			}
 		},
 		"calories": 375,
 		"totalFat": {
 			"value": 22,
 			"unit": {
-				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
-				"name": "Grams",
+				"value": "Grams",
 				"acronym": "gm",
-				"multiplicationFactorToGrams": 1
+				"conversionToPrimary": 1,
+        "unitSystem":"METRIC",
+        "quantityType":"WEIGHT",
+        "primary":"Gram"
 			}
 		},
 		"saturatedFat": {
 			"value": 1.5,
 			"unit": {
-				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
-				"name": "Grams",
+				"value": "Grams",
 				"acronym": "gm",
-				"multiplicationFactorToGrams": 1
+				"conversionToPrimary": 1,
+        "unitSystem":"METRIC",
+        "quantityType":"WEIGHT",
+        "primary":"Gram"
 			}
 		},
 		"transFat": {
 			"value": 0,
 			"unit": {
-				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
-				"name": "Grams",
+				"value": "Grams",
 				"acronym": "gm",
-				"multiplicationFactorToGrams": 1
+				"conversionToPrimary": 1,
+        "unitSystem":"METRIC",
+        "quantityType":"WEIGHT",
+        "primary":"Gram"
 			}
 		},
 		"polyUnsaturatedFat": {
 			"value": 0,
 			"unit": {
-				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
-				"name": "Grams",
+				"value": "Grams",
 				"acronym": "gm",
-				"multiplicationFactorToGrams": 1
+				"conversionToPrimary": 1,
+        "unitSystem":"METRIC",
+        "quantityType":"WEIGHT",
+        "primary":"Gram"
 			}
 		},
 		"monoUnsaturatedFat": {
 			"value": 0,
 			"unit": {
-				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
-				"name": "Grams",
+				"value": "Grams",
 				"acronym": "gm",
-				"multiplicationFactorToGrams": 1
+				"conversionToPrimary": 1,
+        "unitSystem":"METRIC",
+        "quantityType":"WEIGHT",
+        "primary":"Gram"
 			}
 		},
 		"cholesterol": {
 			"value": 0,
 			"unit": {
-				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
-				"name": "Milligrams",
+				"value": "Milligrams",
 				"acronym": "mg",
-				"multiplicationFactorToGrams": 0.001
+				"conversionToPrimary": 0.001,
+        "unitSystem":"METRIC",
+        "quantityType":"WEIGHT",
+        "primary":"Gram"
 			}
 		},
 		"sodium": {
 			"value": 168,
 			"unit": {
-				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
-				"name": "Milligrams",
+				"value": "Milligrams",
 				"acronym": "mg",
-				"multiplicationFactorToGrams": 0.001
+				"conversionToPrimary": 0.001,
+        "unitSystem":"METRIC",
+        "quantityType":"WEIGHT",
+        "primary":"Gram"
 			}
 		},
 		"potassium": {
 			"value": 1788,
 			"unit": {
-				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
-				"name": "Milligrams",
+				"value": "Milligrams",
 				"acronym": "mg",
-				"multiplicationFactorToGrams": 0.001
+				"conversionToPrimary": 0.001,
+        "unitSystem":"METRIC",
+        "quantityType":"WEIGHT",
+        "primary":"Gram"
 			}
 		},
 		"totalCarbohydrates": {
 			"value": 44,
 			"unit": {
-				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
-				"name": "Grams",
+				"value": "Grams",
 				"acronym": "gm",
-				"multiplicationFactorToGrams": 1
+				"conversionToPrimary": 1,
+        "unitSystem":"METRIC",
+        "quantityType":"WEIGHT",
+        "primary":"Gram"
 			}
 		},
 		"dietaryFiber": {
 			"value": 11,
 			"unit": {
-				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
-				"name": "Grams",
+				"value": "Grams",
 				"acronym": "gm",
-				"multiplicationFactorToGrams": 1
+				"conversionToPrimary": 1,
+        "unitSystem":"METRIC",
+        "quantityType":"WEIGHT",
+        "primary":"Gram"
 			}
 		},
 		"sugars": {
 			"value": 2.3,
 			"unit": {
-				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
-				"name": "Grams",
+				"value": "Grams",
 				"acronym": "gm",
-				"multiplicationFactorToGrams": 1
+				"conversionToPrimary": 1,
+        "unitSystem":"METRIC",
+        "quantityType":"WEIGHT",
+        "primary":"Gram"
 			}
 		},
 		"protein": {
 			"value": 18,
 			"unit": {
-				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
-				"name": "Grams",
+				"value": "Grams",
 				"acronym": "gm",
-				"multiplicationFactorToGrams": 1
+				"conversionToPrimary": 1,
+        "unitSystem":"METRIC",
+        "quantityType":"WEIGHT",
+        "primary":"Gram"
 			}
 		},
 		"vitaminA": {
 			"value": 0,
 			"unit": {
-				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
-				"name": "Milligrams",
+				"value": "Milligrams",
 				"acronym": "mg",
-				"multiplicationFactorToGrams": 0.001
+				"conversionToPrimary": 0.001,
+        "unitSystem":"METRIC",
+        "quantityType":"WEIGHT",
+        "primary":"Gram"
 			}
 		},
 		"vitaminB6": {
 			"value": 20,
 			"unit": {
-				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
-				"name": "Milligrams",
+				"value": "Milligrams",
 				"acronym": "mg",
-				"multiplicationFactorToGrams": 0.001
+				"conversionToPrimary": 0.001,
+        "unitSystem":"METRIC",
+        "quantityType":"WEIGHT",
+        "primary":"Gram"
 			}
 		},
 		"vitaminC": {
 			"value": 0,
 			"unit": {
-				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
-				"name": "Milligrams",
+				"value": "Milligrams",
 				"acronym": "mg",
-				"multiplicationFactorToGrams": 0.001
+				"conversionToPrimary": 0.001,
+        "unitSystem":"METRIC",
+        "quantityType":"WEIGHT",
+        "primary":"Gram"
 			}
 		},
 		"vitaminD": {
 			"value": 0,
 			"unit": {
-				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
-				"name": "Milligrams",
+				"value": "Milligrams",
 				"acronym": "mg",
-				"multiplicationFactorToGrams": 0.001
+				"conversionToPrimary": 0.001,
+        "unitSystem":"METRIC",
+        "quantityType":"WEIGHT",
+        "primary":"Gram"
 			}
 		},
 		"calcium": {
 			"value": 93,
 			"unit": {
-				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
-				"name": "Milligrams",
+				"value": "Milligrams",
 				"acronym": "mg",
-				"multiplicationFactorToGrams": 0.001
+				"conversionToPrimary": 0.001,
+        "unitSystem":"METRIC",
+        "quantityType":"WEIGHT",
+        "primary":"Gram"
 			}
 		},
 		"iron": {
 			"value": 368,
 			"unit": {
-				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
-				"name": "Milligrams",
+				"value": "Milligrams",
 				"acronym": "mg",
-				"multiplicationFactorToGrams": 0.001
+				"conversionToPrimary": 0.001,
+        "unitSystem":"METRIC",
+        "quantityType":"WEIGHT",
+        "primary":"Gram"
 			}
 		},
 		"magnesium": {
 			"value": 91,
 			"unit": {
-				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
-				"name": "Milligrams",
+				"value": "Milligrams",
 				"acronym": "mg",
-				"multiplicationFactorToGrams": 0.001
+				"conversionToPrimary": 0.001,
+        "unitSystem":"METRIC",
+        "quantityType":"WEIGHT",
+        "primary":"Gram"
 			}
 		},
 		"cobalamin": {
 			"value": 0,
 			"unit": {
-				"id":"52a2787d-6fe2-4eba-8ae5-6aeb2a41048c",
-				"name": "Milligrams",
+				"value": "Milligrams",
 				"acronym": "mg",
-				"multiplicationFactorToGrams": 0.001
+				"conversionToPrimary": 0.001,
+        "unitSystem":"METRIC",
+        "quantityType":"WEIGHT",
+        "primary":"Gram"
 			}
 		}
 	},

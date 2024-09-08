@@ -8,6 +8,7 @@ import { RequestAuthOption } from '../pojo/request-auth-option';
 export class AuthenticationInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>,
     handler: HttpHandler): Observable<HttpEvent<any>> {
+      console.log("In interceptor request = ", req)
     var authService = inject(AuthService)
     if (req.context.get(RequestAuthOption.NONE)) {
 
@@ -32,6 +33,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
       return handler.handle(req.clone({ headers: newHeaders })).pipe(
         catchError((error: HttpErrorResponse) => {
 
+          console.log("First request failed.", error)
           if (error.status == 403) {
             authService.refresh();
             originalRequest.context.set(RequestAuthOption.AUTH_TOKEN, true);

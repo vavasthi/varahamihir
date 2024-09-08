@@ -1,20 +1,17 @@
 package com.avasthi.varahamihir.identityserver.entities;
 
-import lombok.AllArgsConstructor;
+import com.avasthi.varahamihir.common.pojos.QUANTITY_TYPE;
+import com.avasthi.varahamihir.common.pojos.UNIT_SYSTEM;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.util.Objects;
 
 @Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@Document(collection = "units")
-public final class Unit extends AbstractBase {
-    private String name;
+public final class Unit {
+    private String value;
     private String acronym;
-    private Float multiplicationFactorToGrams;
+    private double conversionToPrimary;
+    private UNIT_SYSTEM unitSystem;
+    private QUANTITY_TYPE quantityType;
+    private String primary;
 }

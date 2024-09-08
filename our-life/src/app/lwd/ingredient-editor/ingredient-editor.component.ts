@@ -6,46 +6,47 @@ import { IngredientWithNutrition } from '../pojo/ingredient-with-nutrition';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { DragAndDropComponent } from "../../drag-and-drop/drag-and-drop.component";
-import { MatFormFieldModule, MatFormFieldControl} from '@angular/material/form-field';
-import {AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn} from '@angular/forms';
+import { MatFormFieldModule, MatFormFieldControl } from '@angular/material/form-field';
+import { AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import {MatChipEditedEvent, MatChipInputEvent, MatChipsModule} from '@angular/material/chips';
+import { MatChipEditedEvent, MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { FileUploadServiceService } from '../../services/file-upload-service.service';
 import { Content } from '../../pojo/content';
 import { UnitService } from '../services/unit.service';
 import { Unit } from '../pojo/unit';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { AuthService } from '../../services/auth.service';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Ingredient } from '../pojo/ingredient';
 import { MatIconModule } from '@angular/material/icon';
-import {LiveAnnouncer} from '@angular/cdk/a11y';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 @Component({
-    selector: 'app-ingredient-editor',
-    standalone: true,
-    templateUrl: './ingredient-editor.component.html',
-    styleUrl: './ingredient-editor.component.scss',
-    imports: [RouterModule,
-        MatButtonModule,
-        MatCardModule, 
-        MatIconModule,
-        MatInputModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatSelectModule,
-        MatChipsModule,
-        MatIconModule,
-        DragAndDropComponent]
+  selector: 'app-ingredient-editor',
+  standalone: true,
+  templateUrl: './ingredient-editor.component.html',
+  styleUrl: './ingredient-editor.component.scss',
+  imports: [RouterModule,
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatChipsModule,
+    MatIconModule,
+    DragAndDropComponent]
 })
 export class IngredientEditorComponent {
 
-  ingredientEditorForm:FormGroup = new FormGroup({
-    name:new FormControl(''),
+  ingredientEditorForm: FormGroup = new FormGroup({
+    name: new FormControl(''),
     description: new FormControl(''),
     url: new FormControl(''),
     brand: new FormControl(''),
     quantity: new FormControl(''),
+    unitType: new FormControl(''),
     unit: new FormControl(''),
     calories: new FormControl(''),
     totalFat: new FormControl(''),
@@ -69,7 +70,7 @@ export class IngredientEditorComponent {
     vitaminB6: new FormControl(''),
     vitaminD: new FormControl(''),
   })
-  url:WritableSignal<string|undefined> = signal(undefined)
+  url: WritableSignal<string | undefined> = signal(undefined)
 
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
@@ -77,14 +78,16 @@ export class IngredientEditorComponent {
 
 
   @Input() id = '';
-  unitList =this.unitService.getUnits()
+  allUnitList: Signal<Unit[] | undefined> = this.unitService.getUnits();
+  unitList?: Unit[] = this.allUnitList();
+  unitTypeList = this.unitService.getUnitTypes()
   ingredientWithNutrition: IngredientWithNutrition | undefined;
 
   constructor(private ingredientService: IngredientService,
     private snackBar: MatSnackBar,
     private fileUploadService: FileUploadServiceService,
-    private authService:AuthService,
-    private announcer:LiveAnnouncer,
+    private authService: AuthService,
+    private announcer: LiveAnnouncer,
     private unitService: UnitService) {
 
   }
@@ -94,36 +97,63 @@ export class IngredientEditorComponent {
 
       this.loadIngredient(false)
     }
-  }
-  loadIngredient(retrying:boolean) {
+    this.ingredientEditorForm.controls['unitType'].valueChanges.subscribe(ut => {
+      console.log("Changed unit type", ut)
+      if (ut) {
 
-      this.ingredientService.getIngredient(this.id).subscribe({
-        next: (response) => {
-          this.ingredientWithNutrition = response as IngredientWithNutrition;
-          if (this.ingredientWithNutrition.ingredient.tags) {
-
-            this.tags = this.ingredientWithNutrition.ingredient.tags
-          }
-          this.snackBar.open("Ingredients Loaded", "Ok", { duration: 5000 })
-        },
-        error: (err) => {
-          if (err.status == 403 && !retrying) {
-            this.authService.refresh()
-            this.loadIngredient(true);
-          }
-          this.snackBar.open("Ingredients Load Failed", "Ok", { duration: 5000 })
+        if (ut == 'Both') {
+          this.unitList = this.allUnitList()
         }
-      })
+        else
+        this.unitList = this.allUnitList();
+        if (this.unitList) {
+          this.unitList = this.unitList.filter(u => u.quantityType == ut)
+          console.log("Changed unit", ut, this.unitList, this.allUnitList())
+        }
+      }
+    })
+  }
+  loadIngredient(retrying: boolean) {
+
+    this.ingredientService.getIngredient(this.id).subscribe({
+      next: (response) => {
+        this.ingredientWithNutrition = response as IngredientWithNutrition;
+        if (this.ingredientWithNutrition.ingredient.tags) {
+
+          this.tags = this.ingredientWithNutrition.ingredient.tags
+        }
+        this.snackBar.open("Ingredients Loaded", "Ok", { duration: 5000 })
+      },
+      error: (err) => {
+        if (err.status == 403 && !retrying) {
+          this.authService.refresh()
+          this.loadIngredient(true);
+        }
+        this.snackBar.open("Ingredients Load Failed", "Ok", { duration: 5000 })
+      }
+    })
   }
   onFileSelected(event: any) {
 
     var fileList = event as FileList
-    this.fileUploadService.upload(fileList[0]).subscribe ( response => {
-      console.log(response)
-      var content = response as Content;
-      this.url.set(content.url)
-      this.ingredientEditorForm.patchValue({url : content.url})
-    })
+    if (fileList.length == 1) {
+
+      this.fileUploadService.uploadFile(fileList[0]).subscribe(response => {
+        console.log(response)
+        var content = response as Content;
+        this.url.set(content.url)
+        this.ingredientEditorForm.patchValue({ url: content.url })
+      })
+      }
+      else {
+
+        this.fileUploadService.uploadFiles(fileList).subscribe(response => {
+          console.log("Multiple file uploads", response)
+          var content = response as Content;
+          this.url.set(content.url)
+          this.ingredientEditorForm.patchValue({ url: content.url })
+        })
+        }
   }
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
