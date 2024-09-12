@@ -2,6 +2,7 @@ package com.avasthi.varahamihir.identityserver.configs;
 
 import com.avasthi.varahamihir.identityserver.filters.JwtAuthenticationFilter;
 import com.avasthi.varahamihir.identityserver.handlers.IdentityAccessDeniedHandler;
+import com.avasthi.varahamihir.identityserver.handlers.IdentityAuthenticationEntryPoint;
 import com.avasthi.varahamihir.identityserver.handlers.IdentityAuthenticationFailureHandler;
 import com.avasthi.varahamihir.identityserver.utils.Paths;
 import lombok.RequiredArgsConstructor;
@@ -48,6 +49,7 @@ public class IdentitySecurityConfig {
         ;
         httpSecurity.exceptionHandling(customizer -> {
             customizer.accessDeniedHandler(new IdentityAccessDeniedHandler());
+            customizer.authenticationEntryPoint(new IdentityAuthenticationEntryPoint());
         });
         return httpSecurity.build();
     }

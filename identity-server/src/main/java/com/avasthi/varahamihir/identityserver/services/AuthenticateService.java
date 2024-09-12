@@ -25,7 +25,7 @@ public class AuthenticateService {
         User user
                 = userRepository
                 .findByUsernameOrEmail(login.username())
-                .orElseThrow(() -> new UsernameNotFoundException(String.format("User %s not found", login.username())));
+                .orElseThrow(() -> new UsernameNotFoundException(login.username()));
         if (passwordEncoder.matches(login.password(), user.getPassword())) {
             return Optional.of(generateTokens(user));
         }
