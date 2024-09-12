@@ -68,3 +68,4 @@ application:
 varahamihir:
     content:
         basepath: content
+        google-service-account: ${GOOGLE_AVASTHI_COM_SERVICE_ACCOUNT}

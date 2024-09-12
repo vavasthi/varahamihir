@@ -5,21 +5,17 @@ import com.avasthi.varahamihir.common.exceptions.ContentWritingFailedException;
 import com.avasthi.varahamihir.common.exceptions.EntityNotFoundException;
 import com.avasthi.varahamihir.identityserver.entities.Content;
 import com.avasthi.varahamihir.identityserver.repositories.ContentRepository;
-import com.avasthi.varahamihir.identityserver.utils.Paths;
+import com.google.auth.Credentials;
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.storage.*;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.bouncycastle.util.encoders.Base64;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.net.URLEncoder;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -29,6 +25,11 @@ public class ContentService {
 
     @Value("${varahamihir.content.basepath}")
     private String basePath;
+    @Value("${varahamihir.content.google-service-account}")
+    private String googleServiceAccount;
+
+    private final String contentBucket = "avasthi-home.appspot.com";
+    private final String topLevelFolder = "content";
 
     private final ContentRepository contentRepository;
     private final HttpServletRequest servletRequest;
@@ -43,7 +44,7 @@ public class ContentService {
         try {
 
             InputStream is = file.getInputStream();
-            Files.copy(is, destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+/*            Files.copy(is, destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
             is.close();
             Content content = Content.builder()
                     .mimetype(mimeType)
@@ -55,7 +56,15 @@ public class ContentService {
                     Paths.V1.Content.fullPath,
                     content.getId().toString(),
                     URLEncoder.encode(uploadedFilename, Charset.forName("UTF-8"))));
-            contentRepository.save(content);
+            contentRepository.save(content);*/
+            Content content = Content.builder()
+                    .mimetype(mimeType)
+                    .originalFilename(uploadedFilename)
+                    .size(size)
+                    .storagePathname(destinationFile.toString())
+                    .build();
+            Blob blob = uploadToCloud(contentBucket, String.format("%s/%s", topLevelFolder, content.getOriginalFilename()), mimeType, is);
+            content.setUrl(blob.getMediaLink());
             return Optional.of(content);
         }
         catch(java.io.IOException ex) {
@@ -91,4 +100,19 @@ public class ContentService {
         contentRepository.deleteById(content.getId());
         return Optional.of(content);
     }
+    public Blob uploadToCloud(String bucketName,
+                              String filename,
+                              String contentType,
+                              InputStream content) throws IOException {
+
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64.decode(googleServiceAccount));
+        Credentials credentials = GoogleCredentials.fromStream(inputStream);
+        Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
+        //storage.create(BucketInfo.newBuilder(bucketName).setStorageClass(StorageClass.COLDLINE).build());
+        BlobId blobId = BlobId.of(bucketName, filename);
+        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType(contentType).build();
+        Blob blob = storage.createFrom(blobInfo, content, Storage.BlobWriteOption.detectContentType());
+        return blob;
+    }
+
 }

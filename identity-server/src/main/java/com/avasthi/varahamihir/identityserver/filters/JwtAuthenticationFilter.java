@@ -1,13 +1,20 @@
 package com.avasthi.varahamihir.identityserver.filters;
 
+import com.avasthi.varahamihir.common.errors.ExceptionMessage;
+import com.avasthi.varahamihir.common.exceptions.ExceptionResponse;
 import com.avasthi.varahamihir.identityserver.services.JwtService;
+import com.google.gson.Gson;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Header;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,6 +29,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Date;
 import java.util.stream.Collectors;
 
 
@@ -60,10 +68,32 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
           SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }
       }
+      filterChain.doFilter(request, response);
     }
-    catch (NoSuchAlgorithmException|InvalidKeySpecException e) {
+    catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
       throw new RuntimeException(e);
     }
-    filterChain.doFilter(request, response);
+    catch (ExpiredJwtException eje) {
+      returnExpiredTokenError(request, response, eje.getClaims(), eje.getHeader());
+    }
+  }
+  private void returnExpiredTokenError(HttpServletRequest request,
+                                       HttpServletResponse response,
+                                       Claims claims,
+                                       Header header) throws IOException {
+
+    Date exp = claims.getExpiration();
+    String user = claims.getSubject();
+    Gson gson = new Gson();
+    response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+    response.setStatus(HttpStatus.UNAUTHORIZED.value());
+    response.getWriter().write(gson.toJson(ExceptionResponse.builder()
+            .error(String.format(ExceptionMessage.EXPIRED_TOKEN.getReason(), exp, user))
+            .message(String.format(ExceptionMessage.EXPIRED_TOKEN.getError(), exp, user))
+            .timestamp(new Date())
+            .path(request.getRequestURI())
+            .requestId(request.getRequestId())
+            .status(HttpStatus.UNAUTHORIZED.value())
+            .build()));
   }
 }

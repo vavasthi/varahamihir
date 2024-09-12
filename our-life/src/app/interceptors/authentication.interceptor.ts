@@ -34,7 +34,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
         catchError((error: HttpErrorResponse) => {
 
           console.log("First request failed.", error)
-          if (error.status == 403) {
+          if (error.status == 403 || error.status == 401) {
             authService.refresh();
             originalRequest.context.set(RequestAuthOption.AUTH_TOKEN, true);
             var authToken = 'Bearer ' + authService.getCurrentUser()()?.authToken

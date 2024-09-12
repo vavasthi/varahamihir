@@ -6,7 +6,8 @@ public enum ExceptionMessage {
     INVALID_PASSWORD("This error occurs when the password supplied with the request doesn't match the password of the user. %s","Invalid password for user %s"),
     CONTENT_WRITING_FAILED_ERROR("This error occors when our attempt to write the file on to the storage failes for some reason. We were trying to write file to %s","File writing failed at path %s"),
     ENTITY_NOT_FOUND_ERROR("This error occurs when a %s is not found. We were looking for one with id $s","Entity %s not found with id %s"),
-    TOKEN_SIGNING_ERROR("This error is thrown when we could not sign JWT token. This error requires administrator to fix some configuration on their end.", "Token could not be signed")
+    TOKEN_SIGNING_ERROR("This error is thrown when we could not sign JWT token. This error requires administrator to fix some configuration on their end.", "Token could not be signed"),
+    EXPIRED_TOKEN("The token that was sent with this request has expired at %s for user %s.", "Token is expired at %s for user %s")
     ;
     ExceptionMessage(String reason, String error) {
         this.reason = reason;
