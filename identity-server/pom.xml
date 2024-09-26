@@ -195,13 +195,35 @@
                     <target>17</target>
                 </configuration>
             </plugin>
-<!--
             <plugin>
-                <groupId>io.fabric8</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>${docker.maven.plugin.version}</version>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-frontend</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>
+                                ${project.build.directory}/classes/webapp</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>../our-life/dist/our-life/browser</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
--->
+
+            <!--
+                        <plugin>
+                            <groupId>io.fabric8</groupId>
+                            <artifactId>docker-maven-plugin</artifactId>
+                            <version>${docker.maven.plugin.version}</version>
+                        </plugin>
+            -->
         </plugins>
     </build>
 </project>
