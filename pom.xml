@@ -27,7 +27,6 @@
 
         <!--Docker Container Image Prefix -->
         <docker.image.prefix>varahamihir</docker.image.prefix>
-        <docker-maven-plugin.version>0.33.0</docker-maven-plugin.version>
 
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -38,7 +37,7 @@
         <spring.cloud.starter.kubernetes.version>1.1.10.RELEASE</spring.cloud.starter.kubernetes.version>
         <kubernetes.spring.starter.version>4.0.0</kubernetes.spring.starter.version>
         <swagger.version>2.9.2</swagger.version>
-        <docker.maven.plugin.version>0.33.0</docker.maven.plugin.version>
+        <docker.maven.plugin.version>0.45.0</docker.maven.plugin.version>
         <lombok.version>1.18.28</lombok.version>
         <chaos-monkey-spring-boot.version>2.2.0</chaos-monkey-spring-boot.version>
         <ribbon.version>1.1.10.RELEASE</ribbon.version>
@@ -47,6 +46,7 @@
         <spring.cloud.version>2020.0.4</spring.cloud.version>
         <jjwt.version>0.11.5</jjwt.version>
         <firebase.admin.version>9.3.0</firebase.admin.version>
+        <frontend-maven-plugin.version>1.15.1</frontend-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -174,9 +174,47 @@
                         </execution>
                     </executions>
                 </plugin>
+                <plugin>
+                    <groupId>com.github.eirslett</groupId>
+                    <artifactId>frontend-maven-plugin</artifactId>
+                    <version>${frontend-maven-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>install node and npm</id>
+                            <goals>
+                                <goal>install-node-and-npm</goal>
+                            </goals>
+                            <phase>generate-resources</phase>
+                        </execution>
+                        <execution>
+                            <id>npm install</id>
+                            <goals>
+                                <goal>npm</goal>
+                            </goals>
+                            <configuration>
+                                <arguments>install</arguments>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>npm run build</id>
+                            <goals>
+                                <goal>npm</goal>
+                            </goals>
+                            <configuration>
+                                <arguments>run build</arguments>
+                            </configuration>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <nodeVersion>v18.16.1</nodeVersion>
+                        <installDirectory>target</installDirectory>
+                        <workingDirectory>our-life</workingDirectory>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
+<!--
     <profiles>
         <profile>
             <id>docker</id>
@@ -205,6 +243,7 @@
                                 </images>
                             </configuration>
                             <executions>
+&lt;!&ndash;
                                 <execution>
                                     <id>build-image</id>
                                     <phase>package</phase>
@@ -212,6 +251,7 @@
                                         <goal>build</goal>
                                     </goals>
                                 </execution>
+&ndash;&gt;
                             </executions>
                         </plugin>
                     </plugins>
@@ -219,4 +259,5 @@
             </build>
         </profile>
     </profiles>
+-->
 </project>

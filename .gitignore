@@ -28,7 +28,7 @@ build
 /.nb-gradle/
 google-services.json
 *.pem
-
+webapp/
 
 #Node stuff
 
@@ -164,3 +164,4 @@ dist
 .pnp.*
 *.pub
 *.pem
+identity-server/src/main/resources/webapp

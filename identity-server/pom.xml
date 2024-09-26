@@ -23,6 +23,7 @@
         <java.version>17</java.version>
         <docker.image.prefix>identity</docker.image.prefix>
         <docker.gcp.project>varahamihir</docker.gcp.project>
+        <tomcat.port>8080</tomcat.port>
     </properties>
 
     <dependencies>
@@ -194,11 +195,13 @@
                     <target>17</target>
                 </configuration>
             </plugin>
+<!--
             <plugin>
                 <groupId>io.fabric8</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
-                <version>${docker-maven-plugin.version}</version>
+                <version>${docker.maven.plugin.version}</version>
             </plugin>
+-->
         </plugins>
     </build>
 </project>
