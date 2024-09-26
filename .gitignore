@@ -164,4 +164,4 @@ dist
 .pnp.*
 *.pub
 *.pem
-identity-server/src/main/resources/webapp
+*/webapp
