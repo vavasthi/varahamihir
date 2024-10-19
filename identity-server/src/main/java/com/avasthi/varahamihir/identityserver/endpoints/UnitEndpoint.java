@@ -24,16 +24,9 @@ public class UnitEndpoint {
 
     private final UnitService unitService;
 
-    @RequestMapping(value = Paths.V1.Unit.unitType,
-            method = RequestMethod.GET,
+    @RequestMapping(method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<UnitType> getUnitTypes() {
-        return unitService.findAllUnitTypes();
-    }
-    @RequestMapping(value = Paths.V1.Unit.unitTypePath,
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Unit> getUnits(@PathVariable(value = Paths.V1.Unit.unitType) UnitType unitType) {
-        return unitService.findAll(unitType);
+    public List<Unit> getUnits() {
+        return unitService.findAll();
     }
 }

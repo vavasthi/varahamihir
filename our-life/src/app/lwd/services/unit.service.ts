@@ -12,8 +12,7 @@ import { RequestAuthOption } from '../../pojo/request-auth-option';
 export class UnitService {
 
   baseUrl: string = "/api/v1";
-  unitUrl: string = this.baseUrl + "/unit/Both";
-  unitTypeUrl: string = this.baseUrl + "/unit/unitType";
+  unitUrl: string = this.baseUrl + "/unit";
 
   user: Signal<User|undefined>;
   units:WritableSignal<Unit[]|undefined> = signal(undefined);
@@ -23,16 +22,6 @@ export class UnitService {
     private snackBar:MatSnackBar,
     private httpClient:HttpClient) {
       this.user = this.authService.getCurrentUser()
-      this.loadAllUnitTypes().subscribe({
-        next: (response) => {
-          console.log(response)
-          this.unitTypes.set(response)
-        },
-        error: (err) => {
-          console.log(err)
-          this.snackBar.open("Unit load failed.", "Ok", {duration : 5000})
-        }
-      })
       this.loadAllUnits().subscribe({
         next: (response) => {
           console.log(response)
@@ -62,16 +51,6 @@ export class UnitService {
     return this
       .httpClient
       .get<Unit[]>(this.unitUrl,
-        {
-          context: new HttpContext().set(RequestAuthOption.AUTH_TOKEN, true),
-          headers:this.getHttpOptions()
-        })
-  }
-  loadAllUnitTypes() {
-
-    return this
-      .httpClient
-      .get<String[]>(this.unitTypeUrl,
         {
           context: new HttpContext().set(RequestAuthOption.AUTH_TOKEN, true),
           headers:this.getHttpOptions()

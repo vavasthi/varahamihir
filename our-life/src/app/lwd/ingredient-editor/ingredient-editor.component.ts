@@ -7,7 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { DragAndDropComponent } from "../../drag-and-drop/drag-and-drop.component";
 import { MatFormFieldModule, MatFormFieldControl } from '@angular/material/form-field';
-import { AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatChipEditedEvent, MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { FileUploadServiceService } from '../../services/file-upload-service.service';
@@ -20,6 +20,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Ingredient } from '../pojo/ingredient';
 import { MatIconModule } from '@angular/material/icon';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-ingredient-editor',
@@ -36,6 +37,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
     MatSelectModule,
     MatChipsModule,
     MatIconModule,
+    MatCheckboxModule,
     DragAndDropComponent]
 })
 export class IngredientEditorComponent {
@@ -46,8 +48,12 @@ export class IngredientEditorComponent {
     url: new FormControl(''),
     brand: new FormControl(''),
     quantity: new FormControl(''),
-    unitType: new FormControl(''),
-    unit: new FormControl(''),
+    unitType: new FormControl<string|null>(null, Validators.required),
+    unit: new FormControl<Unit|null>(null, Validators.required),
+    weightQuantity: new FormControl('', Validators.required),
+    weightUnit: new FormControl<Unit|null>(null, Validators.required),
+    volumeQuantity: new FormControl('', Validators.required),
+    volumeUnit: new FormControl<Unit|null>(null, Validators.required),
     calories: new FormControl(''),
     totalFat: new FormControl(''),
     transFat: new FormControl(' '),
@@ -78,11 +84,12 @@ export class IngredientEditorComponent {
 
 
   @Input() id = '';
-  allUnitList: Signal<Unit[] | undefined> = this.unitService.getUnits();
-  unitList?: Unit[] = this.allUnitList();
-  unitTypeList = this.unitService.getUnitTypes()
+  unitList: Signal<Unit[] | undefined> = this.unitService.getUnits();
+  unitTypeList = new Set<string>(['Both']);
   ingredientWithNutrition: IngredientWithNutrition | undefined;
   images: Content[] = [];
+  permittedUnitTypes:WritableSignal<string|undefined> = signal(undefined);
+  permittedUnits : WritableSignal<Unit[] | undefined> = signal(this.unitList())
 
   constructor(private ingredientService: IngredientService,
     private snackBar: MatSnackBar,
@@ -94,22 +101,24 @@ export class IngredientEditorComponent {
   }
   ngOnInit(): void {
 
+    this.unitService.loadAllUnits().subscribe(ul => {
+      ul.forEach(unit => {
+        this.unitTypeList.add(unit.quantityType)
+      })
+    })
     if (this.id) {
 
       this.loadIngredient(false)
     }
     this.ingredientEditorForm.controls['unitType'].valueChanges.subscribe(ut => {
       console.log("Changed unit type", ut)
+      this.permittedUnitTypes.set(ut);
       if (ut) {
-
         if (ut == 'Both') {
-          this.unitList = this.allUnitList()
+          this.permittedUnits.set(this.unitList())
         }
-        else
-        this.unitList = this.allUnitList();
-        if (this.unitList) {
-          this.unitList = this.unitList.filter(u => u.quantityType == ut)
-          console.log("Changed unit", ut, this.unitList, this.allUnitList())
+        else {
+          this.permittedUnits.set(this.unitList()?.filter(u => u.quantityType == ut))
         }
       }
     })
@@ -178,5 +187,8 @@ export class IngredientEditorComponent {
     if (index >= 0) {
       this.tags[index] = value;
     }
+  }
+  unitListOfQuantityType(quantityType:string) {
+    return this.unitList()?.filter(unit => unit.quantityType === quantityType)
   }
 }

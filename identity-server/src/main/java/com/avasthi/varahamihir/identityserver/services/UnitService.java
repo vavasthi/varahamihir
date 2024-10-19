@@ -17,29 +17,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UnitService {
 
-    public List<Unit> findAll(UnitType unitType) {
+    public List<Unit> findAll() {
         List<Unit> returnValue = new ArrayList<>();
-        switch(unitType) {
-            case Volume ->  Arrays.stream(NutritionalUnits.Volume.values()).map(v -> Unit.builder()
-                                    .acronym(v.getAcronym())
-                                    .value(v.getValue())
-                                    .conversionToPrimary(v.getConversionToPrimary())
-                                    .unitSystem(v.getUnitSystems())
-                                    .quantityType(v.getQuantityType())
-                                    .primary(v.getPrimary() == null ? null : v.getPrimary().name())
-                            .build())
-                    .forEach( u -> returnValue.add(u));
-            case Weight -> Arrays.stream(NutritionalUnits.Weight.values()).map(v -> Unit.builder()
-                            .acronym(v.getAcronym())
-                            .value(v.getValue())
-                            .conversionToPrimary(v.getConversionToPrimary())
-                            .unitSystem(v.getUnitSystems())
-                            .quantityType(v.getQuantityType())
-                            .primary(v.getPrimary() == null ? null : v.getPrimary().name())
-                            .build())
-                    .forEach(u -> returnValue.add(u));
-            case Both -> {
-                Arrays.stream(NutritionalUnits.Volume.values()).map(v -> Unit.builder()
+                Arrays.stream(NutritionalUnits.values()).map(v -> Unit.builder()
                                 .acronym(v.getAcronym())
                                 .value(v.getValue())
                                 .conversionToPrimary(v.getConversionToPrimary())
@@ -49,17 +29,6 @@ public class UnitService {
                                 .build())
                         .forEach(u -> returnValue.add(u));
 
-                Arrays.stream(NutritionalUnits.Weight.values()).map(v -> Unit.builder()
-                                .acronym(v.getAcronym())
-                                .value(v.getValue())
-                                .conversionToPrimary(v.getConversionToPrimary())
-                                .unitSystem(v.getUnitSystems())
-                                .quantityType(v.getQuantityType())
-                                .primary(v.getPrimary() == null ? null : v.getPrimary().name())
-                                .build())
-                        .forEach(u -> returnValue.add(u));
-            }
-        }
         return returnValue;
     }
 
