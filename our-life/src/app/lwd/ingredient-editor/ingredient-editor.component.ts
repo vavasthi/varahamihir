@@ -21,6 +21,7 @@ import { Ingredient } from '../pojo/ingredient';
 import { MatIconModule } from '@angular/material/icon';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { QuantityTypePipe } from "../pipes/units/quantity-type.pipe";
 
 @Component({
   selector: 'app-ingredient-editor',
@@ -38,7 +39,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatChipsModule,
     MatIconModule,
     MatCheckboxModule,
-    DragAndDropComponent]
+    DragAndDropComponent, QuantityTypePipe]
 })
 export class IngredientEditorComponent {
 
@@ -89,7 +90,6 @@ export class IngredientEditorComponent {
   ingredientWithNutrition: IngredientWithNutrition | undefined;
   images: Content[] = [];
   permittedUnitTypes:WritableSignal<string|undefined> = signal(undefined);
-  permittedUnits : WritableSignal<Unit[] | undefined> = signal(this.unitList())
 
   constructor(private ingredientService: IngredientService,
     private snackBar: MatSnackBar,
@@ -113,14 +113,6 @@ export class IngredientEditorComponent {
     this.ingredientEditorForm.controls['unitType'].valueChanges.subscribe(ut => {
       console.log("Changed unit type", ut)
       this.permittedUnitTypes.set(ut);
-      if (ut) {
-        if (ut == 'Both') {
-          this.permittedUnits.set(this.unitList())
-        }
-        else {
-          this.permittedUnits.set(this.unitList()?.filter(u => u.quantityType == ut))
-        }
-      }
     })
   }
   loadIngredient(retrying: boolean) {

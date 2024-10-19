@@ -43,7 +43,7 @@
                   <mat-select formControlName="weightUnit">
                     @if(unitList()) {
 
-                    @for (unit of unitListOfQuantityType('Weight'); track unit) {
+                    @for (unit of unitList() | quantityType:"Weight"; track unit) {
                     <mat-option [value]="unit">{{unit.value}}</mat-option>
                     }
                     }
@@ -62,7 +62,7 @@
                     <mat-select formControlName="volumeUnit">
                       @if(unitList()) {
 
-                      @for (unit of unitListOfQuantityType('Volume'); track unit) {
+                      @for (unit of unitList() | quantityType:"Volume"; track unit) {
                       <mat-option [value]="unit">{{unit.value}}</mat-option>
                       }
                       }
@@ -84,9 +84,21 @@
           <mat-select formControlName="unit">
             @if(unitList()) {
 
-            @for (unit of permittedUnits(); track unit) {
-            <mat-option [value]="unit">{{unit.value}}</mat-option>
-            }
+              @if (permittedUnitTypes()) {
+
+                @if (permittedUnitTypes() == "Both") {
+
+                  @for (unit of unitList(); track unit) {
+                    <mat-option [value]="unit">{{unit.value}}</mat-option>
+                    }
+                      }
+                @else {
+
+                  @for (unit of unitList()| quantityType:permittedUnitTypes()!; track unit) {
+                    <mat-option [value]="unit">{{unit.value}}</mat-option>
+                    }
+                }
+                }
             }
             </mat-select>
             @if (ingredientEditorForm.controls['unit'].hasError('required')) {
