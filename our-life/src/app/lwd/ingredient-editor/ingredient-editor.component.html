@@ -5,7 +5,10 @@
       <mat-form-field>
         <mat-label>Name</mat-label>
         <input matInput required formControlName="name" name="name" />
-      </mat-form-field>
+        @if (ingredientEditorForm.controls['name'].hasError('required')) {
+          <mat-error>This field is required</mat-error>
+          }
+    </mat-form-field>
       <mat-form-field>
         <mat-label>Description</mat-label>
         <input matInput formControlName="description" />
@@ -78,7 +81,10 @@
         <mat-form-field>
           <mat-label>Quantity</mat-label>
           <input matInput formControlName="quantity" type="number" />
-        </mat-form-field>
+          @if (ingredientEditorForm.controls['quantity'].hasError('required')) {
+            <mat-error>This field is required</mat-error>
+            }
+          </mat-form-field>
         <mat-form-field>
           <mat-label>Choose Unit</mat-label>
           <mat-select formControlName="unit">
@@ -151,12 +157,18 @@
       <mat-form-field>
         <mat-label>Calories</mat-label>
         <input matInput required formControlName="calories" name="calories" type="number" />
-      </mat-form-field>
+        @if (ingredientEditorForm.controls['calories'].hasError('required')) {
+          <mat-error>This field is required</mat-error>
+          }
+    </mat-form-field>
       <mat-form-field>
         <mat-label>Total Fat (grams)</mat-label>
         <input matInput required formControlName="totalFat" name="totalFat" type="number" />
       </mat-form-field>
-      @if (ingredientEditorForm.controls['totalFat'].valid) {
+      @if (ingredientEditorForm.controls['totalFat'].hasError('required')) {
+        <mat-error>This field is required</mat-error>
+        }
+    @if (ingredientEditorForm.controls['totalFat'].valid) {
 
       <mat-form-field class="cls-ingredient-nutrition-items-indent-1">
         <mat-label>Saturated Fat (grams)</mat-label>
@@ -182,7 +194,10 @@
       <mat-form-field>
         <mat-label>Total Carbohydrates (grams)</mat-label>
         <input matInput required formControlName="totalCarbohydrates" name="totalCarbohydrates" type="number" />
-      </mat-form-field>
+        @if (ingredientEditorForm.controls['totalCarbohydrates'].hasError('required')) {
+          <mat-error>This field is required</mat-error>
+          }
+        </mat-form-field>
       @if (ingredientEditorForm.controls['totalCarbohydrates'].valid) {
 
       <mat-form-field class="cls-ingredient-nutrition-items-indent-1">
@@ -196,7 +211,7 @@
       }
       <mat-form-field>
         <mat-label>Protein (grams)</mat-label>
-        <input matInput formControlName="protein" name="prtein" type="number" />
+        <input matInput formControlName="protein" name="protein" type="number" />
       </mat-form-field>
     </div>
     <div class="cls-ingredient-nutrition-secondary-block">
@@ -240,6 +255,13 @@
         <mat-label>Vitamin D (micrograms)</mat-label>
         <input matInput formControlName="vitaminD" name="vitaminD" type="number" />
       </mat-form-field>
+      <mat-dialog-actions class="cls-action-block">
+        <button mat-raised-button color="primary" type="button" (click)="onCancel($event)">
+          Cancel<mat-icon class="material-symbols-outlined">cancel</mat-icon>
+          </button>
+        <button mat-raised-button color="primary" [disabled]="!ingredientEditorForm.valid">
+          Save<mat-icon class="material-symbols-outlined">save</mat-icon></button>
+    </mat-dialog-actions>
 
     </div>
   </div>

@@ -1,5 +1,5 @@
 import { Component, Input, Signal, WritableSignal, computed, inject, signal } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { IngredientService } from '../services/ingredient.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { IngredientWithNutrition } from '../pojo/ingredient-with-nutrition';
@@ -22,6 +22,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { QuantityTypePipe } from "../pipes/units/quantity-type.pipe";
+import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-ingredient-editor',
@@ -39,7 +41,9 @@ import { QuantityTypePipe } from "../pipes/units/quantity-type.pipe";
     MatChipsModule,
     MatIconModule,
     MatCheckboxModule,
-    DragAndDropComponent, QuantityTypePipe]
+    DragAndDropComponent,
+    QuantityTypePipe,
+  MatDialogModule]
 })
 export class IngredientEditorComponent {
 
@@ -48,14 +52,14 @@ export class IngredientEditorComponent {
     description: new FormControl(''),
     url: new FormControl(''),
     brand: new FormControl(''),
-    quantity: new FormControl(''),
+    quantity: new FormControl<number|null>(null, Validators.required),
     unitType: new FormControl<string|null>(null, Validators.required),
     unit: new FormControl<Unit|null>(null, Validators.required),
-    weightQuantity: new FormControl('', Validators.required),
-    weightUnit: new FormControl<Unit|null>(null, Validators.required),
-    volumeQuantity: new FormControl('', Validators.required),
-    volumeUnit: new FormControl<Unit|null>(null, Validators.required),
-    calories: new FormControl(''),
+    weightQuantity: new FormControl<number|null>(null),
+    weightUnit: new FormControl<Unit|null>(null),
+    volumeQuantity: new FormControl<number|null>(null),
+    volumeUnit: new FormControl<Unit|null>(null),
+    calories: new FormControl<number|null>(null, Validators.required),
     totalFat: new FormControl(''),
     transFat: new FormControl(' '),
     saturatedFat: new FormControl(' '),
@@ -96,6 +100,7 @@ export class IngredientEditorComponent {
     private fileUploadService: FileUploadServiceService,
     private authService: AuthService,
     private announcer: LiveAnnouncer,
+    private location:Location,
     private unitService: UnitService) {
 
   }
@@ -113,6 +118,19 @@ export class IngredientEditorComponent {
     this.ingredientEditorForm.controls['unitType'].valueChanges.subscribe(ut => {
       console.log("Changed unit type", ut)
       this.permittedUnitTypes.set(ut);
+      if (ut === "Both") {
+        this.ingredientEditorForm.controls['weightQuantity'].setValidators(Validators.required);
+        this.ingredientEditorForm.controls['weightUnit'].setValidators(Validators.required);
+        this.ingredientEditorForm.controls['volumeQuantity'].setValidators(Validators.required);
+        this.ingredientEditorForm.controls['volumeUnit'].setValidators(Validators.required);
+      }
+      else {
+
+        this.ingredientEditorForm.controls['weightQuantity'].removeValidators(Validators.required);
+        this.ingredientEditorForm.controls['weightUnit'].removeValidators(Validators.required);
+        this.ingredientEditorForm.controls['volumeQuantity'].removeValidators(Validators.required);
+        this.ingredientEditorForm.controls['volumeUnit'].removeValidators(Validators.required);
+      }
     })
   }
   loadIngredient(retrying: boolean) {
@@ -182,5 +200,8 @@ export class IngredientEditorComponent {
   }
   unitListOfQuantityType(quantityType:string) {
     return this.unitList()?.filter(unit => unit.quantityType === quantityType)
+  }
+  onCancel(event: any): void {
+    this.location.back();
   }
 }
