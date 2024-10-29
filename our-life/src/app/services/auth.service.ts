@@ -75,7 +75,7 @@ export class AuthService {
         error: (err) => {
           console.log(err)
           this.setCurrentUser(undefined)
-          this.snackBar.open("Recipes Load Failed", "Ok", { duration: 5000 })
+          this.snackBar.open("Auth Token refresh failed", "Ok", { duration: 5000 })
         }
       })
   }
