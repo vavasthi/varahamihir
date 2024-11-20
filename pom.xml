@@ -31,7 +31,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.plugin.version>3.12.1</maven.compiler.plugin.version>
-        <spring-boot-dependencies.version>3.3.3</spring-boot-dependencies.version>
+        <spring-boot-dependencies.version>3.3.5</spring-boot-dependencies.version>
         <spring.cloud.starter.netflix.hystrix>2.2.10.RELEASE</spring.cloud.starter.netflix.hystrix>
         <spring.cloud.starter.openfeign.version>3.1.0</spring.cloud.starter.openfeign.version>
         <spring.cloud.starter.kubernetes.version>1.1.10.RELEASE</spring.cloud.starter.kubernetes.version>
