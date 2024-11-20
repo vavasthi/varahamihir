@@ -10,18 +10,17 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 
 @Component({
-  selector: 'app-auth',
-  standalone: true,
-  imports: [FormsModule, 
-    MatCardModule,
-    MatInputModule,
-    MatIconModule,
-    MatButtonModule,
-    ReactiveFormsModule,
-    MatDialogModule,
-    MatFormFieldModule],
-  templateUrl: './auth.component.html',
-  styleUrl: './auth.component.scss'
+    selector: 'app-auth',
+    imports: [FormsModule,
+        MatCardModule,
+        MatInputModule,
+        MatIconModule,
+        MatButtonModule,
+        ReactiveFormsModule,
+        MatDialogModule,
+        MatFormFieldModule],
+    templateUrl: './auth.component.html',
+    styleUrl: './auth.component.scss'
 })
 export class AuthComponent {
   username?:string;

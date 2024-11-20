@@ -4,11 +4,10 @@ import { Ingredient } from '../pojo/ingredient';
 import {MatCardModule} from '@angular/material/card';
 
 @Component({
-  selector: 'app-ingredients',
-  standalone: true,
-  imports: [IngredientComponent, MatCardModule],
-  templateUrl: './ingredients.component.html',
-  styleUrl: './ingredients.component.scss'
+    selector: 'app-ingredients',
+    imports: [IngredientComponent, MatCardModule],
+    templateUrl: './ingredients.component.html',
+    styleUrl: './ingredients.component.scss'
 })
 export class IngredientsComponent {
   @Input() ingredients?:Ingredient[];

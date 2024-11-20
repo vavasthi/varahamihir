@@ -15,18 +15,17 @@ import { BypassSecurityPipe } from "../pipes/bypass-security.pipe";
 import { EmbedComponent } from "../embed/embed.component";
 
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
-  imports: [MainMenuBarComponent,
-    MatCardModule,
-    MatIconModule,
-    MatButtonModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    MathjaxDirective,
-    FormsModule, BypassSecurityPipe, EmbedComponent]
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styleUrl: './home.component.scss',
+    imports: [MainMenuBarComponent,
+        MatCardModule,
+        MatIconModule,
+        MatButtonModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        MathjaxDirective,
+        FormsModule, BypassSecurityPipe, EmbedComponent]
 })
 export class HomeComponent {
 

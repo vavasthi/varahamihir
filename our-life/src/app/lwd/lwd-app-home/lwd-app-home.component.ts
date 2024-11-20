@@ -16,7 +16,6 @@ import { LwdAppComponent } from "../lwd-app/lwd-app.component";
 
 @Component({
     selector: 'app-lwd-app-home',
-    standalone: true,
     templateUrl: './lwd-app-home.component.html',
     styleUrl: './lwd-app-home.component.scss',
     imports: [MatTableModule,
@@ -28,7 +27,7 @@ import { LwdAppComponent } from "../lwd-app/lwd-app.component";
         MatButtonModule,
         MatTooltipModule,
         RouterModule,
-        MatMenuModule, 
+        MatMenuModule,
         LwdAppComponent]
 })
 export class LwdAppHomeComponent {

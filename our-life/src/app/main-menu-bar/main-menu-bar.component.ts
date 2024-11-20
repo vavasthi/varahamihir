@@ -18,22 +18,21 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { CustomSidenavComponent } from "../custom-sidenav/custom-sidenav.component";
 import { CustomSidenavMenuItems } from '../pojo/custom-sidenav-menu-items';
 @Component({
-  selector: 'app-main-menu-bar',
-  standalone: true,
-  templateUrl: './main-menu-bar.component.html',
-  styleUrl: './main-menu-bar.component.scss',
-  imports: [CommonModule,
-    RouterOutlet,
-    RecipeComponent,
-    AuthComponent,
-    MatToolbarModule,
-    MatIconModule,
-    MatDialogModule,
-    MatMenuModule,
-    LoginDialogComponent,
-    ThemeSwitchComponent,
-    MatSidenavModule,
-    MatButtonModule, CustomSidenavComponent]
+    selector: 'app-main-menu-bar',
+    templateUrl: './main-menu-bar.component.html',
+    styleUrl: './main-menu-bar.component.scss',
+    imports: [CommonModule,
+        RouterOutlet,
+        RecipeComponent,
+        AuthComponent,
+        MatToolbarModule,
+        MatIconModule,
+        MatDialogModule,
+        MatMenuModule,
+        LoginDialogComponent,
+        ThemeSwitchComponent,
+        MatSidenavModule,
+        MatButtonModule, CustomSidenavComponent]
 })
 export class MainMenuBarComponent {
   currentUser: Signal<User | undefined>;

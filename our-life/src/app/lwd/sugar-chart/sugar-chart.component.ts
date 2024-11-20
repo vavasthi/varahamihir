@@ -6,11 +6,10 @@ import { ThemeSwitchService } from '../../services/theme-switch.service';
 declare var google: any;
 
 @Component({
-  selector: 'app-sugar-chart',
-  standalone: true,
-  imports: [MatCardModule, ThemeSwitchComponent],
-  templateUrl: './sugar-chart.component.html',
-  styleUrl: './sugar-chart.component.scss'
+    selector: 'app-sugar-chart',
+    imports: [MatCardModule, ThemeSwitchComponent],
+    templateUrl: './sugar-chart.component.html',
+    styleUrl: './sugar-chart.component.scss'
 })
 export class SugarChartComponent {
 

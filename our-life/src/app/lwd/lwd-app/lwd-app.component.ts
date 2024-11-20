@@ -20,7 +20,6 @@ import { AuthService } from '../../services/auth.service';
 
 @Component({
     selector: 'app-lwd-app',
-    standalone: true,
     templateUrl: './lwd-app.component.html',
     styleUrl: './lwd-app.component.scss',
     imports: [CommonModule,

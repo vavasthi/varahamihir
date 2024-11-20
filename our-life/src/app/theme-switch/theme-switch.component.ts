@@ -6,12 +6,11 @@ import { BehaviorSubject } from 'rxjs';
 import { ThemeSwitchService } from '../services/theme-switch.service';
 
 @Component({
-  selector: 'app-theme-switch',
-  standalone: true,
-  imports: [MatSlideToggleModule
-],
-  templateUrl: './theme-switch.component.html',
-  styleUrl: './theme-switch.component.scss'
+    selector: 'app-theme-switch',
+    imports: [MatSlideToggleModule
+    ],
+    templateUrl: './theme-switch.component.html',
+    styleUrl: './theme-switch.component.scss'
 })
 export class ThemeSwitchComponent {
 isChecked: any = false;

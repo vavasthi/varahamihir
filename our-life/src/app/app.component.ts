@@ -19,23 +19,22 @@ import { HomeComponent } from './home/home.component';
 import { CustomSidenavMenuItems } from './pojo/custom-sidenav-menu-items';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule,
-    RouterOutlet,
-    RecipeComponent,
-    AuthComponent,
-    MatToolbarModule,
-    MatIconModule,
-    MatDialogModule,
-    MatMenuModule,
-    LoginDialogComponent,
-    ThemeSwitchComponent,
-    MatButtonModule,
-    MainMenuBarComponent,
-    HomeComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+    selector: 'app-root',
+    imports: [CommonModule,
+        RouterOutlet,
+        RecipeComponent,
+        AuthComponent,
+        MatToolbarModule,
+        MatIconModule,
+        MatDialogModule,
+        MatMenuModule,
+        LoginDialogComponent,
+        ThemeSwitchComponent,
+        MatButtonModule,
+        MainMenuBarComponent,
+        HomeComponent],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.scss'
 })
 export class AppComponent {
   title = 'Recipes for Diebetes';

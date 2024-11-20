@@ -14,18 +14,17 @@ import { User } from '../pojo/user';
 import { ActivatedRoute, NavigationEnd, NavigationStart, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-login-dialog',
-  standalone: true,
-  imports: [FormsModule,
-    MatCardModule,
-    MatInputModule,
-    MatIconModule,
-    MatButtonModule,
-    ReactiveFormsModule,
-    MatDialogModule,
-    MatFormFieldModule],
-  templateUrl: './login-dialog.component.html',
-  styleUrl: './login-dialog.component.scss'
+    selector: 'app-login-dialog',
+    imports: [FormsModule,
+        MatCardModule,
+        MatInputModule,
+        MatIconModule,
+        MatButtonModule,
+        ReactiveFormsModule,
+        MatDialogModule,
+        MatFormFieldModule],
+    templateUrl: './login-dialog.component.html',
+    styleUrl: './login-dialog.component.scss'
 })
 export class LoginDialogComponent {
   loginForm:FormGroup = new FormGroup({

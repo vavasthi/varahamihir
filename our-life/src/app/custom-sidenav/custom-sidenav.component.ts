@@ -8,16 +8,15 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { NgClass } from '@angular/common';
 
 @Component({
-  selector: 'app-custom-sidenav',
-  standalone: true,
-  imports: [MatIconModule,
-  MatListModule, 
-  RouterLink,
-  RouterLinkActive,
-  NgClass
-],
-  templateUrl: './custom-sidenav.component.html',
-  styleUrl: './custom-sidenav.component.scss'
+    selector: 'app-custom-sidenav',
+    imports: [MatIconModule,
+        MatListModule,
+        RouterLink,
+        RouterLinkActive,
+        NgClass
+    ],
+    templateUrl: './custom-sidenav.component.html',
+    styleUrl: './custom-sidenav.component.scss'
 })
 export class CustomSidenavComponent {
   sidenavCollapsed = signal(false);

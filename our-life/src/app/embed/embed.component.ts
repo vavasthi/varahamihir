@@ -3,11 +3,10 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { BypassSecurityPipe } from "../pipes/bypass-security.pipe";
 
 @Component({
-  selector: 'app-embed',
-  standalone: true,
-  imports: [BypassSecurityPipe],
-  templateUrl: './embed.component.html',
-  styleUrl: './embed.component.scss'
+    selector: 'app-embed',
+    imports: [BypassSecurityPipe],
+    templateUrl: './embed.component.html',
+    styleUrl: './embed.component.scss'
 })
 export class EmbedComponent {
 

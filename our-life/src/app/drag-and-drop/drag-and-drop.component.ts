@@ -3,12 +3,11 @@ import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { DragAndDropDirective } from '../directives/drag-and-drop.directive';
 
 @Component({
-  selector: 'app-drag-and-drop',
-  standalone: true,
-  imports: [MatProgressBarModule,
-  DragAndDropDirective],
-  templateUrl: './drag-and-drop.component.html',
-  styleUrl: './drag-and-drop.component.scss'
+    selector: 'app-drag-and-drop',
+    imports: [MatProgressBarModule,
+        DragAndDropDirective],
+    templateUrl: './drag-and-drop.component.html',
+    styleUrl: './drag-and-drop.component.scss'
 })
 export class DragAndDropComponent {
   @Input() multiple:boolean = false;

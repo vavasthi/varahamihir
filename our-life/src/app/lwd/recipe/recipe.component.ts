@@ -11,15 +11,14 @@ import {MatListModule} from '@angular/material/list'
 import * as storedRecipe from '../../../assets/defaultRecipe.json';
 
 @Component({
-  selector: 'app-recipe',
-  standalone: true,
-  imports: [IngredientsComponent, 
-    SugarChartComponent,
-    NutritionalValuesComponent, 
-    MatIconModule,
-  MatListModule],
-  templateUrl: './recipe.component.html',
-  styleUrl: './recipe.component.scss'
+    selector: 'app-recipe',
+    imports: [IngredientsComponent,
+        SugarChartComponent,
+        NutritionalValuesComponent,
+        MatIconModule,
+        MatListModule],
+    templateUrl: './recipe.component.html',
+    styleUrl: './recipe.component.scss'
 })
 export class RecipeComponent {
 

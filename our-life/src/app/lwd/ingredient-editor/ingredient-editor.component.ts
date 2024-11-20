@@ -26,24 +26,23 @@ import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dial
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-ingredient-editor',
-  standalone: true,
-  templateUrl: './ingredient-editor.component.html',
-  styleUrl: './ingredient-editor.component.scss',
-  imports: [RouterModule,
-    MatButtonModule,
-    MatCardModule,
-    MatIconModule,
-    MatInputModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatSelectModule,
-    MatChipsModule,
-    MatIconModule,
-    MatCheckboxModule,
-    DragAndDropComponent,
-    QuantityTypePipe,
-  MatDialogModule]
+    selector: 'app-ingredient-editor',
+    templateUrl: './ingredient-editor.component.html',
+    styleUrl: './ingredient-editor.component.scss',
+    imports: [RouterModule,
+        MatButtonModule,
+        MatCardModule,
+        MatIconModule,
+        MatInputModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatSelectModule,
+        MatChipsModule,
+        MatIconModule,
+        MatCheckboxModule,
+        DragAndDropComponent,
+        QuantityTypePipe,
+        MatDialogModule]
 })
 export class IngredientEditorComponent {
 
