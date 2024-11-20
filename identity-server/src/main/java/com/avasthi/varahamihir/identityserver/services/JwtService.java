@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 public class JwtService {
 
 
-    @Value("${application.security.jwt.secret-key-file}")
+    @Value("${application.security.jwt.secret-key}")
     private String secretKeyFile;
     @Value("${application.security.jwt.expiration}")
     private long jwtExpiration;
@@ -49,17 +49,18 @@ public class JwtService {
     @PostConstruct
     private void initialize() {
 
-        try {
+//        try {
 
-            InputStream is = new ClassPathResource(secretKeyFile).getInputStream();
-            byte[] bytes = is.readAllBytes();
-            pemFileContent = new String(bytes)
+//            InputStream is = new ClassPathResource(secretKeyFile).getInputStream();
+//            byte[] bytes = is.readAllBytes();
+//            pemFileContent = new String(bytes)
+            pemFileContent = secretKeyFile
                     .replace("-----BEGIN PRIVATE KEY-----", "")
                     .replace("-----END PRIVATE KEY-----", "")
                     .replace("\n", "");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
     }
     public String extractUsername(Claims claims) {
         return extractClaim(claims, Claims::getSubject);

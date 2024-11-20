@@ -38,7 +38,7 @@
         <kubernetes.spring.starter.version>4.0.0</kubernetes.spring.starter.version>
         <swagger.version>2.9.2</swagger.version>
         <docker.maven.plugin.version>0.45.0</docker.maven.plugin.version>
-        <lombok.version>1.18.28</lombok.version>
+        <lombok.version>1.18.36</lombok.version>
         <chaos-monkey-spring-boot.version>2.2.0</chaos-monkey-spring-boot.version>
         <ribbon.version>1.1.10.RELEASE</ribbon.version>
         <log4j.version>2.17.1</log4j.version>

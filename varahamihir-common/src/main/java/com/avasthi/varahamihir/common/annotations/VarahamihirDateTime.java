@@ -15,7 +15,6 @@ import javax.validation.Payload;
 import java.lang.annotation.*;
 
 /**
- * Created by nikhilvs9999 on 16/06/16.
  */
 @Constraint(validatedBy = VarahamihirDateTimeValidator.class)
 @Target({ElementType.FIELD, ElementType.PARAMETER})

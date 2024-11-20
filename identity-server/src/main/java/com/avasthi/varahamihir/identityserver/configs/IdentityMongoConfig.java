@@ -1,5 +1,6 @@
 package com.avasthi.varahamihir.identityserver.configs;
 
+import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
@@ -41,8 +42,9 @@ public class IdentityMongoConfig {
 
         return MongoClients.create(MongoClientSettings.builder()
                         .uuidRepresentation(UuidRepresentation.STANDARD)
-                .applyToClusterSettings(builder -> builder
-                        .hosts(singletonList(new ServerAddress(mongoProperties.getHost(), mongoProperties.getPort()))))
+                        .applyConnectionString(new ConnectionString(mongoProperties.getUri()))
+//                .applyToClusterSettings(builder -> builder
+//                        .hosts(singletonList(new ServerAddress(mongoProperties.getHost(), mongoProperties.getPort()))))
                 .credential(credential)
                 .build());
     }

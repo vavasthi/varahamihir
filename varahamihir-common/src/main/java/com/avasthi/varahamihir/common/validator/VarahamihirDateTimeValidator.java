@@ -24,7 +24,6 @@ public class VarahamihirDateTimeValidator implements ConstraintValidator<Varaham
     try {
 
       if(s!=null) {
-          log.info(" s :" + s + " h2oDateTime : " + h2ODateTime.dateTimePattern());
           DateTimeFormatter formatter = DateTimeFormat.forPattern(h2ODateTime.dateTimePattern());
           formatter.parseDateTime(s);
       }

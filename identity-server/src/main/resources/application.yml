@@ -19,12 +19,14 @@ management:
         enabled: false
 mongodb:
     identity:
-        authenticationDatabase: identity
-        database: identity
-        host: localhost
-        password: identityPassword123
-        port: 27017
-        username: identityAdmin
+        uri: ${MONGODB_URL}
+        authenticationDatabase: ${MONGODB_DATABASE}
+        host: ${MONGODB_HOST}
+        port: ${MONGODB_PORT}
+        database: ${MONGODB_DATABASE}
+        username: ${MONGODB_USER}
+        password: ${MONGODB_PASSWD}
+#        auto-index-creation: true
 server:
     port: 8080
     tomcat:
@@ -34,12 +36,12 @@ server:
 spring:
     data:
         mongodb:
-            uri: mongodb://identityAdmin:identityPassword123@localhost:27017/identity
-            host: localhost
-            port: 27017
-            database: identity
-            username: identityAdmin
-            password: identityPassword123
+            uri: ${MONGODB_URL}
+            host: ${MONGODB_HOST}
+            port: ${MONGODB_PORT}
+            database: ${MONGODB_DATABASE}
+            username: ${MONGODB_USER}
+            password: ${MONGODB_PASSWD}
             auto-index-creation: true
     application:
         name: identity-server
@@ -63,7 +65,7 @@ spring:
 application:
     security:
         jwt:
-            secret-key-file: jwtRSA256-private.pem
+            secret-key: ${JWT_PRIVATE_KEY}
             expiration: 86400000 # a day
             refresh-token:
                 expiration: 604800000 # 7 days

@@ -65,6 +65,7 @@ public class ContentService {
                     .build();
             Blob blob = uploadToCloud(contentBucket, String.format("%s/%s", topLevelFolder, content.getOriginalFilename()), mimeType, is);
             content.setUrl(blob.getMediaLink());
+            content = contentRepository.save(content);
             return Optional.of(content);
         }
         catch(java.io.IOException ex) {
