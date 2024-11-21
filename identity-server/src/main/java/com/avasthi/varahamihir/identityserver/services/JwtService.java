@@ -10,6 +10,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.core.GrantedAuthority;
@@ -30,6 +31,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
+@Log4j2
 public class JwtService {
 
 
@@ -43,6 +45,7 @@ public class JwtService {
 
     private Key getSigningKey() throws NoSuchAlgorithmException, InvalidKeySpecException {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.RS256;
+        log.error("|" + pemFileContent + "|");
         byte[] apiKeySecretBytes = Decoders.BASE64.decode(pemFileContent);
         return Keys.hmacShaKeyFor(apiKeySecretBytes);
     }
@@ -57,7 +60,8 @@ public class JwtService {
             pemFileContent = secretKeyFile
                     .replace("-----BEGIN PRIVATE KEY-----", "")
                     .replace("-----END PRIVATE KEY-----", "")
-                    .replace("\n", "");
+                    .replaceAll("\n", "")
+                    .replaceAll(" ", "");
 //        } catch (IOException e) {
 //            throw new RuntimeException(e);
 //        }

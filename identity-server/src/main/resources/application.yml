@@ -20,7 +20,7 @@ management:
 mongodb:
     identity:
         uri: ${MONGODB_URL}
-        authenticationDatabase: ${MONGODB_DATABASE}
+        authenticationDatabase: ${MONGODB_ADMIN_DATABASE}
         host: ${MONGODB_HOST}
         port: ${MONGODB_PORT}
         database: ${MONGODB_DATABASE}
@@ -37,6 +37,7 @@ spring:
     data:
         mongodb:
             uri: ${MONGODB_URL}
+            authenticationDatabase: ${MONGODB_ADMIN_DATABASE}
             host: ${MONGODB_HOST}
             port: ${MONGODB_PORT}
             database: ${MONGODB_DATABASE}
