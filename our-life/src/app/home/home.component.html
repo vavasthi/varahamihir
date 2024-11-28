@@ -18,10 +18,10 @@
           {{ equation.name }} <span [appMathjax]="equation.equation"> </span>
         </div>
       }
-      <app-embed [mediaType]="MediaType.TWITTER" [content]="embedTwitter1"></app-embed>
-      <app-embed [mediaType]="MediaType.TWITTER" [content]="embedTwitter2"></app-embed>
-      <app-embed [mediaType]="MediaType.INSTAGRAM" [content]="embedInsta"></app-embed>
-      <app-embed [mediaType]="MediaType.REDDIT" [content]="embedReddit"></app-embed>
+      <app-embed [content]="embedTwitter1"></app-embed>
+      <app-embed [content]="embedTwitter2"></app-embed>
+      <app-embed [content]="embedInsta"></app-embed>
+      <app-embed [content]="embedReddit"></app-embed>
       <app-embed [content]="embedLinkedIn"></app-embed>
     </mat-card-content>
   </mat-card>

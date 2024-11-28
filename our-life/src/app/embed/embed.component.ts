@@ -16,7 +16,6 @@ export class EmbedComponent {
   safeHtml: SafeHtml = "";
   @Input() content = ""
   scriptSpec: Map<MediaType, string>;
- @Input() mediaType: MediaType = MediaType.UNKNOWN;
 
   constructor(private element: ElementRef,
               private sanitizer: DomSanitizer,
@@ -26,11 +25,22 @@ export class EmbedComponent {
     this.scriptSpec.set(MediaType.INSTAGRAM, "https://www.instagram.com/embed.js")
     this.scriptSpec.set(MediaType.TWITTER, "https://platform.twitter.com/widgets.js")
     this.scriptSpec.set(MediaType.REDDIT, "https://embed.reddit.com/widgets.js")
+    this.scriptSpec.set(MediaType.BLUESKY, "https://embed.bsky.app/static/embed.js")
   }
 
   ngOnInit() {
+    var mediaType = MediaType.UNKNOWN;
+    for (let key of this.scriptSpec.keys()) {
+      var url = this.scriptSpec.get(key)
+      if (url) {
+
+        if (this.content.indexOf(url) >= 0) {
+          mediaType = key;
+        }
+      }
+    }
     this.safeHtml = this.sanitizer.bypassSecurityTrustHtml(this.content);
-    const jsPath = this.scriptSpec.get(this.mediaType)
+    const jsPath = this.scriptSpec.get(mediaType)
     if (jsPath) {
 
       const script = this.scriptService.loadJsScript(this.renderer, this.element, jsPath)
