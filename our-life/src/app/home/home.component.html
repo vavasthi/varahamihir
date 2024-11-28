@@ -1,24 +1,28 @@
 <div class="cls-home">
   <mat-card class="home-card">
-    <mat-card-header><mat-card-title>Welcome to my web presence.</mat-card-title></mat-card-header>
-    <mat-card-content>This website is a collection of different interests that I have. You can browse through these and get in touch with me if you think we can collaborate on any of these.
-      </mat-card-content>
+    <mat-card-header>
+      <mat-card-title>Welcome to my web presence.</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>This website is a collection of different interests that I have. You can browse through these and
+      get in touch with me if you think we can collaborate on any of these.
+    </mat-card-content>
   </mat-card>
   Here are some of the maths equations that I find fascinating.
   <mat-card class="cls-equations">
     <mat-card-header>
-        <mat-card-title><h1>Equations</h1></mat-card-title>
+      <mat-card-title><h1>Equations</h1></mat-card-title>
     </mat-card-header>
     <mat-card-content class="cls-equation-list">
-        @for (equation of equations; track equation) {
-          <div>
-          {{equation.name}} <span [appMathjax]="equation.equation"> </span>
-          </div>
-        }
-          <app-embed [innerHtml]="embedTwitter | bypassSecurity"></app-embed>
-          <app-embed [innerHtml]="embedInsta | bypassSecurity"></app-embed>
-          <app-embed [innerHtml]="embedReddit | bypassSecurity"></app-embed>
-          <app-embed [innerHtml]="embedLinkedIn | bypassSecurity"></app-embed>
-          </mat-card-content>
+      @for (equation of equations; track equation) {
+        <div>
+          {{ equation.name }} <span [appMathjax]="equation.equation"> </span>
+        </div>
+      }
+      <app-embed [mediaType]="MediaType.TWITTER" [content]="embedTwitter1"></app-embed>
+      <app-embed [mediaType]="MediaType.TWITTER" [content]="embedTwitter2"></app-embed>
+      <app-embed [mediaType]="MediaType.INSTAGRAM" [content]="embedInsta"></app-embed>
+      <app-embed [mediaType]="MediaType.REDDIT" [content]="embedReddit"></app-embed>
+      <app-embed [content]="embedLinkedIn"></app-embed>
+    </mat-card-content>
   </mat-card>
-  </div>
+</div>
