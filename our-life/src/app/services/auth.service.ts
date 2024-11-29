@@ -32,6 +32,18 @@ export class AuthService {
       }
     }
   }
+  isEditor(): boolean {
+    if (this.user()) {
+      // @ts-ignore
+      for (let role of this.user()?.authTokenRoles?.values() ) {
+        console.log("ROLE", role)
+        if (role == "RECIPE_EDITOR" || role == "EQUATION_EDITOR") {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
   getCurrentUser(): Signal<User | undefined> {
     return this.user;
   }

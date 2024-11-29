@@ -7,6 +7,16 @@
       get in touch with me if you think we can collaborate on any of these.
     </mat-card-content>
   </mat-card>
+  <div class="cls-embeds">
+
+    @for (embed of embeds; track embed) {
+      <mat-card class="cls-embed">
+        <mat-card-content class="cls-embed-content">
+          <app-embed [content]="embed.code"></app-embed>
+        </mat-card-content>
+      </mat-card>
+    }
+  </div>
   Here are some of the maths equations that I find fascinating.
   <mat-card class="cls-equations">
     <mat-card-header>
@@ -18,11 +28,6 @@
           {{ equation.name }} <span [appMathjax]="equation.equation"> </span>
         </div>
       }
-      <app-embed [content]="embedTwitter1"></app-embed>
-      <app-embed [content]="embedTwitter2"></app-embed>
-      <app-embed [content]="embedInsta"></app-embed>
-      <app-embed [content]="embedReddit"></app-embed>
-      <app-embed [content]="embedLinkedIn"></app-embed>
     </mat-card-content>
   </mat-card>
 </div>

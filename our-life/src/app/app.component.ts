@@ -49,6 +49,11 @@ export class AppComponent {
       icon:  'skillet_cooktop',
       label: 'Recipes',
       route: "lwd"
+    },
+    {
+      icon:  'newsstand',
+      label: 'Articles',
+      route: "homepage"
     }
   ]
   constructor(private dialog: MatDialog,

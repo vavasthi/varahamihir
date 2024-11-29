@@ -26,6 +26,7 @@ export class EmbedComponent {
     this.scriptSpec.set(MediaType.TWITTER, "https://platform.twitter.com/widgets.js")
     this.scriptSpec.set(MediaType.REDDIT, "https://embed.reddit.com/widgets.js")
     this.scriptSpec.set(MediaType.BLUESKY, "https://embed.bsky.app/static/embed.js")
+    this.scriptSpec.set(MediaType.SUBSTACK, "https://substack.com/embedjs/embed.js")
   }
 
   ngOnInit() {

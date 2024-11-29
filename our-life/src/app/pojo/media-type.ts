@@ -4,5 +4,6 @@ export enum MediaType {
   TWITTER,
   REDDIT,
   LINKEDIN,
-  BLUESKY
+  BLUESKY,
+  SUBSTACK
 }

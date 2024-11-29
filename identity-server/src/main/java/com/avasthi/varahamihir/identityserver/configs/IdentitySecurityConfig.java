@@ -32,7 +32,16 @@ public class IdentitySecurityConfig {
 
         httpSecurity.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers(HttpMethod.GET, "/", "/index.html", "/*.js", "/*.css", "/favicon.ico", "/content/**", Paths.V1.Content.fullPath + "/**", Paths.V1.Equation.fullPath+ "/**", "/error").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/",
+                                "/index.html",
+                                "/*.js",
+                                "/*.css",
+                                "/favicon.ico",
+                                "/content/**",
+                                Paths.V1.Content.fullPathWildcard,
+                                Paths.V1.Equation.fullPathWildcard,
+                                Paths.V1.Embed.fullPathWildcard,
+                                "/error").permitAll()
                         .requestMatchers(HttpMethod.POST, Paths.V1.Users.fullPath, Paths.V1.Auth.fullPath, "/error").permitAll()
                         .anyRequest()
                         .authenticated())

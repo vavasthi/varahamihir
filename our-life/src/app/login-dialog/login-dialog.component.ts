@@ -49,7 +49,10 @@ export class LoginDialogComponent {
           previousUrl: string
         };
 
-        this.previousUrl =  state.previousUrl;
+        if (state && state.previousUrl) {
+
+          this.previousUrl =  state.previousUrl;
+        }
       }
   }
   onLogin() {

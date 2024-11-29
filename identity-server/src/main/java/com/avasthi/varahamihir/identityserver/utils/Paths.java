@@ -2,6 +2,8 @@ package com.avasthi.varahamihir.identityserver.utils;
 
 public class Paths {
 
+    public static final int defaultPageNumber = 0;
+    public static final int defaultPageSize = 100;
     public static final String basePath = "/api";
     public static final String idPathVariable = "id";
     public static final String idPath = "{"+idPathVariable+"}";
@@ -29,10 +31,20 @@ public class Paths {
 
             public static final String Base = "/content";
             public static final String fullPath = Paths.V1.fullPath + Base;
+            public static final String fullPathWildcard = Content.fullPath + "/**";
             public static final String multiple = "multiple";
             public static final String contentId = "contentId";
             public static final String filename = "filename";
             public static final String contentPath = "/{" + contentId + "}/{" + filename + "}";
+        }
+        public class Embed {
+
+            public static final String Base = "/embed";
+            public static final String fullPath = Paths.V1.fullPath + Base;
+            public static final String fullPathWildcard = Embed.fullPath + "/**";
+            public static final String embedId = "embedId";
+            public static final String filename = "filename";
+            public static final String contentPath = "/{" + embedId + "}";
         }
         public class Recipe {
 
@@ -55,6 +67,7 @@ public class Paths {
 
             public static final String Base = "/equation";
             public static final String fullPath = Paths.V1.fullPath + Base;
+            public static final String fullPathWildcard = Equation.fullPath + "/**";
         }
     }
 }

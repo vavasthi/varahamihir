@@ -4,5 +4,5 @@ export interface User {
     profilePicture?:string;
     authToken?:string;
     refreshToken?:string;
-    role?:string[];
+    authTokenRoles?:[];
 }
