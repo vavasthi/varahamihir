@@ -14,7 +14,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public final class Nutrition extends AbstractBase{
-    @Indexed(unique = true) private UUID itemId;
     private Quantity quantity;
     private float calories;
     private Quantity totalFat;

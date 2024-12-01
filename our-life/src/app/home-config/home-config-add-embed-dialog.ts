@@ -1,7 +1,6 @@
 import {Component, inject} from "@angular/core";
-import {MatDialogActions, MatDialogContent, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
-import {MatFormField, MatFormFieldModule} from "@angular/material/form-field";
-import {MatLabel} from "@angular/material/form-field";
+import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
+import {MatFormFieldModule, MatLabel} from "@angular/material/form-field";
 import {MatInputModule} from '@angular/material/input';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";

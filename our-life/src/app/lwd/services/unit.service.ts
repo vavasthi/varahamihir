@@ -14,38 +14,40 @@ export class UnitService {
   baseUrl: string = "/api/v1";
   unitUrl: string = this.baseUrl + "/unit";
 
-  user: Signal<User|undefined>;
-  units:WritableSignal<Unit[]|undefined> = signal(undefined);
-  unitTypes:WritableSignal<String[]|undefined> = signal(undefined);
+  user: Signal<User | undefined>;
+  units: WritableSignal<Unit[] | undefined> = signal(undefined);
+  unitTypes: WritableSignal<String[] | undefined> = signal(undefined);
 
   constructor(private authService: AuthService,
-    private snackBar:MatSnackBar,
-    private httpClient:HttpClient) {
-      this.user = this.authService.getCurrentUser()
-      this.loadAllUnits().subscribe({
-        next: (response) => {
-          console.log(response)
-          this.units.set(response)
-        },
-        error: (err) => {
-          console.log(err)
-          this.snackBar.open("Unit load failed.", "Ok", {duration : 5000})
-        }
-      })
+              private snackBar: MatSnackBar,
+              private httpClient: HttpClient) {
+    this.user = this.authService.getCurrentUser()
+    this.loadAllUnits().subscribe({
+      next: (response) => {
+        console.log(response)
+        this.units.set(response)
+      },
+      error: (err) => {
+        console.log(err)
+        this.snackBar.open("Unit load failed.", "Ok", {duration: 5000})
+      }
+    })
   }
 
-  getHttpOptions():HttpHeaders {
+  getHttpOptions(): HttpHeaders {
 
     return new HttpHeaders()
       .set('Content-Type', 'application/json; charset=utf-8')
   }
 
-  getUnits():Signal<Unit[]|undefined> {
+  getUnits(): Signal<Unit[] | undefined> {
     return this.units
   }
-  getUnitTypes():Signal<String[]|undefined> {
+
+  getUnitTypes(): Signal<String[] | undefined> {
     return this.unitTypes
   }
+
   loadAllUnits() {
 
     return this
@@ -53,7 +55,30 @@ export class UnitService {
       .get<Unit[]>(this.unitUrl,
         {
           context: new HttpContext().set(RequestAuthOption.AUTH_TOKEN, true),
-          headers:this.getHttpOptions()
+          headers: this.getHttpOptions()
         })
+  }
+
+  getUnit(name: string|undefined): Unit {
+    if (name) {
+
+      const units = this.units()
+      if (units) {
+
+        for (const unit of units) {
+          if (unit.value == name) {
+            return unit;
+          }
+        }
+      }
+    }
+    return {
+      value: "Gram",
+      acronym: "g.",
+      conversionToPrimary: 1,
+      unitSystem: 'Metric',
+      quantityType: 'Weight',
+      primary: 'Gram'
+    };
   }
 }

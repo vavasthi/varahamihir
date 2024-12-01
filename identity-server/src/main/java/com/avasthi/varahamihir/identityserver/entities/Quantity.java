@@ -1,4 +1,6 @@
 package com.avasthi.varahamihir.identityserver.entities;
 
-public record Quantity(float value, Unit unit) {
+import com.avasthi.varahamihir.common.pojos.NutritionalUnits;
+
+public record Quantity(float value, NutritionalUnits unit) {
 }

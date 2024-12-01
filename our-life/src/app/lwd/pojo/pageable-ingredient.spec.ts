@@ -1,4 +1,4 @@
-import { PageableIngredient } from './pageable-ingredient';
+import { PageableIngredient } from './pageable-ingredientEntity';
 
 describe('PageableIngredient', () => {
   it('should create an instance', () => {

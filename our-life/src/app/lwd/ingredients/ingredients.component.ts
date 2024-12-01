@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { IngredientComponent } from '../ingredient/ingredient.component';
-import { Ingredient } from '../pojo/ingredient';
 import {MatCardModule} from '@angular/material/card';
+import {IngredientComponent} from "../ingredient/ingredient.component";
+import {Ingredient} from "../pojo/ingredient";
+import {IngredientWithQuantity} from "../pojo/ingredient-with-quantity";
 
 @Component({
     selector: 'app-ingredients',
@@ -10,5 +11,5 @@ import {MatCardModule} from '@angular/material/card';
     styleUrl: './ingredients.component.scss'
 })
 export class IngredientsComponent {
-  @Input() ingredients?:Ingredient[];
+  @Input() ingredients?:IngredientWithQuantity[];
 }

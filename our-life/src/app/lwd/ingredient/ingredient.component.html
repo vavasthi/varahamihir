@@ -1,8 +1,7 @@
 <mat-card class="ingredient-card">
     <mat-card-header>
-      <mat-card-title>{{ingredient?.name}}</mat-card-title>
-      <mat-card-subtitle>{{ingredient?.quantity?.value}} {{ingredient?.quantity?.unit?.acronym}}</mat-card-subtitle>
+      <mat-card-title>{{ingredientWithQuantity?.ingredient?.name}}</mat-card-title>
+      <mat-card-subtitle>{{ingredientWithQuantity?.quantity?.value}} {{this.unitservice.getUnit(ingredientWithQuantity?.quantity?.unit).acronym}}</mat-card-subtitle>
 </mat-card-header>
-    <img class="cls-ingredient-image" mat-card-image src={{ingredient?.url}} alt={{ingredient?.name}}>
+    <img class="cls-ingredient-image" mat-card-image src={{ingredientWithQuantity?.ingredient?.url}} alt={{ingredientWithQuantity?.ingredient?.name}}>
   </mat-card>
-  

@@ -32,13 +32,13 @@ export const routes: Routes = [
     canActivate: [EditorRoleGuardService]
   },
   {
-    path: 'lwd/ingredient/edit/:id',
+    path: 'lwd/ingredientEntity/edit/:id',
     title: 'Our Life | Living with diabetes | Ingredients Edit',
     component: IngredientEditorComponent,
     canActivate: [EditorRoleGuardService]
   },
   {
-    path: 'lwd/ingredient/edit',
+    path: 'lwd/ingredientEntity/edit',
     title: 'Our Life | Living with diabetes | Ingredients Edit',
     component: IngredientEditorComponent,
     canActivate: [EditorRoleGuardService]

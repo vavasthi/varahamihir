@@ -1,9 +1,9 @@
 package com.avasthi.varahamihir.identityserver.endpoints;
 
 import com.avasthi.varahamihir.identityserver.annotations.AuthorizeForRecipeEditorRole;
-import com.avasthi.varahamihir.identityserver.entities.Ingredient;
-import com.avasthi.varahamihir.identityserver.entities.IngredientWithNutrition;
-import com.avasthi.varahamihir.identityserver.entities.Recipe;
+import com.avasthi.varahamihir.identityserver.entities.IngredientEntity;
+import com.avasthi.varahamihir.identityserver.pojo.IngredientWithNutrition;
+import com.avasthi.varahamihir.identityserver.pojo.Ingredient;
 import com.avasthi.varahamihir.identityserver.services.IngredientService;
 import com.avasthi.varahamihir.identityserver.utils.Paths;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +23,8 @@ public class IngredientEndpoint {
     private final IngredientService ingredientService;
 
     @RequestMapping(value = Paths.pageAndSizePath, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Page<Ingredient> getIngredients(@PathVariable(value = Paths.pageVariable) int page,
-                                       @PathVariable(Paths.sizeVariable) int size) {
+    public Page<IngredientEntity> getIngredients(@PathVariable(value = Paths.pageVariable) int page,
+                                                 @PathVariable(Paths.sizeVariable) int size) {
         return ingredientService.findAll(page, size);
     }
 
@@ -34,7 +34,7 @@ public class IngredientEndpoint {
     }
     @AuthorizeForRecipeEditorRole
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Optional<Ingredient> createIngredient(@RequestBody Ingredient ingredient) {
-        return ingredientService.save(ingredient);
+    public Optional<IngredientWithNutrition> createIngredient(@RequestBody IngredientWithNutrition ingredientWithNutrition) {
+        return ingredientService.save(ingredientWithNutrition);
     }
 }

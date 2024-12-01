@@ -1,18 +1,13 @@
 import {Component} from '@angular/core';
-import {MainMenuBarComponent} from "../main-menu-bar/main-menu-bar.component";
-import {CustomSidenavMenuItems} from '../pojo/custom-sidenav-menu-items';
 import {MatCardModule} from '@angular/material/card';
-import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {FormsModule, FormControl, Validators, ReactiveFormsModule, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MathjaxDirective} from '../directives/mathjax.directive';
 import {EquationService} from '../services/equation.service';
 import {Equation} from '../pojo/equation';
 import {EmbedComponent} from "../embed/embed.component";
-import {MediaType} from "../pojo/media-type";
 import {EmbedService} from "../services/embed.service";
 import {Embed} from "../pojo/embed";
 
@@ -20,8 +15,7 @@ import {Embed} from "../pojo/embed";
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
-  imports: [MainMenuBarComponent,
-    MatCardModule,
+  imports: [MatCardModule,
     MatIconModule,
     MatButtonModule,
     MatInputModule,

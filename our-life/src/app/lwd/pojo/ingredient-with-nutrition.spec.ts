@@ -1,4 +1,4 @@
-import { IngredientWithNutrition } from './ingredient-with-nutrition';
+import { IngredientWithNutrition } from './ingredientEntity-with-nutrition';
 
 describe('IngredientWithNutrition', () => {
   it('should create an instance', () => {

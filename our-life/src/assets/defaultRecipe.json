@@ -5,99 +5,16 @@
 	"url": "https://thumbs.dreamstime.com/z/indian-main-course-paneer-butter-masala-punjabi-curry-109156136.jpg?ct=jpeg",
 	"ingredients": [
 		{
-			"name": "Jeera",
-			"description":"Also known as Cumin",
-			"url": "https://as1.ftcdn.net/v2/jpg/01/45/64/60/1000_F_145646010_VvQuqzNWcySHfqxhjEwo2fd21v996IbS.jpg",
+      "ingredient" : {
+
+        "name": "Jeera",
+        "description":"Also known as Cumin",
+        "url": "https://as1.ftcdn.net/v2/jpg/01/45/64/60/1000_F_145646010_VvQuqzNWcySHfqxhjEwo2fd21v996IbS.jpg",
+        "unitType" : "WEIGHT"
+      },
 			"quantity": {
 				"value": 10,
-				"unit": {
-					"value": "Grams",
-					"acronym": "gm",
-					"conversionToPrimary": 1,
-          "unitSystem":"METRIC",
-          "quantityType":"WEIGHT",
-          "primary":"Gram"
-				}
-			}
-		},
-		{
-			"name": "Haldi",
-			"description":"Also known as Turmeric",
-			"url": "https://as1.ftcdn.net/v2/jpg/01/82/27/42/1000_F_182274289_RvpPTYZmC3n98ZXuH85d31XBfyEhk6b1.jpg",
-			"quantity": {
-				"value": 10,
-				"unit": {
-					"value": "Grams",
-					"acronym": "gm",
-					"conversionToPrimary": 1,
-          "unitSystem":"METRIC",
-          "quantityType":"WEIGHT",
-          "primary":"Gram"
-				}
-			}
-		},
-		{
-			"name": "Jeera",
-			"description":"Also known as Cumin",
-			"url": "https://as1.ftcdn.net/v2/jpg/01/45/64/60/1000_F_145646010_VvQuqzNWcySHfqxhjEwo2fd21v996IbS.jpg",
-			"quantity": {
-				"value": 10,
-				"unit": {
-					"value": "Grams",
-					"acronym": "gm",
-					"conversionToPrimary": 1,
-          "unitSystem":"METRIC",
-          "quantityType":"WEIGHT",
-          "primary":"Gram"
-				}
-			}
-		},
-		{
-			"name": "Haldi",
-			"description":"Also known as Turmeric",
-			"url": "https://as1.ftcdn.net/v2/jpg/01/82/27/42/1000_F_182274289_RvpPTYZmC3n98ZXuH85d31XBfyEhk6b1.jpg",
-			"quantity": {
-				"value": 10,
-				"unit": {
-					"value": "Grams",
-					"acronym": "gm",
-					"conversionToPrimary": 1,
-          "unitSystem":"METRIC",
-          "quantityType":"WEIGHT",
-          "primary":"Gram"
-				}
-			}
-		},
-		{
-			"name": "Jeera",
-			"description":"Also known as Cumin",
-			"url": "https://as1.ftcdn.net/v2/jpg/01/45/64/60/1000_F_145646010_VvQuqzNWcySHfqxhjEwo2fd21v996IbS.jpg",
-			"quantity": {
-				"value": 10,
-				"unit": {
-					"value": "Grams",
-					"acronym": "gm",
-					"conversionToPrimary": 1,
-          "unitSystem":"METRIC",
-          "quantityType":"WEIGHT",
-          "primary":"Gram"
-				}
-			}
-		},
-		{
-			"name": "Haldi",
-			"description":"Also known as Turmeric",
-			"url": "https://as1.ftcdn.net/v2/jpg/01/82/27/42/1000_F_182274289_RvpPTYZmC3n98ZXuH85d31XBfyEhk6b1.jpg",
-			"quantity": {
-				"value": 10,
-				"unit": {
-					"value": "Grams",
-					"acronym": "gm",
-					"conversionToPrimary": 1,
-          "unitSystem":"METRIC",
-          "quantityType":"WEIGHT",
-          "primary":"Gram"
-				}
+				"unit": "Grams"
 			}
 		}
 	],
@@ -143,235 +60,88 @@
 	"nutrition": {
 		"quantity": {
 			"value": 1,
-			"unit": {
-				"value": "Serving",
-				"acronym": "srv",
-				"conversionToPrimary": 1,
-        "unitSystem":"METRIC",
-        "quantityType":"WEIGHT",
-        "primary":"Gram"
-			}
+			"unit": "Serving"
 		},
 		"calories": 375,
 		"totalFat": {
 			"value": 22,
-			"unit": {
-				"value": "Grams",
-				"acronym": "gm",
-				"conversionToPrimary": 1,
-        "unitSystem":"METRIC",
-        "quantityType":"WEIGHT",
-        "primary":"Gram"
-			}
+			"unit": "Grams"
 		},
 		"saturatedFat": {
 			"value": 1.5,
-			"unit": {
-				"value": "Grams",
-				"acronym": "gm",
-				"conversionToPrimary": 1,
-        "unitSystem":"METRIC",
-        "quantityType":"WEIGHT",
-        "primary":"Gram"
-			}
+			"unit": "Grams"
 		},
 		"transFat": {
 			"value": 0,
-			"unit": {
-				"value": "Grams",
-				"acronym": "gm",
-				"conversionToPrimary": 1,
-        "unitSystem":"METRIC",
-        "quantityType":"WEIGHT",
-        "primary":"Gram"
-			}
+			"unit": "Grams"
 		},
 		"polyUnsaturatedFat": {
 			"value": 0,
-			"unit": {
-				"value": "Grams",
-				"acronym": "gm",
-				"conversionToPrimary": 1,
-        "unitSystem":"METRIC",
-        "quantityType":"WEIGHT",
-        "primary":"Gram"
-			}
+			"unit": "Grams"
 		},
 		"monoUnsaturatedFat": {
 			"value": 0,
-			"unit": {
-				"value": "Grams",
-				"acronym": "gm",
-				"conversionToPrimary": 1,
-        "unitSystem":"METRIC",
-        "quantityType":"WEIGHT",
-        "primary":"Gram"
-			}
+			"unit": "Grams"
 		},
 		"cholesterol": {
 			"value": 0,
-			"unit": {
-				"value": "Milligrams",
-				"acronym": "mg",
-				"conversionToPrimary": 0.001,
-        "unitSystem":"METRIC",
-        "quantityType":"WEIGHT",
-        "primary":"Gram"
-			}
+			"unit": "Milligrams"
 		},
 		"sodium": {
 			"value": 168,
-			"unit": {
-				"value": "Milligrams",
-				"acronym": "mg",
-				"conversionToPrimary": 0.001,
-        "unitSystem":"METRIC",
-        "quantityType":"WEIGHT",
-        "primary":"Gram"
-			}
+			"unit": "Milligrams"
 		},
 		"potassium": {
 			"value": 1788,
-			"unit": {
-				"value": "Milligrams",
-				"acronym": "mg",
-				"conversionToPrimary": 0.001,
-        "unitSystem":"METRIC",
-        "quantityType":"WEIGHT",
-        "primary":"Gram"
-			}
+			"unit": "Milligrams"
 		},
 		"totalCarbohydrates": {
 			"value": 44,
-			"unit": {
-				"value": "Grams",
-				"acronym": "gm",
-				"conversionToPrimary": 1,
-        "unitSystem":"METRIC",
-        "quantityType":"WEIGHT",
-        "primary":"Gram"
-			}
+			"unit": "Grams"
 		},
 		"dietaryFiber": {
 			"value": 11,
-			"unit": {
-				"value": "Grams",
-				"acronym": "gm",
-				"conversionToPrimary": 1,
-        "unitSystem":"METRIC",
-        "quantityType":"WEIGHT",
-        "primary":"Gram"
-			}
+			"unit": "Grams"
 		},
 		"sugars": {
 			"value": 2.3,
-			"unit": {
-				"value": "Grams",
-				"acronym": "gm",
-				"conversionToPrimary": 1,
-        "unitSystem":"METRIC",
-        "quantityType":"WEIGHT",
-        "primary":"Gram"
-			}
+			"unit": "Grams"
 		},
 		"protein": {
 			"value": 18,
-			"unit": {
-				"value": "Grams",
-				"acronym": "gm",
-				"conversionToPrimary": 1,
-        "unitSystem":"METRIC",
-        "quantityType":"WEIGHT",
-        "primary":"Gram"
-			}
+			"unit": "Grams"
 		},
 		"vitaminA": {
 			"value": 0,
-			"unit": {
-				"value": "Milligrams",
-				"acronym": "mg",
-				"conversionToPrimary": 0.001,
-        "unitSystem":"METRIC",
-        "quantityType":"WEIGHT",
-        "primary":"Gram"
-			}
+			"unit": "Milligrams"
 		},
 		"vitaminB6": {
 			"value": 20,
-			"unit": {
-				"value": "Milligrams",
-				"acronym": "mg",
-				"conversionToPrimary": 0.001,
-        "unitSystem":"METRIC",
-        "quantityType":"WEIGHT",
-        "primary":"Gram"
-			}
+			"unit": "Milligrams"
 		},
 		"vitaminC": {
 			"value": 0,
-			"unit": {
-				"value": "Milligrams",
-				"acronym": "mg",
-				"conversionToPrimary": 0.001,
-        "unitSystem":"METRIC",
-        "quantityType":"WEIGHT",
-        "primary":"Gram"
-			}
+			"unit": "Milligrams"
 		},
 		"vitaminD": {
 			"value": 0,
-			"unit": {
-				"value": "Milligrams",
-				"acronym": "mg",
-				"conversionToPrimary": 0.001,
-        "unitSystem":"METRIC",
-        "quantityType":"WEIGHT",
-        "primary":"Gram"
-			}
+			"unit": "Milligrams"
 		},
 		"calcium": {
 			"value": 93,
-			"unit": {
-				"value": "Milligrams",
-				"acronym": "mg",
-				"conversionToPrimary": 0.001,
-        "unitSystem":"METRIC",
-        "quantityType":"WEIGHT",
-        "primary":"Gram"
-			}
+			"unit": "Milligrams"
 		},
 		"iron": {
 			"value": 368,
-			"unit": {
-				"value": "Milligrams",
-				"acronym": "mg",
-				"conversionToPrimary": 0.001,
-        "unitSystem":"METRIC",
-        "quantityType":"WEIGHT",
-        "primary":"Gram"
-			}
+			"unit": "Milligrams"
 		},
 		"magnesium": {
 			"value": 91,
-			"unit": {
-				"value": "Milligrams",
-				"acronym": "mg",
-				"conversionToPrimary": 0.001,
-        "unitSystem":"METRIC",
-        "quantityType":"WEIGHT",
-        "primary":"Gram"
-			}
+			"unit": "Milligrams"
 		},
 		"cobalamin": {
 			"value": 0,
-			"unit": {
-				"value": "Milligrams",
-				"acronym": "mg",
-				"conversionToPrimary": 0.001,
-        "unitSystem":"METRIC",
-        "quantityType":"WEIGHT",
-        "primary":"Gram"
-			}
+			"unit": "Milligrams"
 		}
 	},
 	"preparation": [

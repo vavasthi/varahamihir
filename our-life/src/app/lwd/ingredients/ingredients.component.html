@@ -2,7 +2,7 @@
     <mat-card-header>
         <mat-card-title><h1>Ingredients</h1></mat-card-title>
     </mat-card-header>
-    <mat-card-content class="cls-ingredient-list">
-        @for (ingredient of ingredients; track ingredient) {<app-ingredient [ingredient]="ingredient"></app-ingredient>}
+    <mat-card-content class="cls-ingredientEntity-list">
+        @for (ingredient of ingredients; track ingredient) {<app-ingredient [ingredientWithQuantity]="ingredient"></app-ingredient>}
     </mat-card-content>
 </mat-card>

@@ -8,7 +8,7 @@
             <tr>
                 <td colspan="2" class="cls-nutrition-row-border-10px-below cls-nutrition-row-large-text">Serving Size</td>
                 <td colspan="2" class="cls-nutrition-row-border-10px-below cls-nutrition-row-large-text cls-nutrition-colspan-2">
-                    {{nutrition?.quantity?.value}}{{nutrition?.quantity?.unit?.acronym}}</td>
+                    {{nutrition?.quantity?.value}}{{this.unitService.getUnit(nutrition?.quantity?.unit).acronym}}</td>
             </tr>
             <tr>
                 <td colspan="2" class="cls-nutrition-row-border-10px-below cls-nutrition-row-large-text">Calories</td>
@@ -17,7 +17,7 @@
             </tr>
             <tr>
                 <td colspan="2" class="cls-nutrition-border">Total Fat</td>
-                <td class="cls-nutrition-border">{{nutrition?.totalFat?.value}}{{nutrition?.totalFat?.unit?.acronym}}
+                <td class="cls-nutrition-border">{{nutrition?.totalFat?.value}}{{this.unitService.getUnit(nutrition?.totalFat?.unit).acronym}}
                 </td>
             </tr>
             @if (nutrition?.saturatedFat) {
@@ -25,7 +25,7 @@
             <tr>
                 <td colspan="2" class="cls-nutrition-border cls-nutrition-indent-4">Saturated Fat</td>
                 <td class="cls-nutrition-border">
-                    {{nutrition?.saturatedFat?.value}}{{nutrition?.saturatedFat?.unit?.acronym}}</td>
+                    {{nutrition?.saturatedFat?.value}}{{this.unitService.getUnit(nutrition?.saturatedFat?.unit).acronym}}</td>
             </tr>
             }
             @if (nutrition?.polyUnsaturatedFat) {
@@ -33,7 +33,7 @@
             <tr>
                 <td colspan="2" class="cls-nutrition-border cls-nutrition-indent-4"> Polyunsaturted Fat</td>
                 <td class="cls-nutrition-border">
-                    {{nutrition?.polyUnsaturatedFat?.value}}{{nutrition?.polyUnsaturatedFat?.unit?.acronym}}</td>
+                    {{nutrition?.polyUnsaturatedFat?.value}}{{this.unitService.getUnit(nutrition?.polyUnsaturatedFat?.unit).acronym}}</td>
             </tr>
             }
             @if (nutrition?.monoUnsaturatedFat) {
@@ -41,13 +41,13 @@
             <tr>
                 <td colspan="2" class="cls-nutrition-border-4 cls-nutrition-indent-4"> Monounsaturated Fat</td>
                 <td class="cls-nutrition-border-4">
-                    {{nutrition?.monoUnsaturatedFat?.value}}{{nutrition?.monoUnsaturatedFat?.unit?.acronym}}</td>
+                    {{nutrition?.monoUnsaturatedFat?.value}}{{this.unitService.getUnit(nutrition?.monoUnsaturatedFat?.unit).acronym}}</td>
             </tr>
             }
             @if (nutrition?.cholesterol) {
                 <tr>
                     <td colspan="2" class="cls-nutrition-border">Cholestrol</td>
-                    <td class="cls-nutrition-border">{{nutrition?.cholesterol?.value}}{{nutrition?.cholesterol?.unit?.acronym}}
+                    <td class="cls-nutrition-border">{{nutrition?.cholesterol?.value}}{{this.unitService.getUnit(nutrition?.cholesterol?.unit).acronym}}
                     </td>
                 </tr>
 
@@ -55,7 +55,7 @@
             @if (nutrition?.sodium) {
                 <tr>
                     <td colspan="2" class="cls-nutrition-border">Sodium</td>
-                    <td class="cls-nutrition-border">{{nutrition?.sodium?.value}}{{nutrition?.sodium?.unit?.acronym}}
+                    <td class="cls-nutrition-border">{{nutrition?.sodium?.value}}{{this.unitService.getUnit(nutrition?.sodium?.unit).acronym}}
                     </td>
                 </tr>
 
@@ -63,7 +63,7 @@
             @if (nutrition?.potassium) {
                 <tr>
                     <td colspan="2" class="cls-nutrition-border-4">Potassium</td>
-                    <td class="cls-nutrition-border-4">{{nutrition?.potassium?.value}}{{nutrition?.potassium?.unit?.acronym}}
+                    <td class="cls-nutrition-border-4">{{nutrition?.potassium?.value}}{{this.unitService.getUnit(nutrition?.potassium?.unit).acronym}}
                     </td>
                 </tr>
 
@@ -71,13 +71,13 @@
             @if (nutrition?.totalCarbohydrates) {
                 <tr>
                     <td colspan="2" class="cls-nutrition-border">Total Carbohydrates</td>
-                    <td class="cls-nutrition-border">{{nutrition?.totalCarbohydrates?.value}}{{nutrition?.totalCarbohydrates?.unit?.acronym}}
+                    <td class="cls-nutrition-border">{{nutrition?.totalCarbohydrates?.value}}{{this.unitService.getUnit(nutrition?.totalCarbohydrates?.unit).acronym}}
                     </td>
                 </tr>
                 @if (nutrition?.dietaryFiber) {
                     <tr>
                         <td colspan="2" class="cls-nutrition-border cls-nutrition-indent-4">Dietary Fiber</td>
-                        <td class="cls-nutrition-border">{{nutrition?.dietaryFiber?.value}}{{nutrition?.dietaryFiber?.unit?.acronym}}
+                        <td class="cls-nutrition-border">{{nutrition?.dietaryFiber?.value}}{{this.unitService.getUnit(nutrition?.dietaryFiber?.unit).acronym}}
                         </td>
                     </tr>
 
@@ -85,7 +85,7 @@
                 @if (nutrition?.sugars) {
                     <tr>
                         <td colspan="2" class="cls-nutrition-border-4 cls-nutrition-indent-4">Sugars</td>
-                        <td class="cls-nutrition-border-4">{{nutrition?.sugars?.value}}{{nutrition?.sugars?.unit?.acronym}}
+                        <td class="cls-nutrition-border-4">{{nutrition?.sugars?.value}}{{this.unitService.getUnit(nutrition?.sugars?.unit).acronym}}
                         </td>
                     </tr>
 
@@ -93,31 +93,31 @@
                 @if (nutrition?.protein) {
                     <tr>
                         <td colspan="2" class="cls-nutrition-border-4">Protein</td>
-                        <td class="cls-nutrition-border-4">{{nutrition?.protein?.value}}{{nutrition?.protein?.unit?.acronym}}
+                        <td class="cls-nutrition-border-4">{{nutrition?.protein?.value}}{{this.unitService.getUnit(nutrition?.protein?.unit).acronym}}
                         </td>
                     </tr>
                 }
                 <tr>
                     <td class="cls-nutrition-border">Vitamin A</td>
-                    <td class="cls-nutrition-border">{{nutrition?.vitaminA?.value}}{{nutrition?.vitaminA?.unit?.acronym}}</td>
+                    <td class="cls-nutrition-border">{{nutrition?.vitaminA?.value}}{{this.unitService.getUnit(nutrition?.vitaminA?.unit).acronym}}</td>
                     <td class="cls-nutrition-border">Vitamin B6</td>
-                    <td class="cls-nutrition-border">{{nutrition?.vitaminB6?.value}}{{nutrition?.vitaminB6?.unit?.acronym}}</td>
+                    <td class="cls-nutrition-border">{{nutrition?.vitaminB6?.value}}{{this.unitService.getUnit(nutrition?.vitaminB6?.unit).acronym}}</td>
                 </tr>
                 <tr>
                     <td class="cls-nutrition-border">Vitamin D</td>
-                    <td class="cls-nutrition-border">{{nutrition?.vitaminD?.value}}{{nutrition?.vitaminD?.unit?.acronym}}</td>
+                    <td class="cls-nutrition-border">{{nutrition?.vitaminD?.value}}{{this.unitService.getUnit(nutrition?.vitaminD?.unit).acronym}}</td>
                     <td class="cls-nutrition-border">Iron</td>
-                    <td class="cls-nutrition-border">{{nutrition?.iron?.value}}{{nutrition?.iron?.unit?.acronym}}</td>
+                    <td class="cls-nutrition-border">{{nutrition?.iron?.value}}{{this.unitService.getUnit(nutrition?.iron?.unit).acronym}}</td>
                 </tr>
                 <tr>
                     <td class="cls-nutrition-border">Calcium</td>
-                    <td class="cls-nutrition-border">{{nutrition?.calcium?.value}}{{nutrition?.calcium?.unit?.acronym}}</td>
+                    <td class="cls-nutrition-border">{{nutrition?.calcium?.value}}{{this.unitService.getUnit(nutrition?.calcium?.unit).acronym}}</td>
                     <td class="cls-nutrition-border">Magnesium</td>
-                    <td class="cls-nutrition-border">{{nutrition?.magnesium?.value}}{{nutrition?.magnesium?.unit?.acronym}}</td>
+                    <td class="cls-nutrition-border">{{nutrition?.magnesium?.value}}{{this.unitService.getUnit(nutrition?.magnesium?.unit).acronym}}</td>
                 </tr>
                 <tr>
                     <td class="cls-nutrition-border">Cobalamin</td>
-                    <td class="cls-nutrition-border">{{nutrition?.cobalamin?.value}}{{nutrition?.cobalamin?.unit?.acronym}}</td>
+                    <td class="cls-nutrition-border">{{nutrition?.cobalamin?.value}}{{this.unitService.getUnit(nutrition?.cobalamin?.unit).acronym}}</td>
                 </tr>
 
             }

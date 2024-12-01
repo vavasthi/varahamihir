@@ -6,7 +6,6 @@ import { IngredientWithNutrition } from '../pojo/ingredient-with-nutrition';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { DragAndDropComponent } from "../../drag-and-drop/drag-and-drop.component";
-import { MatFormFieldModule, MatFormFieldControl } from '@angular/material/form-field';
 import { AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatChipEditedEvent, MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
@@ -24,6 +23,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { QuantityTypePipe } from "../pipes/units/quantity-type.pipe";
 import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { Location } from '@angular/common';
+import {Nutrition} from "../pojo/nutrition";
+import {Quantity} from "../pojo/quantity";
+import {UnitConversion} from "../pojo/unit-conversion";
 
 @Component({
     selector: 'app-ingredient-editor',
@@ -59,26 +61,26 @@ export class IngredientEditorComponent {
     volumeQuantity: new FormControl<number|null>(null),
     volumeUnit: new FormControl<Unit|null>(null),
     calories: new FormControl<number|null>(null, Validators.required),
-    totalFat: new FormControl(''),
-    transFat: new FormControl(' '),
-    saturatedFat: new FormControl(' '),
-    polyUnsaturatedFat: new FormControl(''),
-    monoUnsaturatedFat: new FormControl(''),
-    cholestrol: new FormControl(''),
-    sodium: new FormControl(''),
-    totalCarbohydrates: new FormControl(''),
-    dietaryFiber: new FormControl(''),
-    sugars: new FormControl(''),
-    protein: new FormControl(''),
-    calcium: new FormControl(''),
-    potassium: new FormControl(''),
-    iron: new FormControl(''),
-    magnesium: new FormControl(''),
-    cobalamin: new FormControl(''),
-    vitaminA: new FormControl(''),
-    vitaminC: new FormControl(''),
-    vitaminB6: new FormControl(''),
-    vitaminD: new FormControl(''),
+    totalFat: new FormControl<number|null>(null),
+    transFat: new FormControl<number|null>(null),
+    saturatedFat: new FormControl<number|null>(null),
+    polyUnsaturatedFat: new FormControl<number|null>(null),
+    monoUnsaturatedFat: new FormControl<number|null>(null),
+    cholesterol: new FormControl<number|null>(null),
+    sodium: new FormControl<number|null>(null),
+    totalCarbohydrates: new FormControl<number|null>(null),
+    dietaryFiber: new FormControl<number|null>(null),
+    sugars: new FormControl<number|null>(null),
+    protein: new FormControl<number|null>(null),
+    calcium: new FormControl<number|null>(null),
+    potassium: new FormControl<number|null>(null),
+    iron: new FormControl<number|null>(null),
+    magnesium: new FormControl<number|null>(null),
+    cobalamin: new FormControl<number|null>(null),
+    vitaminA: new FormControl<number|null>(null),
+    vitaminC: new FormControl<number|null>(null),
+    vitaminB6: new FormControl<number|null>(null),
+    vitaminD: new FormControl<number|null>(null)
   })
   url: WritableSignal<string | undefined> = signal(undefined)
 
@@ -90,7 +92,6 @@ export class IngredientEditorComponent {
   @Input() id = '';
   unitList: Signal<Unit[] | undefined> = this.unitService.getUnits();
   unitTypeList = new Set<string>(['Both']);
-  ingredientWithNutrition: IngredientWithNutrition | undefined;
   images: Content[] = [];
   permittedUnitTypes:WritableSignal<string|undefined> = signal(undefined);
 
@@ -133,7 +134,7 @@ export class IngredientEditorComponent {
     })
   }
   loadIngredient(retrying: boolean) {
-
+/*
     this.ingredientService.getIngredient(this.id).subscribe({
       next: (response) => {
         this.ingredientWithNutrition = response as IngredientWithNutrition;
@@ -150,7 +151,7 @@ export class IngredientEditorComponent {
         }
         this.snackBar.open("Ingredients Load Failed", "Ok", { duration: 5000 })
       }
-    })
+    })*/
   }
   onFileSelected(event: any) {
 
@@ -202,5 +203,54 @@ export class IngredientEditorComponent {
   }
   onCancel(event: any): void {
     this.location.back();
+  }
+  onSave(event: any): void {
+    const gramUnit = "Gram"
+    const mgUnit = "Milligram"
+    const mcgUnit = "Microgram"
+    const ingredient = {} as Ingredient;
+    ingredient.name = this.ingredientEditorForm.controls['name'].value;
+    ingredient.id = this.id;
+    ingredient.url = this.ingredientEditorForm.controls['url'].value;
+    ingredient.brand = this.ingredientEditorForm.controls['brand'].value;
+    ingredient.tags = this.tags;
+    ingredient.description = this.ingredientEditorForm.controls['description'].value;
+    if (this.permittedUnitTypes() && this.permittedUnitTypes() == 'Both' ) {
+
+      ingredient.unitConversion = { weightQuantity: this.ingredientEditorForm.controls['weightQuantity'].value,
+        weightUnit: this.ingredientEditorForm.controls['weightUnit'].value.value,
+        volumeQuantity: this.ingredientEditorForm.controls['volumeQuantity'].value,
+        volumeUnit: this.ingredientEditorForm.controls['volumeUnit'].value.value
+      } as UnitConversion;
+    }
+    ingredient.unitType = this.ingredientEditorForm.controls['unitType'].value;
+
+    const nutrition = {} as Nutrition;
+    nutrition.calories = this.ingredientEditorForm.controls['calories'].value;
+    nutrition.quantity = {value : this.ingredientEditorForm.controls['quantity'].value, unit:this.ingredientEditorForm.controls['unit'].value.value} as Quantity
+    nutrition.totalFat = { value  :  this.ingredientEditorForm.controls['totalFat'].value, unit : gramUnit} as Quantity;
+    nutrition.saturatedFat = this.ingredientEditorForm.controls['saturatedFat'].value == null ? null : { value : this.ingredientEditorForm.controls['saturatedFat'].value, unit : gramUnit} as Quantity;
+    nutrition.transFat = this.ingredientEditorForm.controls['transFat'].value == null ? null : { value : this.ingredientEditorForm.controls['transFat'].value, unit : gramUnit} as Quantity;
+    nutrition.polyUnsaturatedFat = this.ingredientEditorForm.controls['polyUnsaturatedFat'].value == null ? null : { value : this.ingredientEditorForm.controls['polyUnsaturatedFat'].value, unit : gramUnit} as Quantity;
+    nutrition.monoUnsaturatedFat = this.ingredientEditorForm.controls['monoUnsaturatedFat'].value == null ? null : { value : this.ingredientEditorForm.controls['monoUnsaturatedFat'].value, unit : gramUnit} as Quantity;
+    nutrition.cholesterol = this.ingredientEditorForm.controls['cholesterol'].value == null ? null : { value : this.ingredientEditorForm.controls['cholesterol'].value, unit : mgUnit} as Quantity;
+    nutrition.totalCarbohydrates = { value  :  this.ingredientEditorForm.controls['totalCarbohydrates'].value, unit : gramUnit} as Quantity;
+    nutrition.dietaryFiber = this.ingredientEditorForm.controls['dietaryFiber'].value == null ? null : { value  :  this.ingredientEditorForm.controls['dietaryFiber'].value, unit : gramUnit} as Quantity;
+    nutrition.sugars = this.ingredientEditorForm.controls['sugars'].value == null ? null : { value  :  this.ingredientEditorForm.controls['sugars'].value, unit : gramUnit} as Quantity;
+    nutrition.protein = this.ingredientEditorForm.controls['protein'].value == null ? null : { value  :  this.ingredientEditorForm.controls['protein'].value, unit : gramUnit} as Quantity;
+    nutrition.sodium = this.ingredientEditorForm.controls['sodium'].value == null ? null : { value  :  this.ingredientEditorForm.controls['sodium'].value, unit : mgUnit} as Quantity;
+    nutrition.calcium = this.ingredientEditorForm.controls['calcium'].value == null ? null : { value  :  this.ingredientEditorForm.controls['calcium'].value, unit : mgUnit} as Quantity;
+    nutrition.potassium = this.ingredientEditorForm.controls['potassium'].value == null ? null : { value  :  this.ingredientEditorForm.controls['potassium'].value, unit : mgUnit} as Quantity;
+    nutrition.iron = this.ingredientEditorForm.controls['iron'].value == null ? null : { value  :  this.ingredientEditorForm.controls['iron'].value, unit : mgUnit} as Quantity;
+    nutrition.magnesium = this.ingredientEditorForm.controls['magnesium'].value == null ? null : { value  :  this.ingredientEditorForm.controls['magnesium'].value, unit : mgUnit} as Quantity;
+    nutrition.cobalamin = this.ingredientEditorForm.controls['cobalamin'].value == null ? null : { value  :  this.ingredientEditorForm.controls['cobalamin'].value, unit : mcgUnit} as Quantity;
+    nutrition.vitaminA = this.ingredientEditorForm.controls['vitaminA'].value == null ? null : { value  :  this.ingredientEditorForm.controls['vitaminA'].value, unit : mgUnit} as Quantity;
+    nutrition.vitaminC = this.ingredientEditorForm.controls['vitaminC'].value == null ? null : { value  :  this.ingredientEditorForm.controls['vitaminC'].value, unit : mgUnit} as Quantity;
+    nutrition.vitaminB6 = this.ingredientEditorForm.controls['vitaminB6'].value == null ? null : { value  :  this.ingredientEditorForm.controls['vitaminB6'].value, unit : mgUnit} as Quantity;
+    nutrition.vitaminD = this.ingredientEditorForm.controls['vitaminD'].value == null ? null : { value  :  this.ingredientEditorForm.controls['vitaminD'].value, unit : mgUnit} as Quantity;
+    const ingredientWithNutrition = {ingredient : ingredient, nutrition : nutrition} as IngredientWithNutrition;
+    this.ingredientService.createIngredient(ingredientWithNutrition).subscribe(iwn => {
+      console.log(iwn)
+    })
   }
 }
