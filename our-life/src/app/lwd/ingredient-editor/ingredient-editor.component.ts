@@ -26,6 +26,8 @@ import { Location } from '@angular/common';
 import {Nutrition} from "../pojo/nutrition";
 import {Quantity} from "../pojo/quantity";
 import {UnitConversion} from "../pojo/unit-conversion";
+import {validateTotalFat} from "../validators/validate-total-fat";
+import {validateTotalCarbohydrates} from "../validators/validate-total-carbohydrates";
 
 @Component({
     selector: 'app-ingredient-editor',
@@ -61,7 +63,7 @@ export class IngredientEditorComponent {
     volumeQuantity: new FormControl<number|null>(null),
     volumeUnit: new FormControl<Unit|null>(null),
     calories: new FormControl<number|null>(null, Validators.required),
-    totalFat: new FormControl<number|null>(null),
+    totalFat: new FormControl<number|null>(null, Validators.required),
     transFat: new FormControl<number|null>(null),
     saturatedFat: new FormControl<number|null>(null),
     polyUnsaturatedFat: new FormControl<number|null>(null),
@@ -81,6 +83,8 @@ export class IngredientEditorComponent {
     vitaminC: new FormControl<number|null>(null),
     vitaminB6: new FormControl<number|null>(null),
     vitaminD: new FormControl<number|null>(null)
+  }, {
+    validators : [ validateTotalFat(), validateTotalCarbohydrates()]
   })
   url: WritableSignal<string | undefined> = signal(undefined)
 
@@ -211,7 +215,7 @@ export class IngredientEditorComponent {
     const ingredient = {} as Ingredient;
     ingredient.name = this.ingredientEditorForm.controls['name'].value;
     ingredient.id = this.id;
-    ingredient.url = this.ingredientEditorForm.controls['url'].value;
+    ingredient.url = this.images[0].url;
     ingredient.brand = this.ingredientEditorForm.controls['brand'].value;
     ingredient.tags = this.tags;
     ingredient.description = this.ingredientEditorForm.controls['description'].value;
@@ -251,6 +255,7 @@ export class IngredientEditorComponent {
     const ingredientWithNutrition = {ingredient : ingredient, nutrition : nutrition} as IngredientWithNutrition;
     this.ingredientService.createIngredient(ingredientWithNutrition).subscribe(iwn => {
       console.log(iwn)
+      this.location.back();
     })
   }
 }

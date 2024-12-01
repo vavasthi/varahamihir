@@ -170,6 +170,9 @@
       @if (ingredientEditorForm.controls['totalFat'].hasError('required')) {
         <mat-error>This field is required</mat-error>
       }
+      @if (ingredientEditorForm.hasError('totalFatLessThanItsComponents')) {
+        <mat-error>Total fat can't be less than sum of its components.</mat-error>
+      }
       @if (ingredientEditorForm.controls['totalFat'].valid) {
 
         <mat-form-field class="cls-ingredientEntity-nutrition-items-indent-1">
@@ -190,16 +193,19 @@
         </mat-form-field>
       }
       <mat-form-field>
-        <mat-label>Cholestrol (milligrams)</mat-label>
-        <input matInput formControlName="cholestrol" name="cholestrol" type="number"/>
+        <mat-label>Cholesterol (milligrams)</mat-label>
+        <input matInput formControlName="cholesterol" name="cholesterol" type="number"/>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Total Carbohydrates (grams)</mat-label>
         <input matInput required formControlName="totalCarbohydrates" name="totalCarbohydrates" type="number"/>
-        @if (ingredientEditorForm.controls['totalCarbohydrates'].hasError('required')) {
-          <mat-error>This field is required</mat-error>
-        }
       </mat-form-field>
+      @if (ingredientEditorForm.controls['totalCarbohydrates'].hasError('required')) {
+        <mat-error>This field is required</mat-error>
+      }
+      @if (ingredientEditorForm.hasError('totalCarbohydratesLessThanItsComponents')) {
+        <mat-error>Total carbohydrates can't be less than sum of its components.</mat-error>
+      }
       @if (ingredientEditorForm.controls['totalCarbohydrates'].valid) {
 
         <mat-form-field class="cls-ingredientEntity-nutrition-items-indent-1">
