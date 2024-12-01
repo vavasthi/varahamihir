@@ -21,7 +21,6 @@ export function validateTotalFat(): ValidatorFn {
     if (monoUnsaturatedFat) {
       componentTotal += monoUnsaturatedFat.value
     }
-    console.log("Running form validator.", componentTotal)
     return componentTotal > totalFat?.value ? {totalFatLessThanItsComponents : true} : null
   }
 }

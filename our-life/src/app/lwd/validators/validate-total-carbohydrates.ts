@@ -13,7 +13,6 @@ export function validateTotalCarbohydrates(): ValidatorFn {
     if (sugars) {
       componentTotal += sugars.value
     }
-    console.log("Validator", componentTotal, totalCarbohydrates?.value)
     return componentTotal > totalCarbohydrates?.value ? {totalCarbohydratesLessThanItsComponents : true} : null
   }
 }
