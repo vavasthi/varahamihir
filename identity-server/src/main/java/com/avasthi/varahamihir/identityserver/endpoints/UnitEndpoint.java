@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -26,7 +27,7 @@ public class UnitEndpoint {
 
     @RequestMapping(method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Unit> getUnits() {
+    public Map<String, Unit> getUnits() {
         return unitService.findAll();
     }
 }

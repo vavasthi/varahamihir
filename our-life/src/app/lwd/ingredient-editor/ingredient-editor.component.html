@@ -57,7 +57,7 @@
           <mat-form-field>
             <mat-label>Unit Type</mat-label>
             <mat-select class="unittype-section" formControlName="unitType">
-              @for (unitType of unitTypeList; track unitType) {
+              @for (unitType of unitTypeList(); track unitType) {
                 <mat-option class="example-margin" [value]="unitType">{{ unitType }}</mat-option>
               }
             </mat-select>
@@ -78,9 +78,9 @@
 
               <mat-label>Weight Unit</mat-label>
               <mat-select formControlName="weightUnit">
-                @if (unitList()) {
+                @if (units()) {
 
-                  @for (unit of unitList() | quantityType:"Weight"; track unit) {
+                  @for (unit of getUnits() | quantityType:"Weight"; track unit) {
                     <mat-option [value]="unit">{{ unit.value }}</mat-option>
                   }
                 }
@@ -97,9 +97,9 @@
 
               <mat-label>Volume Unit</mat-label>
               <mat-select formControlName="volumeUnit">
-                @if (unitList()) {
+                @if (units()) {
 
-                  @for (unit of unitList() | quantityType:"Volume"; track unit) {
+                  @for (unit of getUnits() | quantityType:"Volume"; track unit) {
                     <mat-option [value]="unit">{{ unit.value }}</mat-option>
                   }
                 }
@@ -123,18 +123,18 @@
       <mat-form-field>
         <mat-label>Choose Unit</mat-label>
         <mat-select formControlName="unit">
-          @if (unitList()) {
+          @if (units()) {
 
             @if (permittedUnitTypes()) {
 
               @if (permittedUnitTypes() == "Both") {
 
-                @for (unit of unitList(); track unit) {
+                @for (unit of getUnits(); track unit) {
                   <mat-option [value]="unit">{{ unit.value }}</mat-option>
                 }
               } @else {
 
-                @for (unit of unitList()| quantityType:permittedUnitTypes()!; track unit) {
+                @for (unit of getUnits()| quantityType:permittedUnitTypes()!; track unit) {
                   <mat-option [value]="unit">{{ unit.value }}</mat-option>
                 }
               }

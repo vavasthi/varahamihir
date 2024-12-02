@@ -15,8 +15,8 @@ export class UnitService {
   unitUrl: string = this.baseUrl + "/unit";
 
   user: Signal<User | undefined>;
-  units: WritableSignal<Unit[] | undefined> = signal(undefined);
-  unitTypes: WritableSignal<String[] | undefined> = signal(undefined);
+  units: WritableSignal<Map<string, Unit> | undefined> = signal(undefined);
+  unitTypes: WritableSignal<Set<String>> = signal(new Set<string>(['Both']));
 
   constructor(private authService: AuthService,
               private snackBar: MatSnackBar,
@@ -24,8 +24,14 @@ export class UnitService {
     this.user = this.authService.getCurrentUser()
     this.loadAllUnits().subscribe({
       next: (response) => {
-        console.log(response)
-        this.units.set(response)
+        const allUnits:Map<string, Unit> = new Map<string, Unit>(Object.entries(response))
+        const unitTypes = new Set<string>(['Both'])
+        console.log("All units", typeof(allUnits), allUnits)
+        Array.from(allUnits.values()).forEach( unit => {
+          unitTypes.add(unit.quantityType)
+        })
+        this.units.set(allUnits)
+        this.unitTypes.set(unitTypes)
       },
       error: (err) => {
         console.log(err)
@@ -40,19 +46,15 @@ export class UnitService {
       .set('Content-Type', 'application/json; charset=utf-8')
   }
 
-  getUnits(): Signal<Unit[] | undefined> {
+  getUnits(): Signal<Map<string, Unit> | undefined> {
     return this.units
-  }
-
-  getUnitTypes(): Signal<String[] | undefined> {
-    return this.unitTypes
   }
 
   loadAllUnits() {
 
     return this
       .httpClient
-      .get<Unit[]>(this.unitUrl,
+      .get<Map<string, Unit>>(this.unitUrl,
         {
           context: new HttpContext().set(RequestAuthOption.AUTH_TOKEN, true),
           headers: this.getHttpOptions()
@@ -62,14 +64,9 @@ export class UnitService {
   getUnit(name: string|undefined): Unit {
     if (name) {
 
-      const units = this.units()
-      if (units) {
-
-        for (const unit of units) {
-          if (unit.value == name) {
-            return unit;
-          }
-        }
+      const u = this.units()?.get(name)
+      if (u) {
+        return u;
       }
     }
     return {

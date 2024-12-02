@@ -22,7 +22,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { QuantityTypePipe } from "../pipes/units/quantity-type.pipe";
 import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { Location } from '@angular/common';
+import {KeyValuePipe, Location} from '@angular/common';
 import {Nutrition} from "../pojo/nutrition";
 import {Quantity} from "../pojo/quantity";
 import {UnitConversion} from "../pojo/unit-conversion";
@@ -33,20 +33,21 @@ import {validateTotalCarbohydrates} from "../validators/validate-total-carbohydr
     selector: 'app-ingredient-editor',
     templateUrl: './ingredient-editor.component.html',
     styleUrl: './ingredient-editor.component.scss',
-    imports: [RouterModule,
-        MatButtonModule,
-        MatCardModule,
-        MatIconModule,
-        MatInputModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatSelectModule,
-        MatChipsModule,
-        MatIconModule,
-        MatCheckboxModule,
-        DragAndDropComponent,
-        QuantityTypePipe,
-        MatDialogModule]
+  imports: [RouterModule,
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatChipsModule,
+    MatIconModule,
+    MatCheckboxModule,
+    DragAndDropComponent,
+    QuantityTypePipe,
+    MatDialogModule
+  ]
 })
 export class IngredientEditorComponent {
 
@@ -94,8 +95,8 @@ export class IngredientEditorComponent {
 
 
   @Input() id = '';
-  unitList: Signal<Unit[] | undefined> = this.unitService.getUnits();
-  unitTypeList = new Set<string>(['Both']);
+  units: Signal<Map<string, Unit> | undefined> = this.unitService.getUnits();
+  unitTypeList = this.unitService.unitTypes;
   images: Content[] = [];
   permittedUnitTypes:WritableSignal<string|undefined> = signal(undefined);
 
@@ -110,11 +111,6 @@ export class IngredientEditorComponent {
   }
   ngOnInit(): void {
 
-    this.unitService.loadAllUnits().subscribe(ul => {
-      ul.forEach(unit => {
-        this.unitTypeList.add(unit.quantityType)
-      })
-    })
     if (this.id) {
 
       this.loadIngredient(false)
@@ -203,7 +199,13 @@ export class IngredientEditorComponent {
     }
   }
   unitListOfQuantityType(quantityType:string) {
-    return this.unitList()?.filter(unit => unit.quantityType === quantityType)
+
+    if (this.units()) {
+
+      const unitMap  = this.units() as Map<string, Unit>
+      return Array.from(unitMap.values()).filter((unit) => unit?.quantityType === quantityType)
+    }
+    return undefined
   }
   onCancel(event: any): void {
     this.location.back();
@@ -257,5 +259,9 @@ export class IngredientEditorComponent {
       console.log(iwn)
       this.location.back();
     })
+  }
+  getUnits(): Unit[] {
+    const map = this.units() as Map<string, Unit>
+    return Array.from(map.values())
   }
 }

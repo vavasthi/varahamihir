@@ -13,7 +13,7 @@ import {Unit} from "../pojo/unit";
 export class NutritionalValuesComponent {
   @Input() name?: string
   @Input() nutrition?: Nutrition;
-  units: Signal<Unit[] | undefined> = signal([])
+  units: Signal<Map<string, Unit> | undefined> = signal(undefined)
 
   constructor(public unitService: UnitService) {
     this.units = this.unitService.units

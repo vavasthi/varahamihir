@@ -63,6 +63,11 @@ public class Paths {
             public static final String unitType = "unitType";
             public static final String unitTypePath = "{" + unitType + "}";
         }
+        public class RDI {
+
+            public static final String Base = "/rdi";
+            public static final String fullPath = Paths.V1.fullPath + Base;
+        }
         public class Equation {
 
             public static final String Base = "/equation";
